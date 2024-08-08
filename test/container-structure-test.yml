@@ -1,0 +1,85 @@
+---
+schemaVersion: 2.0.0
+
+containerRunOptions:
+  user: "analyticalplatform"
+
+commandTests:
+  - name: "ubuntu"
+    command: "grep"
+    args: ["DISTRIB_RELEASE", "/etc/lsb-release"]
+    expectedOutput: ["DISTRIB_RELEASE=24.04"]
+
+  - name: "whoami"
+    command: "whoami"
+    expectedOutput: ["analyticalplatform"]
+
+  - name: "user"
+    command: "id"
+    args: ["--user", "analyticalplatform"]
+    expectedOutput: ["1000"]
+
+  - name: "group"
+    command: "id"
+    args: ["--groups", "analyticalplatform"]
+    expectedOutput: ["1000"]
+
+  - name: "git"
+    command: "git"
+    args: ["--version"]
+    expectedOutput: ["git version 2.43.0"]
+
+  - name: "python"
+    command: "python3"
+    args: ["--version"]
+    expectedOutput: ["Python 3.12.3"]
+
+  - name: "pip"
+    command: "pip"
+    args: ["--version"]
+    expectedOutput: ["pip 24.0"]
+
+fileExistenceTests:
+  - name: "/opt/analytical-platform"
+    path: "/opt/analytical-platform"
+    shouldExist: true
+    uid: 1000
+    gid: 1000
+
+metadataTest:
+  user: "analyticalplatform"
+
+  labels:
+    - key: "org.opencontainers.image.vendor"
+      value: "Ministry of Justice"
+
+    - key: "org.opencontainers.image.authors"
+      value: "Analytical Platform (analytical-platform@digital.justice.gov.uk)"
+
+    - key: "org.opencontainers.image.title"
+      value: "Cloud Development Environment Base"
+
+    - key: "org.opencontainers.image.description"
+      value: "Cloud Development Environment base image for Analytical Platform"
+
+    - key: "org.opencontainers.image.url"
+      value: "https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
+
+  envVars:
+    - key: "CONTAINER_USER"
+      value: "analyticalplatform"
+
+    - key: "CONTAINER_UID"
+      value: "1000"
+
+    - key: "CONTAINER_GROUP"
+      value: "analyticalplatform"
+
+    - key: "CONTAINER_GID"
+      value: "1000"
+
+    - key: "ANALYTICAL_PLATFORM_DIRECTORY"
+      value: "/opt/analytical-platform"
+
+    - key: "DEBIAN_FRONTEND"
+      value: "noninteractive"
