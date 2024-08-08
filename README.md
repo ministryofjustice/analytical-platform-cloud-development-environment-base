@@ -16,7 +16,7 @@ This image is built on Ubuntu 24.04 LTS and includes the following:
 
 - Miniconda
 
-- NodeJS LTS
+- Node.js LTS
 
 - Amazon Corretto
 
