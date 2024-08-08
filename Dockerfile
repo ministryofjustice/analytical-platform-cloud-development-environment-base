@@ -23,6 +23,8 @@ ENV CONTAINER_USER="analyticalplatform" \
     CORRETTO_VERSION="1:21.0.4.7-1" \
     DOTNET_SDK_VERSION="8.0.107-0ubuntu1~24.04.1" \
     R_VERSION="4.4.1-1.2404.0" \
+    OLLAMA_VERSION="0.3.4" \
+    OLLAMA_SHA256="cb5ffdbe101adfd507c80fbfbbdd9997f6e3ef7afbb38f003349cd7c8b4c6055" \
     CUDA_VERSION="12.5.1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_CUDA_CUDART_VERSION="12.5.82-1" \
@@ -222,6 +224,19 @@ apt-get install --yes "r-base=${R_VERSION}"
 apt-get clean --yes
 
 rm --force --recursive marutter_pubkey.asc marutter_pubkey.gpg /var/lib/apt/lists/*
+EOF
+
+# Ollama
+RUN <<EOF
+curl --location --fail-with-body \
+  "https://github.com/ollama/ollama/releases/download/v${OLLAMA_VERSION}/ollama-linux-amd64" \
+  --output "ollama"
+
+echo "${OLLAMA_SHA256} ollama" | sha256sum --check
+
+install --owner=root --group=root --mode=775 ollama /usr/local/bin/ollama
+
+rm --force ollama
 EOF
 
 # NVIDIA CUDA

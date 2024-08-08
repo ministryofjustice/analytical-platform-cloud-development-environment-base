@@ -6,3 +6,24 @@
 
 This repository contains the code for building the base image used by Analytical Platform's Cloud Development Environments
 
+## Features
+
+This image is built on Ubuntu 24.04 LTS and includes the following:
+
+- AWS CLI
+
+- AWS SSO CLI
+
+- Miniconda
+
+- NodeJS LTS
+
+- Amazon Corretto
+
+- .NET SDK
+
+- R
+
+- Ollama
+
+- NVIDIA CUDA drivers

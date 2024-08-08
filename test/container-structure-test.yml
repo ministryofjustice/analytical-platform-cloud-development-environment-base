@@ -79,6 +79,11 @@ commandTests:
     args: ["--version"]
     expectedOutput: ["R version 4.4.1"]
 
+  - name: "ollama"
+    command: "ollama"
+    args: ["--version"]
+    expectedOutput: [".*version.*"]
+
 fileExistenceTests:
   - name: "/opt/analytical-platform"
     path: "/opt/analytical-platform"
