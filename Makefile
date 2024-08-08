@@ -1,4 +1,4 @@
-.PHONY test build
+.PHONY: test build
 
 IMAGE_NAME ?= ghcr.io/ministryofjustice/analytical-platform-cloud-development-environment-base
 IMAGE_TAG  ?= local
