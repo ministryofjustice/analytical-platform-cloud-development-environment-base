@@ -1,5 +1,7 @@
-IMAGE_NAME = ghcr.io/ministryofjustice/analytical-platform-cloud-development-environment-base
-IMAGE_TAG  = local
+.PHONY test build
+
+IMAGE_NAME ?= ghcr.io/ministryofjustice/analytical-platform-cloud-development-environment-base
+IMAGE_TAG  ?= local
 
 test: build
 	container-structure-test test --platform linux/amd64 --config test/container-structure-test.yml --image $(IMAGE_NAME):$(IMAGE_TAG)
