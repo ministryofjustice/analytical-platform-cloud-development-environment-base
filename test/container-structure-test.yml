@@ -29,8 +29,8 @@ commandTests:
     args: ["--version"]
     expectedOutput: ["git version 2.43.0"]
 
-  - name: "python"
-    command: "python3"
+  - name: "python (system)"
+    command: "/usr/bin/python3"
     args: ["--version"]
     expectedOutput: ["Python 3.12.3"]
 
@@ -39,12 +39,119 @@ commandTests:
     args: ["--version"]
     expectedOutput: ["pip 24.0"]
 
+  - name: "aws"
+    command: "aws"
+    args: ["--version"]
+    expectedOutput: ["aws-cli/2.17.26"]
+
+  - name: "aws-sso"
+    command: "aws-sso"
+    args: ["version"]
+    expectedOutput: ["AWS SSO CLI Version 1.17.0"]
+
+  - name: "conda"
+    command: "conda"
+    args: ["--version"]
+    expectedOutput: ["conda 24.5.0"]
+
+  - name: "python (conda)"
+    command: "python"
+    args: ["--version"]
+    expectedOutput: ["Python 3.12.4"]
+
+  - name: "node"
+    command: "node"
+    args: ["--version"]
+    expectedOutput: ["v20.16.0"]
+
+  - name: "corretto"
+    command: "java"
+    args: ["--version"]
+    expectedOutput: ["openjdk 21.0.4"]
+
+  - name: "dotnet"
+    command: "dotnet"
+    args: ["--version"]
+    expectedOutput: ["8.0.107"]
+
+  - name: "r"
+    command: "R"
+    args: ["--version"]
+    expectedOutput: ["R version 4.4.1"]
+
 fileExistenceTests:
   - name: "/opt/analytical-platform"
     path: "/opt/analytical-platform"
     shouldExist: true
     uid: 1000
     gid: 1000
+
+  - name: "/opt/analytical-platform/bash-backup"
+    path: "/opt/analytical-platform/bash-backup"
+    shouldExist: true
+    uid: 1000
+    gid: 1000
+
+  - name: "/opt/analytical-platform/bash-backup/.bashrc"
+    path: "/opt/analytical-platform/bash-backup/.bashrc"
+    shouldExist: true
+    uid: 1000
+    gid: 1000
+
+  - name: "/opt/analytical-platform/bash-backup/.bash_logout"
+    path: "/opt/analytical-platform/bash-backup/.bash_logout"
+    shouldExist: true
+    uid: 1000
+    gid: 1000
+
+  - name: "/opt/analytical-platform/bash-backup/.profile"
+    path: "/opt/analytical-platform/bash-backup/.profile"
+    shouldExist: true
+    uid: 1000
+    gid: 1000
+
+  - name: "/opt/analytical-platform/init"
+    path: "/opt/analytical-platform/init"
+    shouldExist: true
+    uid: 1000
+    gid: 1000
+
+  - name: "/opt/analytical-platform/init/10-restore-bash.sh"
+    path: "/opt/analytical-platform/init/10-restore-bash.sh"
+    shouldExist: true
+    uid: 1000
+    gid: 1000
+    isExecutableBy: "owner"
+
+  - name: "/opt/analytical-platform/init/20-create-workspace.sh"
+    path: "/opt/analytical-platform/init/20-create-workspace.sh"
+    shouldExist: true
+    uid: 1000
+    gid: 1000
+    isExecutableBy: "owner"
+
+  - name: "/opt/analytical-platform/init/30-configure-aws-sso.sh"
+    path: "/opt/analytical-platform/init/30-configure-aws-sso.sh"
+    shouldExist: true
+    uid: 1000
+    gid: 1000
+    isExecutableBy: "owner"
+
+  - name: "/opt/analytical-platform/first-run-notice.txt"
+    path: "/opt/analytical-platform/first-run-notice.txt"
+    shouldExist: true
+    uid: 65534
+    gid: 65534
+
+  - name: "/opt/analytical-platform/aws-sso/config.yaml"
+    path: "/opt/analytical-platform/aws-sso/config.yaml"
+    shouldExist: true
+    uid: 1000
+    gid: 1000
+
+  - name: "/usr/local/cuda/lib64/libcudart.so.12"
+    path: "/usr/local/cuda/lib64/libcudart.so.12"
+    shouldExist: true
 
 metadataTest:
   user: "analyticalplatform"
@@ -83,3 +190,9 @@ metadataTest:
 
     - key: "DEBIAN_FRONTEND"
       value: "noninteractive"
+
+    - key: "PIP_BREAK_SYSTEM_PACKAGES"
+      value: "1"
+
+    - key: "AWS_SSO_FILE_PASSWORD"
+      value: "analyticalplatform"

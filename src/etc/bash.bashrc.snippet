@@ -1,0 +1,5 @@
+# first-run-notice
+if [[ -t 1 ]] && [[ ! -f "${ANALYTICAL_PLATFORM_DIRECTORY}/first-run-notice-already-displayed" ]] && ([[ "${TERM_PROGRAM}" == "vscode" ]] || [[ "${TERM}" == "xterm-256color" ]]); then
+  cat "${ANALYTICAL_PLATFORM_DIRECTORY}/first-run-notice.txt"
+  ((sleep 10s; touch "${ANALYTICAL_PLATFORM_DIRECTORY}/first-run-notice-already-displayed") &)
+fi
