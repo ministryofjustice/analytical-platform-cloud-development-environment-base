@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Create workspace directory if it doesn't exist
 
 echo "30-configure-aws-sso.sh"
