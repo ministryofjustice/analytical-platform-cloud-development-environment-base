@@ -15,16 +15,16 @@ ENV CONTAINER_USER="analyticalplatform" \
     ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DEBIAN_FRONTEND="noninteractive" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    AWS_CLI_VERSION="2.17.26" \
+    AWS_CLI_VERSION="2.17.29" \
     AWS_SSO_CLI_VERSION="1.17.0" \
     MINICONDA_VERSION="24.5.0-0" \
     MINICONDA_SHA256="4b3b3b1b99215e85fd73fb2c2d7ebf318ac942a457072de62d885056556eb83e" \
     NODE_LTS_VERSION="20.16.0" \
     CORRETTO_VERSION="1:21.0.4.7-1" \
-    DOTNET_SDK_VERSION="8.0.107-0ubuntu1~24.04.1" \
+    DOTNET_SDK_VERSION="8.0.108-0ubuntu1~24.04.1" \
     R_VERSION="4.4.1-1.2404.0" \
-    OLLAMA_VERSION="0.3.4" \
-    OLLAMA_SHA256="cb5ffdbe101adfd507c80fbfbbdd9997f6e3ef7afbb38f003349cd7c8b4c6055" \
+    OLLAMA_VERSION="0.3.6" \
+    OLLAMA_SHA256="775e0652c1dc61bde9ad98b9de743a10976ae026e4c1a230977193db3213e159" \
     CUDA_VERSION="12.5.1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_CUDA_CUDART_VERSION="12.5.82-1" \
@@ -65,6 +65,7 @@ apt-get install --yes \
   "git=1:2.43.0-1ubuntu7.1" \
   "jq=1.7.1-3build1" \
   "mandoc=1.14.6-1" \
+  "less=590-2ubuntu2.1" \
   "python3.12=3.12.3-1ubuntu0.1" \
   "python3-pip=24.0+dfsg-1ubuntu1" \
   "unzip=6.0-28ubuntu4"
@@ -95,7 +96,7 @@ EOF
 
 # First Run Notice
 # Copies a generic first-run-notice to the Analytical Platform directory and adds a snippet to the bash configuration to execute if using a valid terminal
-COPY --chown=nobody:nobody --chmod=0644 src${ANALYTICAL_PLATFORM_DIRECTORY}/first-run-notice.txt ${ANALYTICAL_PLATFORM_DIRECTORY}/first-run-notice.txt
+COPY --chown="${CONTAINER_USER}:${CONTAINER_GROUP}" --chmod=0644 src${ANALYTICAL_PLATFORM_DIRECTORY}/first-run-notice.txt ${ANALYTICAL_PLATFORM_DIRECTORY}/first-run-notice.txt
 COPY src/etc/bash.bashrc.snippet /etc/bash.bashrc.snippet
 RUN <<EOF
 cat /etc/bash.bashrc.snippet >> /etc/bash.bashrc
@@ -103,7 +104,7 @@ EOF
 
 # AWS CLI
 # Installs AWS CLI (https://aws.amazon.com/cli/)
-COPY --chown=nobody:nobody --chmod=0644 src/opt/aws-cli/aws-cli@amazon.com.asc /opt/aws-cli/aws-cli@amazon.com.asc
+COPY --chown=nobody:nogroup --chmod=0644 src/opt/aws-cli/aws-cli@amazon.com.asc /opt/aws-cli/aws-cli@amazon.com.asc
 RUN <<EOF
 gpg --import /opt/aws-cli/aws-cli@amazon.com.asc
 
@@ -134,7 +135,7 @@ curl --location --fail-with-body \
   "https://github.com/synfinatic/aws-sso-cli/releases/download/v${AWS_SSO_CLI_VERSION}/aws-sso-${AWS_SSO_CLI_VERSION}-linux-amd64" \
   --output "aws-sso"
 
-install --owner "${CONTAINER_USER}" --group "${CONTAINER_GROUP}" --mode 0755 aws-sso /usr/local/bin/aws-sso
+install --owner nobody --group nogroup --mode 0755 aws-sso /usr/local/bin/aws-sso
 
 rm --force aws-sso
 EOF
@@ -155,8 +156,8 @@ chown --recursive "${CONTAINER_USER}":"${CONTAINER_GROUP}" /opt/conda
 rm --force miniconda.sh
 EOF
 
-# NodeJS LTS
-# Install NodsJS LTS (https://nodejs.org/)
+# Node.js LTS
+# Install Node.js LTS (https://nodejs.org/)
 RUN <<EOF
 curl --location --fail-with-body \
   "https://deb.nodesource.com/setup_lts.x" \
@@ -177,6 +178,7 @@ RUN <<EOF
 curl --location --fail-with-body \
   "https://apt.corretto.aws/corretto.key" \
   --output corretto.key
+
 cat corretto.key | gpg --dearmor --output corretto-keyring.gpg
 
 install -D --owner root --group root --mode 644 corretto-keyring.gpg /etc/apt/keyrings/corretto-keyring.gpg
@@ -189,7 +191,7 @@ apt-get install --yes "java-21-amazon-corretto-jdk=${CORRETTO_VERSION}"
 
 apt-get clean --yes
 
-rm --force --recursive corretto-keyring.gpg /var/lib/apt/lists/*
+rm --force --recursive /var/lib/apt/lists/* corretto-keyring.gpg
 EOF
 
 # .NET SDK
@@ -223,7 +225,7 @@ apt-get install --yes "r-base=${R_VERSION}"
 
 apt-get clean --yes
 
-rm --force --recursive marutter_pubkey.asc marutter_pubkey.gpg /var/lib/apt/lists/*
+rm --force --recursive /var/lib/apt/lists/* marutter_pubkey.asc marutter_pubkey.gpg
 EOF
 
 # Ollama
@@ -263,7 +265,7 @@ echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
 
 apt-get clean --yes
 
-rm --force --recursive 3bf863cc.pub /var/lib/apt/lists/*
+rm --force --recursive /var/lib/apt/lists/* 3bf863cc.pub
 EOF
 
 USER ${CONTAINER_USER}

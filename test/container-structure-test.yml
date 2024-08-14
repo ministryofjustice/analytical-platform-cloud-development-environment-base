@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.17.26"]
+    expectedOutput: ["aws-cli/2.17.29"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -72,7 +72,7 @@ commandTests:
   - name: "dotnet"
     command: "dotnet"
     args: ["--version"]
-    expectedOutput: ["8.0.107"]
+    expectedOutput: ["8.0.108"]
 
   - name: "r"
     command: "R"
@@ -145,8 +145,8 @@ fileExistenceTests:
   - name: "/opt/analytical-platform/first-run-notice.txt"
     path: "/opt/analytical-platform/first-run-notice.txt"
     shouldExist: true
-    uid: 65534
-    gid: 65534
+    uid: 1000
+    gid: 1000
 
   - name: "/opt/analytical-platform/aws-sso/config.yaml"
     path: "/opt/analytical-platform/aws-sso/config.yaml"
