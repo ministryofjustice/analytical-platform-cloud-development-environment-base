@@ -30,6 +30,12 @@ This image is built on Ubuntu 24.04 LTS and includes the following software:
 
 - NVIDIA CUDA drivers
 
+- Kubernetes CLI
+
+- Helm
+
+- Cloud Platform CLI
+
 ## Running Locally
 
 ### Build
@@ -189,3 +195,15 @@ apt-cache policy cuda-cudart-12-5
 
 apt-cache policy cuda-compat-12-5
 ```
+
+### Kubernetes CLI
+
+We offer Kubernetes CLI as a way for users to connect to Cloud Platform, therefore the version needs to align with that they suggest in [their documentation](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/kubectl-config.html#installing-kubectl)
+
+### Helm
+
+Releases for Helm are maintained on [GitHub](https://github.com/helm/helm/releases).
+
+### Cloud Platform CLI
+
+Releases for Cloud Platform CLI are maintained on [GitHub](https://github.com/ministryofjustice/cloud-platform-cli/releases).

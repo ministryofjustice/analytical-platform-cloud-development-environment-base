@@ -25,6 +25,9 @@ ENV CONTAINER_USER="analyticalplatform" \
     R_VERSION="4.4.1-1.2404.0" \
     OLLAMA_VERSION="0.3.6" \
     OLLAMA_SHA256="775e0652c1dc61bde9ad98b9de743a10976ae026e4c1a230977193db3213e159" \
+    KUBECTL_VERSION="1.29.0" \
+    HELM_VERSION="3.15.3" \
+    CLOUD_PLATFORM_CLI_VERSION="1.33.2" \
     CUDA_VERSION="12.5.1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_CUDA_CUDART_VERSION="12.5.82-1" \
@@ -191,7 +194,7 @@ apt-get install --yes "java-21-amazon-corretto-jdk=${CORRETTO_VERSION}"
 
 apt-get clean --yes
 
-rm --force --recursive /var/lib/apt/lists/* corretto-keyring.gpg
+rm --force --recursive /var/lib/apt/lists/* corretto-keyring.gpg corretto.key
 EOF
 
 # .NET SDK
@@ -236,7 +239,7 @@ curl --location --fail-with-body \
 
 echo "${OLLAMA_SHA256} ollama" | sha256sum --check
 
-install --owner=root --group=root --mode=775 ollama /usr/local/bin/ollama
+install --owner nobody --group nogroup --mode 0755 ollama /usr/local/bin/ollama
 
 rm --force ollama
 EOF
@@ -265,7 +268,44 @@ echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
 
 apt-get clean --yes
 
-rm --force --recursive /var/lib/apt/lists/* 3bf863cc.pub
+rm --force --recursive /var/lib/apt/lists/* 3bf863cc.pub nvidia.gpg
+EOF
+
+# Kubernetes CLI
+RUN <<EOF
+curl --location --fail-with-body \
+  "https://dl.k8s.io/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" \
+  --output "kubectl"
+
+install --owner nobody --group nogroup --mode 0755 kubectl /usr/local/bin/kubectl
+
+rm --force kubectl
+EOF
+
+# Helm
+RUN <<EOF
+curl --location --fail-with-body \
+  "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" \
+  --output "helm.tar.gz"
+
+tar --extract --file "helm.tar.gz"
+
+install --owner nobody --group nogroup --mode 0755 linux-amd64/helm /usr/local/bin/helm
+
+rm --force --recursive linux-amd64 helm.tar.gz
+EOF
+
+# Cloud Platform CLI
+RUN <<EOF
+curl --location --fail-with-body \
+  "https://github.com/ministryofjustice/cloud-platform-cli/releases/download/${CLOUD_PLATFORM_CLI_VERSION}/cloud-platform-cli_${CLOUD_PLATFORM_CLI_VERSION}_linux_amd64.tar.gz" \
+  --output "cloud-platform-cli.tar.gz"
+
+tar --extract --file cloud-platform-cli.tar.gz
+
+install --owner nobody --group nogroup --mode 0755 cloud-platform /usr/local/bin/cloud-platform
+
+rm --force --recursive cloud-platform LICENSE README.md completions cloud-platform-cli.tar.gz
 EOF
 
 USER ${CONTAINER_USER}
