@@ -1,92 +1,91 @@
 ---
-  name: 🔖 Release
-  
-  on:
-    push:
-      tags:
-        - "*"
-  
-  permissions: {}
-  
-  jobs:
-    release:
-      name: Release
-      runs-on: ubuntu-latest
-      permissions:
-        actions: read
-        attestations: write
-        contents: write
-        id-token: write
-        packages: write
-      steps:
-        - name: Checkout
-          id: checkout
-          uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-  
-        - name: Install cosign
-          id: install_cosign
-          uses: sigstore/cosign-installer@4959ce089c160fddf62f7b42464195ba1a56d382 # v3.6.0
-  
-        - name: Log in to GitHub Container Registry
-          id: ghcr_login
-          uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3.3.0
-          with:
-            registry: ghcr.io
-            username: ${{ github.actor }}
-            password: ${{ secrets.GITHUB_TOKEN }}
-  
-        - name: Build and Push
-          id: build_and_push
-          uses: docker/build-push-action@5cd11c3a4ced054e52742c5fd54dca954e0edd85 # v6.7.0
-          with:
-            push: true
-            tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
-  
-        - name: Sign
-          id: sign
-          shell: bash
-          run: |
-            cosign sign --yes ghcr.io/${{ github.repository }}@${{ steps.build_and_push.outputs.digest }}
-  
-        - name: Generate SBOM
-          id: generate_sbom
-          uses: anchore/sbom-action@ab9d16d4b419c9d1a02df5213fa0ebe965ca5a57 # v0.17.1
-          with:
-            image: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
-            format: cyclonedx-json
-            output-file: "sbom.cyclonedx.json"
-  
-        - name: Attest
-          uses: actions/attest-build-provenance@310b0a4a3b0b78ef57ecda988ee04b132db73ef8 # v1.4.1
-          id: attest
-          with:
-            subject-name: ghcr.io/${{ github.repository }}
-            subject-digest: ${{ steps.build_and_push.outputs.digest }}
-            push-to-registry: true
-  
-        - name: Attest SBOM
-          uses: actions/attest-sbom@f19ab44411e02574a74181cec8eb584319d0f779 # v1.4.0
-          id: attest_sbom
-          with:
-            subject-name: ghcr.io/${{ github.repository }}
-            subject-digest: ${{ steps.build_and_push.outputs.digest }}
-            sbom-path: sbom.cyclonedx.json
-            push-to-registry: true
-  
-        - name: cosign Verify
-          id: cosign_verify
-          shell: bash
-          run: |
-            cosign verify \
-              --certificate-oidc-issuer=https://token.actions.githubusercontent.com \
-              --certificate-identity=https://github.com/${{ github.workflow_ref }} \
-              ghcr.io/${{ github.repository }}@${{ steps.build_and_push.outputs.digest }}
-  
-        - name: GitHub Attestation Verify
-          id: gh_attestation_verify
-          shell: bash
-          env:
-            GH_TOKEN: ${{ github.token }}
-          run: |
-            gh attestation verify oci://ghcr.io/${{ github.repository }}:${{ github.ref_name }} --repo ${{ github.repository }}
-  
+name: 🔖 Release
+
+on:
+  push:
+    tags:
+      - "*"
+
+permissions: {}
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      attestations: write
+      contents: write
+      id-token: write
+      packages: write
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Install cosign
+        id: install_cosign
+        uses: sigstore/cosign-installer@4959ce089c160fddf62f7b42464195ba1a56d382 # v3.6.0
+
+      - name: Log in to GitHub Container Registry
+        id: ghcr_login
+        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3.3.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push
+        id: build_and_push
+        uses: docker/build-push-action@5cd11c3a4ced054e52742c5fd54dca954e0edd85 # v6.7.0
+        with:
+          push: true
+          tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+
+      - name: Sign
+        id: sign
+        shell: bash
+        run: |
+          cosign sign --yes ghcr.io/${{ github.repository }}@${{ steps.build_and_push.outputs.digest }}
+
+      - name: Generate SBOM
+        id: generate_sbom
+        uses: anchore/sbom-action@ab9d16d4b419c9d1a02df5213fa0ebe965ca5a57 # v0.17.1
+        with:
+          image: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+          format: cyclonedx-json
+          output-file: "sbom.cyclonedx.json"
+
+      - name: Attest
+        uses: actions/attest-build-provenance@310b0a4a3b0b78ef57ecda988ee04b132db73ef8 # v1.4.1
+        id: attest
+        with:
+          subject-name: ghcr.io/${{ github.repository }}
+          subject-digest: ${{ steps.build_and_push.outputs.digest }}
+          push-to-registry: true
+
+      - name: Attest SBOM
+        uses: actions/attest-sbom@f19ab44411e02574a74181cec8eb584319d0f779 # v1.4.0
+        id: attest_sbom
+        with:
+          subject-name: ghcr.io/${{ github.repository }}
+          subject-digest: ${{ steps.build_and_push.outputs.digest }}
+          sbom-path: sbom.cyclonedx.json
+          push-to-registry: true
+
+      - name: cosign Verify
+        id: cosign_verify
+        shell: bash
+        run: |
+          cosign verify \
+            --certificate-oidc-issuer=https://token.actions.githubusercontent.com \
+            --certificate-identity=https://github.com/${{ github.workflow_ref }} \
+            ghcr.io/${{ github.repository }}@${{ steps.build_and_push.outputs.digest }}
+
+      - name: GitHub Attestation Verify
+        id: gh_attestation_verify
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh attestation verify oci://ghcr.io/${{ github.repository }}:${{ github.ref_name }} --repo ${{ github.repository }}
