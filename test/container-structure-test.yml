@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.17.29"]
+    expectedOutput: ["aws-cli/2.17.34"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -92,7 +92,7 @@ commandTests:
   - name: "helm"
     command: "helm"
     args: ["version"]
-    expectedOutput: ["3.15.3"]
+    expectedOutput: ["3.15.4"]
 
   - name: "cloud-platform"
     command: "cloud-platform"
