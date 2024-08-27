@@ -34,8 +34,8 @@ commandTests:
     args: ["--version"]
     expectedOutput: ["Python 3.12.3"]
 
-  - name: "pip"
-    command: "pip"
+  - name: "pip (system)"
+    command: "/usr/bin/pip3"
     args: ["--version"]
     expectedOutput: ["pip 24.0"]
 
@@ -58,6 +58,11 @@ commandTests:
     command: "python"
     args: ["--version"]
     expectedOutput: ["Python 3.12.4"]
+
+  - name: "pip (conda)"
+    command: "pip"
+    args: ["--version"]
+    expectedOutput: ["pip 24.2"]
 
   - name: "node"
     command: "node"
