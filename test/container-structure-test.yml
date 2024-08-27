@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.17.34"]
+    expectedOutput: ["aws-cli/2.17.38"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -52,7 +52,7 @@ commandTests:
   - name: "conda"
     command: "conda"
     args: ["--version"]
-    expectedOutput: ["conda 24.5.0"]
+    expectedOutput: ["conda 24.7.1"]
 
   - name: "python (conda)"
     command: "python"
@@ -62,7 +62,7 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v20.16.0"]
+    expectedOutput: ["v20.17.0"]
 
   - name: "corretto"
     command: "java"
@@ -87,7 +87,7 @@ commandTests:
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.29.7"]
+    expectedOutput: ["Client Version: v1.29.8"]
 
   - name: "helm"
     command: "helm"
