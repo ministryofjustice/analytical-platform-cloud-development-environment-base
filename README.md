@@ -10,31 +10,31 @@ This repository contains the code for building the base image used by Analytical
 
 This image is built on Ubuntu 24.04 LTS and includes the following software:
 
-- Python 3.12
+- [Python 3.12](https://www.python.org/downloads/release/python-3123/)
 
-- AWS CLI
+- [AWS CLI](https://aws.amazon.com/cli/)
 
-- AWS SSO CLI
+- [AWS SSO CLI](https://synfinatic.github.io/aws-sso-cli/v1.17.0/)
 
-- Miniconda
+- [Miniconda](https://docs.anaconda.com/miniconda/)
 
-- Node.js LTS
+- [Node.js LTS](https://nodejs.org/en)
 
-- Amazon Corretto
+- [Amazon Corretto](https://aws.amazon.com/corretto)
 
-- .NET SDK
+- [.NET SDK](https://learn.microsoft.com/en-us/dotnet/core/sdk)
 
-- R
+- [R](https://www.r-project.org/about.html)
 
-- Ollama
+- [Ollama](https://ollama.com/)
 
-- NVIDIA CUDA drivers
+- [NVIDIA CUDA drivers](https://developer.nvidia.com/cuda-faq)
 
-- Kubernetes CLI
+- [Kubernetes CLI](https://kubernetes.io/docs/reference/kubectl/)
 
-- Helm
+- [Helm](https://helm.sh/)
 
-- Cloud Platform CLI
+- [Cloud Platform CLI](https://github.com/ministryofjustice/cloud-platform-cli)
 
 ## Running Locally
 
