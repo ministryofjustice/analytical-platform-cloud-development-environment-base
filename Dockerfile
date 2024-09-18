@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM public.ecr.aws/ubuntu/ubuntu@sha256:e6e66381e1ded976f2cdb0e87d1fe820710aff3ac7800bf252e8a0deeca0f135
+FROM public.ecr.aws/ubuntu/ubuntu@sha256:5b2fc4131b3c134a019c3ea815811de70e6ad9ee1626f59bf302558a95b436e5
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -22,12 +22,12 @@ ENV CONTAINER_USER="analyticalplatform" \
     NODE_LTS_VERSION="20.17.0" \
     CORRETTO_VERSION="1:21.0.4.7-1" \
     DOTNET_SDK_VERSION="8.0.108-0ubuntu1~24.04.1" \
-    R_VERSION="4.4.1-1.2404.0" \
+    R_VERSION="4.4.1-3.2404.0" \
     OLLAMA_VERSION="0.3.6" \
     OLLAMA_SHA256="775e0652c1dc61bde9ad98b9de743a10976ae026e4c1a230977193db3213e159" \
     KUBECTL_VERSION="1.29.8" \
     HELM_VERSION="3.15.4" \
-    CLOUD_PLATFORM_CLI_VERSION="1.33.4" \
+    CLOUD_PLATFORM_CLI_VERSION="1.34.0" \
     CUDA_VERSION="12.5.1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_CUDA_CUDART_VERSION="12.5.82-1" \
@@ -64,12 +64,12 @@ apt-get update --yes
 apt-get install --yes \
   "apt-transport-https=2.7.14build2" \
   "ca-certificates=20240203" \
-  "curl=8.5.0-2ubuntu10.3" \
+  "curl=8.5.0-2ubuntu10.4" \
   "git=1:2.43.0-1ubuntu7.1" \
   "jq=1.7.1-3build1" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
-  "python3.12=3.12.3-1ubuntu0.1" \
+  "python3.12=3.12.3-1ubuntu0.2" \
   "python3-pip=24.0+dfsg-1ubuntu1" \
   "unzip=6.0-28ubuntu4"
 
