@@ -24,7 +24,7 @@ ENV CONTAINER_USER="analyticalplatform" \
     DOTNET_SDK_VERSION="8.0.108-0ubuntu1~24.04.1" \
     R_VERSION="4.4.1-3.2404.0" \
     OLLAMA_VERSION="0.3.10" \
-    OLLAMA_SHA256="0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5" \
+    OLLAMA_SHA256="b2a064df16952e3a908837095b3f9e5e279400a3a2aae054c3382783e51c9db7" \
     KUBECTL_VERSION="1.29.9" \
     HELM_VERSION="3.16.1" \
     CLOUD_PLATFORM_CLI_VERSION="1.34.0" \
@@ -234,14 +234,16 @@ EOF
 # Ollama
 RUN <<EOF
 curl --location --fail-with-body \
-  "https://github.com/ollama/ollama/releases/download/v${OLLAMA_VERSION}/ollama-linux-amd64" \
-  --output "ollama"
+  "https://github.com/ollama/ollama/releases/download/v${OLLAMA_VERSION}/ollama-linux-amd64.tgz" \
+  --output "ollama.tgz"
 
-echo "${OLLAMA_SHA256} ollama" | sha256sum --check
+echo "${OLLAMA_SHA256} ollama.tgz" | sha256sum --check
 
-install --owner nobody --group nogroup --mode 0755 ollama /usr/local/bin/ollama
+tar -xzf ollama.tgz
 
-rm --force ollama
+install --owner nobody --group nogroup --mode 0755 ollama.tgz /usr/local/bin/ollama
+
+rm --force ollama ollama.tgz
 EOF
 
 # NVIDIA CUDA
