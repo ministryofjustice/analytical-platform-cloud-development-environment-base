@@ -235,15 +235,15 @@ EOF
 RUN <<EOF
 curl --location --fail-with-body \
   "https://github.com/ollama/ollama/releases/download/v${OLLAMA_VERSION}/ollama-linux-amd64.tgz" \
-  --output "ollama.tgz"
+  --output "ollama"
 
-echo "${OLLAMA_SHA256} ollama.tgz" | sha256sum --check
+echo "${OLLAMA_SHA256} ollama" | sha256sum --check
 
-tar -xzf ollama.tgz
+tar -xzf ollama
 
-install --owner nobody --group nogroup --mode 0755 ollama.tgz /usr/local/bin/ollama
+install --owner nobody --group nogroup --mode 0755 bin/ollama /usr/local/bin/
 
-rm --force ollama ollama.tgz
+rm --force --recursive ollama bin lib
 EOF
 
 # NVIDIA CUDA
