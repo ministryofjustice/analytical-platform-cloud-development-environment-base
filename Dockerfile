@@ -243,7 +243,7 @@ tar -xzf ollama
 
 install --owner nobody --group nogroup --mode 0755 bin/ollama /usr/local/bin/
 
-rm --force --recursive ollama
+# rm --force --recursive ollama
 EOF
 
 # NVIDIA CUDA
