@@ -14,3 +14,4 @@ CVE-2024-0057
 # Go
 ## aws-sso
 CVE-2024-41110 # Vulnerability in github.com/docker/docker, but we don't run Docker on CDE
+CVE-2024-34156
