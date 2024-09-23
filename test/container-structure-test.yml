@@ -87,22 +87,22 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.3.6"]
+    expectedOutput: ["0.3.11"]
 
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.29.8"]
+    expectedOutput: ["Client Version: v1.29.9"]
 
   - name: "helm"
     command: "helm"
     args: ["version"]
-    expectedOutput: ["3.15.4"]
+    expectedOutput: ["3.16.1"]
 
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["version"]
-    expectedOutput: ["1.33.4"]
+    expectedOutput: ["1.34.0"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"

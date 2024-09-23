@@ -165,7 +165,7 @@ Releases for Ollama are maintained on [GitHub](https://github.com/ollama/ollama/
 Ollama don't currently provide SHA256 checksum for their installation file. For now, a checksum was acquired by running the following command locally:
 
 ```bash
-curl --location --fail-with-body "https://github.com/ollama/ollama/releases/download/$(curl --silent https://api.github.com/repos/ollama/ollama/releases/latest | jq -r .tag_name)/ollama-linux-amd64" | sha256sum
+curl --location --fail-with-body "https://github.com/ollama/ollama/releases/download/$(curl --silent https://api.github.com/repos/ollama/ollama/releases/latest | jq -r .tag_name)/ollama-linux-amd64.tgz" | sha256sum
 ```
 
 ### NVIDIA CUDA
