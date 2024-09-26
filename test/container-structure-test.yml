@@ -101,8 +101,8 @@ commandTests:
 
   - name: "cloud-platform"
     command: "cloud-platform"
-    args: ["version"]
-    expectedOutput: ["1.34.0"]
+    args: ["--skip-version-check", "version"]
+    expectedOutput: ["1.34.9"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
