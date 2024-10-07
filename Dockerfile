@@ -15,22 +15,22 @@ ENV CONTAINER_USER="analyticalplatform" \
     ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DEBIAN_FRONTEND="noninteractive" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    AWS_CLI_VERSION="2.17.38" \
+    AWS_CLI_VERSION="2.18.0" \
     AWS_SSO_CLI_VERSION="1.17.0" \
     MINICONDA_VERSION="24.7.1-0" \
     MINICONDA_SHA256="33442cd3813df33dcbb4a932b938ee95398be98344dff4c30f7e757cd2110e4f" \
-    NODE_LTS_VERSION="20.17.0" \
+    NODE_LTS_VERSION="20.18.0" \
     CORRETTO_VERSION="1:21.0.4.7-1" \
-    DOTNET_SDK_VERSION="8.0.108-0ubuntu1~24.04.1" \
+    DOTNET_SDK_VERSION="8.0.108-0ubuntu1~24.04.2" \
     R_VERSION="4.4.1-3.2404.0" \
-    OLLAMA_VERSION="0.3.11" \
+    OLLAMA_VERSION="0.3.12" \
     KUBECTL_VERSION="1.29.9" \
     HELM_VERSION="3.16.1" \
-    CLOUD_PLATFORM_CLI_VERSION="1.34.9" \
-    CUDA_VERSION="12.5.1" \
+    CLOUD_PLATFORM_CLI_VERSION="1.36.0" \
+    CUDA_VERSION="12.6.1" \
     NVIDIA_DISABLE_REQUIRE="true" \
-    NVIDIA_CUDA_CUDART_VERSION="12.5.82-1" \
-    NVIDIA_CUDA_COMPAT_VERSION="555.42.06-1" \
+    NVIDIA_CUDA_CUDART_VERSION="12.6.68-1" \
+    NVIDIA_CUDA_COMPAT_VERSION="560.35.03-1" \
     NVIDIA_VISIBLE_DEVICES="all" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64" \
@@ -263,8 +263,8 @@ echo "deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nv
 apt-get update --yes
 
 apt-get install --yes \
-  "cuda-cudart-12-5=${NVIDIA_CUDA_CUDART_VERSION}" \
-  "cuda-compat-12-5=${NVIDIA_CUDA_COMPAT_VERSION}"
+  "cuda-cudart-12-6=${NVIDIA_CUDA_CUDART_VERSION}" \
+  "cuda-compat-12-6=${NVIDIA_CUDA_COMPAT_VERSION}"
 
 echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf
 echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf

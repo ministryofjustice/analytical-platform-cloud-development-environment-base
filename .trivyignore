@@ -1,3 +1,6 @@
+# Ubuntu
+CVE-2024-43882
+
 # Python
 ## setuptools
 CVE-2024-6345 # TODO: @jacobwoffenden - Figure out where this comes from and patch it
