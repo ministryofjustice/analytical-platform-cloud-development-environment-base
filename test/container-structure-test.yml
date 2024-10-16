@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.18.0"]
+    expectedOutput: ["aws-cli/2.18.7"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -72,7 +72,7 @@ commandTests:
   - name: "corretto"
     command: "java"
     args: ["--version"]
-    expectedOutput: ["openjdk 21.0.4"]
+    expectedOutput: ["openjdk 21.0.5"]
 
   - name: "dotnet"
     command: "dotnet"
@@ -87,7 +87,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.3.12"]
+    expectedOutput: ["0.3.13"]
 
   - name: "kubectl"
     command: "kubectl"
@@ -97,12 +97,12 @@ commandTests:
   - name: "helm"
     command: "helm"
     args: ["version"]
-    expectedOutput: ["3.16.1"]
+    expectedOutput: ["3.16.2"]
 
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.36.0"]
+    expectedOutput: ["1.36.1"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
