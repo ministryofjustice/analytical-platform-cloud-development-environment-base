@@ -136,12 +136,14 @@ apt-cache policy dotnet-sdk-8.0
 
 ### R
 
-The latest version of .NET SDK can be obtained by running:
+The latest version of R can be obtained by running:
 
 ```bash
 docker run -it --rm --platform linux/amd64 public.ecr.aws/ubuntu/ubuntu:24.04
 
 apt-get update --yes
+
+apt-get install --yes curl gpg
 
 curl --location --fail-with-body \
   "https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc" \
@@ -191,9 +193,9 @@ echo "deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nv
 
 apt-get update --yes
 
-apt-cache policy cuda-cudart-12-5
+apt-cache policy cuda-cudart-12-6
 
-apt-cache policy cuda-compat-12-5
+apt-cache policy cuda-compat-12-6
 ```
 
 ### Kubernetes CLI
