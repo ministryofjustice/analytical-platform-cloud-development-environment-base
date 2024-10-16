@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM public.ecr.aws/ubuntu/ubuntu@sha256:5b2fc4131b3c134a019c3ea815811de70e6ad9ee1626f59bf302558a95b436e5
+FROM public.ecr.aws/ubuntu/ubuntu@sha256:f3e3e5544acae3b8d20469e6aacd89576409f05070e76aeb999dddda98279112
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -15,18 +15,18 @@ ENV CONTAINER_USER="analyticalplatform" \
     ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DEBIAN_FRONTEND="noninteractive" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    AWS_CLI_VERSION="2.18.0" \
+    AWS_CLI_VERSION="2.18.7" \
     AWS_SSO_CLI_VERSION="1.17.0" \
     MINICONDA_VERSION="24.7.1-0" \
     MINICONDA_SHA256="33442cd3813df33dcbb4a932b938ee95398be98344dff4c30f7e757cd2110e4f" \
     NODE_LTS_VERSION="20.18.0" \
-    CORRETTO_VERSION="1:21.0.4.7-1" \
+    CORRETTO_VERSION="1:21.0.5.11-1" \
     DOTNET_SDK_VERSION="8.0.110-0ubuntu1~24.04.1" \
     R_VERSION="4.4.1-3.2404.0" \
-    OLLAMA_VERSION="0.3.12" \
+    OLLAMA_VERSION="0.3.13" \
     KUBECTL_VERSION="1.29.9" \
-    HELM_VERSION="3.16.1" \
-    CLOUD_PLATFORM_CLI_VERSION="1.36.0" \
+    HELM_VERSION="3.16.2" \
+    CLOUD_PLATFORM_CLI_VERSION="1.36.1" \
     CUDA_VERSION="12.6.1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_CUDA_CUDART_VERSION="12.6.77-1" \
