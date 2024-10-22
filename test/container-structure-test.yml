@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.18.7"]
+    expectedOutput: ["aws-cli/2.18.11"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -87,7 +87,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.3.13"]
+    expectedOutput: ["0.3.14"]
 
   - name: "kubectl"
     command: "kubectl"
@@ -102,7 +102,7 @@ commandTests:
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.36.1"]
+    expectedOutput: ["1.37.5"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
