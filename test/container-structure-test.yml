@@ -67,7 +67,7 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v22.11.0"]
+    expectedOutput: ["v20.18.0"]
 
   - name: "corretto"
     command: "java"
