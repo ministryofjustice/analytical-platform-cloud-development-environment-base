@@ -70,6 +70,7 @@ apt-get install --yes \
   "less=590-2ubuntu2.1" \
   "python3.12=3.12.3-1ubuntu0.2" \
   "python3-pip=24.0+dfsg-1ubuntu1" \
+  "vim=2:9.1.0016-1ubuntu7.3" \
   "unzip=6.0-28ubuntu4.1"
 
 apt-get clean --yes

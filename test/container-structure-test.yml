@@ -104,6 +104,11 @@ commandTests:
     args: ["--skip-version-check", "version"]
     expectedOutput: ["1.37.5"]
 
+  - name: "vim"
+    command: "vim"
+    args: ["--version"]
+    expectedOutput: ["VIM - Vi IMproved 9.1"]
+
 fileExistenceTests:
   - name: "/opt/analytical-platform"
     path: "/opt/analytical-platform"
