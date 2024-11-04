@@ -82,7 +82,7 @@ commandTests:
   - name: "r"
     command: "R"
     args: ["--version"]
-    expectedOutput: ["R version 4.4.1"]
+    expectedOutput: ["R version 4.4.2"]
 
   - name: "ollama"
     command: "ollama"
@@ -103,6 +103,11 @@ commandTests:
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
     expectedOutput: ["1.37.5"]
+
+  - name: "vim"
+    command: "vim"
+    args: ["--version"]
+    expectedOutput: ["VIM - Vi IMproved 9.1"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"

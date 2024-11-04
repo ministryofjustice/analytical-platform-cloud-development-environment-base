@@ -22,7 +22,7 @@ ENV CONTAINER_USER="analyticalplatform" \
     NODE_LTS_VERSION="20.18.0" \
     CORRETTO_VERSION="1:21.0.5.11-1" \
     DOTNET_SDK_VERSION="8.0.110-0ubuntu1~24.04.1" \
-    R_VERSION="4.4.1-3.2404.0" \
+    R_VERSION="4.4.2-1.2404.0" \
     OLLAMA_VERSION="0.3.14" \
     KUBECTL_VERSION="1.29.9" \
     HELM_VERSION="3.16.2" \
@@ -70,6 +70,7 @@ apt-get install --yes \
   "less=590-2ubuntu2.1" \
   "python3.12=3.12.3-1ubuntu0.2" \
   "python3-pip=24.0+dfsg-1ubuntu1" \
+  "vim=2:9.1.0016-1ubuntu7.3" \
   "unzip=6.0-28ubuntu4.1"
 
 apt-get clean --yes
