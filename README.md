@@ -203,3 +203,7 @@ Releases for Helm are maintained on [GitHub](https://github.com/helm/helm/releas
 ### Cloud Platform CLI
 
 Releases for Cloud Platform CLI are maintained on [GitHub](https://github.com/ministryofjustice/cloud-platform-cli/releases).
+
+## Maintenance
+
+Maintenance of this component is scheduled in this [workflow](https://github.com/ministryofjustice/analytical-platform/blob/main/.github/workflows/schedule-issue-cloud-development-environment-base.yml), which generates a maintenance ticket as per this [example](https://github.com/ministryofjustice/analytical-platform/issues/5905).
