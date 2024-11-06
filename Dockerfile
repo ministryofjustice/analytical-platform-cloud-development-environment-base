@@ -71,6 +71,7 @@ apt-get install --yes \
   "python3.12=3.12.3-1ubuntu0.2" \
   "python3-pip=24.0+dfsg-1ubuntu1.1" \
   "vim=2:9.1.0016-1ubuntu7.3" \
+  "unixodbc=2.3.12-1ubuntu0.24.04.1" \
   "unzip=6.0-28ubuntu4.1"
 
 apt-get clean --yes
