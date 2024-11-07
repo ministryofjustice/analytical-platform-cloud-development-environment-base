@@ -163,7 +163,7 @@ EOF
 # nbstripout
 # Installs nbstripout (https://github.com/kynan/nbstripout)
 RUN <<EOF
-conda install -c conda-forge nbstripout==0.8.0 \
+pip install --no-cache nbstripout==0.8.0
 nbstripout --install --system
 EOF
 
