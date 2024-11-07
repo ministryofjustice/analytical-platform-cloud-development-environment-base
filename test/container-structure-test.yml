@@ -109,6 +109,11 @@ commandTests:
     args: ["--version"]
     expectedOutput: ["VIM - Vi IMproved 9.1"]
 
+  - name: "nbstripout"
+    command: "nbstripout"
+    args: ["--version"]
+    expectedOutput: ["0.8.0"]
+
 fileExistenceTests:
   - name: "/opt/analytical-platform"
     path: "/opt/analytical-platform"
