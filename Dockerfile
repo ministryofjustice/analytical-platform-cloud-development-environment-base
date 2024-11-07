@@ -160,6 +160,13 @@ chown --recursive "${CONTAINER_USER}":"${CONTAINER_GROUP}" /opt/conda
 rm --force miniconda.sh
 EOF
 
+# nbstripout
+# Installs nbstripout (https://github.com/kynan/nbstripout)
+RUN <<EOF
+conda install -c conda-forge nbstripout==0.8.0 \
+nbstripout --install --system
+EOF
+
 # Node.js LTS
 # Install Node.js LTS (https://nodejs.org/)
 RUN <<EOF
