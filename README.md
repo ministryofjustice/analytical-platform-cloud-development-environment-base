@@ -38,6 +38,8 @@ This image is built on Ubuntu 24.04 LTS and includes the following software:
 
 - [Microsoft ODBC driver for SQL Server](https://learn.microsoft.com/en-us/sql/connect/odbc/microsoft-odbc-driver-for-sql-server)
 
+- [nbstripout](https://github.com/kynan/nbstripout)
+
 ## Running Locally
 
 ### Build
@@ -233,6 +235,10 @@ apt-cache policy msodbcsql18
 
 apt-cache policy mssql-tools18
 ```
+
+### nbstripout
+
+Release for nbstripout are maintained on [GitHub](https://github.com/kynan/nbstripout/releases).
 
 ## Maintenance
 
