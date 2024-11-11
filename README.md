@@ -236,7 +236,7 @@ apt-cache policy msodbcsql18
 apt-cache policy mssql-tools18
 ```
 
-### nbstripout
+### nbstripout
 
 Release for nbstripout are maintained on [GitHub](https://github.com/kynan/nbstripout/releases).
 
