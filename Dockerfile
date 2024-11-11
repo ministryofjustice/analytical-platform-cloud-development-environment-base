@@ -27,6 +27,8 @@ ENV CONTAINER_USER="analyticalplatform" \
     KUBECTL_VERSION="1.29.10" \
     HELM_VERSION="3.16.2" \
     CLOUD_PLATFORM_CLI_VERSION="1.37.12" \
+    MICROSOFT_SQL_ODBC_VERSION="18.4.1.1-1" \
+    MICROSOFT_SQL_TOOLS_VERSION="18.4.1.1-1" \
     CUDA_VERSION="12.6.1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_CUDA_CUDART_VERSION="12.6.77-1" \
@@ -34,7 +36,7 @@ ENV CONTAINER_USER="analyticalplatform" \
     NVIDIA_VISIBLE_DEVICES="all" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64" \
-    PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:${PATH}"
+    PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -318,6 +320,29 @@ tar --extract --file cloud-platform-cli.tar.gz
 install --owner nobody --group nogroup --mode 0755 cloud-platform /usr/local/bin/cloud-platform
 
 rm --force --recursive cloud-platform LICENSE README.md completions cloud-platform-cli.tar.gz
+EOF
+
+# Microsoft SQL ODBC and Tools
+RUN <<EOF
+curl --location --fail-with-body \
+  "https://packages.microsoft.com/keys/microsoft.asc" \
+  --output microsoft.asc
+
+cat microsoft.asc | gpg --dearmor --output microsoft-prod.gpg
+
+install -D --owner root --group root --mode 644 microsoft-prod.gpg /usr/share/keyrings/microsoft-prod.gpg
+
+echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-prod.gpg] https://packages.microsoft.com/ubuntu/24.04/prod noble main" > /etc/apt/sources.list.d/mssql-release.list
+
+apt-get update --yes
+
+ACCEPT_EULA=Y apt-get install --yes \
+  "msodbcsql18=${MICROSOFT_SQL_ODBC_VERSION}" \
+  "mssql-tools18=${MICROSOFT_SQL_TOOLS_VERSION}"
+
+apt-get clean --yes
+
+rm --force --recursive /var/lib/apt/lists/* microsoft.asc microsoft-prod.gpg
 EOF
 
 USER ${CONTAINER_USER}

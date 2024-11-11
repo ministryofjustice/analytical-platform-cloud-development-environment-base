@@ -36,6 +36,8 @@ This image is built on Ubuntu 24.04 LTS and includes the following software:
 
 - [Cloud Platform CLI](https://github.com/ministryofjustice/cloud-platform-cli)
 
+- [Microsoft ODBC driver for SQL Server](https://learn.microsoft.com/en-us/sql/connect/odbc/microsoft-odbc-driver-for-sql-server)
+
 ## Running Locally
 
 ### Build
@@ -203,6 +205,34 @@ Releases for Helm are maintained on [GitHub](https://github.com/helm/helm/releas
 ### Cloud Platform CLI
 
 Releases for Cloud Platform CLI are maintained on [GitHub](https://github.com/ministryofjustice/cloud-platform-cli/releases).
+
+### Microsoft ODBC driver for SQL Server
+
+The latest version of Microsoft ODBC driver for SQL Server can be obtained by running:
+
+```bash
+docker run -it --rm --platform linux/amd64 public.ecr.aws/ubuntu/ubuntu:24.04
+
+apt-get update --yes
+
+apt-get install --yes curl gpg
+
+curl --location --fail-with-body \
+  "https://packages.microsoft.com/keys/microsoft.asc" \
+  --output microsoft.asc
+
+cat microsoft.asc | gpg --dearmor --output microsoft-prod.gpg
+
+install -D --owner root --group root --mode 644 microsoft-prod.gpg /usr/share/keyrings/microsoft-prod.gpg
+
+echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-prod.gpg] https://packages.microsoft.com/ubuntu/24.04/prod noble main" > /etc/apt/sources.list.d/mssql-release.list
+
+apt-get update --yes
+
+apt-cache policy msodbcsql18
+
+apt-cache policy mssql-tools18
+```
 
 ## Maintenance
 
