@@ -114,6 +114,11 @@ commandTests:
     args: ["--version"]
     expectedOutput: ["0.8.0"]
 
+  - name: "sqlcmd"
+    command: "sqlcmd"
+    args: ["-?"]
+    expectedOutput: ["Version 18.4.0001.1 Linux"]
+
 fileExistenceTests:
   - name: "/opt/analytical-platform"
     path: "/opt/analytical-platform"
@@ -186,6 +191,10 @@ fileExistenceTests:
 
   - name: "/usr/local/cuda/lib64/libcudart.so.12"
     path: "/usr/local/cuda/lib64/libcudart.so.12"
+    shouldExist: true
+
+  - name: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.4.so.1.1"
+    path: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.4.so.1.1"
     shouldExist: true
 
 metadataTest:
