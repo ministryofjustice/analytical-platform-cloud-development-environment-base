@@ -9,7 +9,7 @@ BASE_DIR="$TARGET_DIR/share/jupyter/kernels"
 # Copy .local directory to /home/analyticalplatform/.local
 if [ -d "$SOURCE_DIR" ]; then
   echo "Copying $SOURCE_DIR to $TARGET_DIR..."
-  cp -r "$SOURCE_DIR"/* "$TARGET_DIR" || { echo "Copy failed."; exit 1; }
+  cp -r "$SOURCE_DIR"/* "$TARGET_DIR"
   echo "Copy completed."
 else
   echo "Source directory $SOURCE_DIR does not exist."
