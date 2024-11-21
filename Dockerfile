@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM public.ecr.aws/ubuntu/ubuntu@sha256:fb95efe0d22be277f10250f15e5172ec0fe22c37eca2ba55e78b526c447eec23
+FROM public.ecr.aws/ubuntu/ubuntu@sha256:da20fb875cfefd317c49e7aaf3998d3e5ad42c5b20f34a0eec6dca2fe4fbb8f4
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -15,7 +15,7 @@ ENV CONTAINER_USER="analyticalplatform" \
     ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DEBIAN_FRONTEND="noninteractive" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    AWS_CLI_VERSION="2.19.1" \
+    AWS_CLI_VERSION="2.22.2" \
     AWS_SSO_CLI_VERSION="1.17.0" \
     MINICONDA_VERSION="24.9.2-0" \
     MINICONDA_SHA256="8d936ba600300e08eca3d874dee88c61c6f39303597b2b66baee54af4f7b4122" \
@@ -23,16 +23,17 @@ ENV CONTAINER_USER="analyticalplatform" \
     CORRETTO_VERSION="1:21.0.5.11-1" \
     DOTNET_SDK_VERSION="8.0.110-0ubuntu1~24.04.1" \
     R_VERSION="4.4.2-1.2404.0" \
-    OLLAMA_VERSION="0.3.14" \
-    KUBECTL_VERSION="1.29.10" \
-    HELM_VERSION="3.16.2" \
-    CLOUD_PLATFORM_CLI_VERSION="1.37.12" \
+    OLLAMA_VERSION="0.4.2" \
+    KUBECTL_VERSION="1.29.11" \
+    HELM_VERSION="3.16.3" \
+    CLOUD_PLATFORM_CLI_VERSION="1.37.13" \
     MICROSOFT_SQL_ODBC_VERSION="18.4.1.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.4.1.1-1" \
+    NBSTRIPOUT_VERSION="0.8.1" \
     CUDA_VERSION="12.6.1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_CUDA_CUDART_VERSION="12.6.77-1" \
-    NVIDIA_CUDA_COMPAT_VERSION="560.35.03-1" \
+    NVIDIA_CUDA_COMPAT_VERSION="560.35.05-0ubuntu1" \
     NVIDIA_VISIBLE_DEVICES="all" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64" \
@@ -165,7 +166,8 @@ EOF
 # nbstripout
 # Installs nbstripout (https://github.com/kynan/nbstripout)
 RUN <<EOF
-pip install --no-cache-dir nbstripout==0.8.0
+pip install --no-cache-dir "nbstripout==${NBSTRIPOUT_VERSION}"
+
 nbstripout --install --system
 EOF
 
