@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.19.1"]
+    expectedOutput: ["aws-cli/2.22.2"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -87,22 +87,22 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.3.14"]
+    expectedOutput: ["0.4.2"]
 
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.29.10"]
+    expectedOutput: ["Client Version: v1.29.11"]
 
   - name: "helm"
     command: "helm"
     args: ["version"]
-    expectedOutput: ["3.16.2"]
+    expectedOutput: ["3.16.3"]
 
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.37.12"]
+    expectedOutput: ["1.37.13"]
 
   - name: "vim"
     command: "vim"
@@ -112,7 +112,7 @@ commandTests:
   - name: "nbstripout"
     command: "nbstripout"
     args: ["--version"]
-    expectedOutput: ["0.8.0"]
+    expectedOutput: ["0.8.1"]
 
   - name: "sqlcmd"
     command: "sqlcmd"
