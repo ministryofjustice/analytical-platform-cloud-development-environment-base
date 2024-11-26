@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.22.2"]
+    expectedOutput: ["aws-cli/2.22.5"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -87,7 +87,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.4.2"]
+    expectedOutput: ["0.4.5"]
 
   - name: "kubectl"
     command: "kubectl"
