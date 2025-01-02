@@ -66,6 +66,7 @@ apt-get update --yes
 apt-get install --yes \
   "apt-transport-https=2.7.14build2" \
   "ca-certificates=20240203" \
+  "cmake=3.28.3-1build7" \
   "curl=8.5.0-2ubuntu10.5" \
   "git=1:2.43.0-1ubuntu7.1" \
   "ffmpeg=7:6.1.1-3ubuntu5" \
