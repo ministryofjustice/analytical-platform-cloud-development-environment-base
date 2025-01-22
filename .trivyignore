@@ -1,6 +1,7 @@
 # Ubuntu
 CVE-2024-43882
 CVE-2024-53103
+CVE-2024-56658
 
 # Python
 ## setuptools
@@ -19,5 +20,5 @@ CVE-2024-0057
 ## aws-sso
 CVE-2024-41110 # Vulnerability in github.com/docker/docker, but we don't run Docker on CDE
 CVE-2024-34156
- CVE-2024-45337
- CVE-2024-45338
+CVE-2024-45337
+CVE-2024-45338
