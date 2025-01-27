@@ -39,6 +39,33 @@ ENV CONTAINER_USER="analyticalplatform" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}"
 
+# renovate: depName=apt-transport-https
+ENV APT_TRANSPORT_HTTPS_VERSION="2.7.14build2"
+# renovate: depName=ca-certificates
+ENV CA_CERTIFICATES_VERSION="20240203"
+# renovate: depName=curl
+ENV CURL_VERSION="8.5.0-2ubuntu10.6"
+# renovate: depName=git
+ENV GIT_VERSION="1:2.43.0-1ubuntu7.2"
+# renovate: depName=ffmpeg
+ENV FFMPEG_VERSION="7:6.1.1-3ubuntu5"
+# renovate: depName=jq
+ENV JQ_VERSION="1.7.1-3build1"
+# renovate: depName=mandoc
+ENV MANDOC_VERSION="1.14.6-1"
+# renovate: depName=less
+ENV LESS_VERSION="590-2ubuntu2.1"
+# renovate: depName=python3.12
+ENV PYTHON3_12_VERSION="3.12.3-1ubuntu0.4"
+# renovate: depName=python3-pip
+ENV PYTHON3_PIP_VERSION="24.0+dfsg-1ubuntu1.1"
+# renovate: depName=vim
+ENV VIM_VERSION="2:9.1.0016-1ubuntu7.6"
+# renovate: depName=unixodbc
+ENV UNIXODBC_VERSION="2.3.12-1ubuntu0.24.04.1"
+# renovate: depName=unzip
+ENV UNZIP_VERSION="6.0-28ubuntu4.1"
+
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
 # User Configuration
@@ -64,19 +91,19 @@ RUN <<EOF
 apt-get update --yes
 
 apt-get install --yes \
-  "apt-transport-https=2.7.14build2" \
-  "ca-certificates=20240203" \
-  "curl=8.5.0-2ubuntu10.6" \
-  "git=1:2.43.0-1ubuntu7.2" \
-  "ffmpeg=7:6.1.1-3ubuntu5" \
-  "jq=1.7.1-3build1" \
-  "mandoc=1.14.6-1" \
-  "less=590-2ubuntu2.1" \
-  "python3.12=3.12.3-1ubuntu0.4" \
-  "python3-pip=24.0+dfsg-1ubuntu1.1" \
-  "vim=2:9.1.0016-1ubuntu7.6" \
-  "unixodbc=2.3.12-1ubuntu0.24.04.1" \
-  "unzip=6.0-28ubuntu4.1"
+  "apt-transport-https=${APT_TRANSPORT_HTTPS_VERSION}" \
+  "ca-certificates=${CA_CERTIFICATES_VERSION}" \
+  "curl=${CURL_VERSION}" \
+  "git=${GIT_VERSION}" \
+  "ffmpeg=${FFMPEG_VERSION}" \
+  "jq=${JQ_VERSION}" \
+  "mandoc=${MANDOC_VERSION}" \
+  "less=${LESS_VERSION}" \
+  "python3.12=${PYTHON3_12_VERSION}" \
+  "python3-pip=${PYTHON3_PIP_VERSION}" \
+  "vim=${VIM_VERSION}" \
+  "unixodbc=${UNIXODBC_VERSION}" \
+  "unzip=${UNZIP_VERSION}"
 
 apt-get clean --yes
 
