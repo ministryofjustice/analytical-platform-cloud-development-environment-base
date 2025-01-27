@@ -13,7 +13,7 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["regex"],
+      "matchManagers": ["custom.regex"],
       "enabled": true
     }
   ]
