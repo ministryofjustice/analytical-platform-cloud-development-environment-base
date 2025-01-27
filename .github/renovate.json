@@ -7,7 +7,7 @@
       "matchStrings": [
         "#\\s*renovate:\\s*?(release=(?<release>.*?))?\\s*depName=(?<depName>.*?)?\\sENV .*?_VERSION=\"(?<currentValue>.*)\""
       ],
-      "registryUrlTemplate": "https://ports.ubuntu.com/ubuntu-ports?{{#if release }}release={{release}}{{else}}suite=stable{{/if}}&components=main,universe&binaryArch=amd64",
+      "registryUrlTemplate": "https://archive.ubuntu.com/ubuntu-ports?{{#if release }}release={{release}}{{else}}suite=stable{{/if}}&components=main,universe&binaryArch=amd64",
       "datasourceTemplate": "deb"
     }
   ],
