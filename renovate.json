@@ -1,0 +1,20 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^Dockerfile$"],
+      "matchStrings": [
+        "#\\s*renovate:\\s*?(release=(?<release>.*?))?\\s*depName=(?<depName>.*?)?\\sENV .*?_VERSION=\"(?<currentValue>.*)\""
+      ],
+      "registryUrlTemplate": "https://public.ecr.aws/ubuntu/ubuntu?{{#if release }}release={{release}}{{else}}suite=stable{{/if}}&components=main,universe&binaryArch=amd64",
+      "datasourceTemplate": "deb"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["regex"],
+      "enabled": true
+    }
+  ]
+}
