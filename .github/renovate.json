@@ -11,6 +11,7 @@
       "datasourceTemplate": "deb"
     }
   ],
+  "enabledManagers": ["custom.regex"],
   "packageRules": [
     {
       "matchManagers": ["custom.regex"],
