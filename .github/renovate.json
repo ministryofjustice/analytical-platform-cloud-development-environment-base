@@ -17,7 +17,7 @@
       "enabled": true
     },
     {
-      "matchDepTypes": ["github-actions", "devcontainer"],
+      "matchDepTypes": ["github-actions", "devcontainer", "dockerfile"],
       "enabled": false
     }
   ]
