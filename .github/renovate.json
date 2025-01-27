@@ -15,6 +15,10 @@
     {
       "matchManagers": ["custom.regex"],
       "enabled": true
+    },
+    {
+      "matchDepTypes": ["github-actions", "devcontainer"],
+      "enabled": false
     }
   ]
 }
