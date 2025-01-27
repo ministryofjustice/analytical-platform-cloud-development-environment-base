@@ -5,7 +5,7 @@
       "customType": "regex",
       "fileMatch": ["^Dockerfile$"],
       "matchStrings": [
-        "#\\s*renovate:\\s*depName=(?<depName>.*?)?\\sENV .*?_VERSION=\"(?<currentValue>.*)\""
+        "#\\s*renovate:\\s*?(release=(?<release>.*?))?\\s*depName=(?<depName>.*?)?\\sENV .*?_VERSION=\"(?<currentValue>.*)\""
       ],
       "registryUrlTemplate": "https://archive.ubuntu.com/ubuntu/?release=noble-updates&components=main,universe&binaryArch=amd64",
       "datasourceTemplate": "deb"
