@@ -11,10 +11,6 @@ CVE-2024-6345 # TODO: @jacobwoffenden - Figure out where this comes from and pat
 ## We are running the latest dotnet-sdk from Ubuntu
 CVE-2024-0057
 CVE-2024-38095
-CVE-2024-0057
-CVE-2024-0057
-CVE-2024-38095
-CVE-2024-0057
 
 # Go
 ## aws-sso
