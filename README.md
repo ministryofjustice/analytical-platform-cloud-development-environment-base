@@ -74,7 +74,10 @@ docker image inspect --format='{{ index .RepoDigests 0 }}' public.ecr.aws/ubuntu
 
 ### Base APT Packages
 
-The latest versions of the APT packages can be obtained by running the following
+The latest versions of the APT packages are managed by [Renovate](https://docs.renovatebot.com/) via the [Renovate `deb` data source](https://docs.renovatebot.com/modules/datasource/deb/) which matches packages through `regex` (regular expression) matching the `# renovate` comments in the [Dockerfile](./Dockerfile).
+The [renovate config](./.github/renovate.json) also disables organisation-level settings for Renovate, so it can compliment rather than conflict with Dependabot.
+
+If you need to manually get latest versions of the APT packages, they can be obtained by running the following
 
 ```bash
 docker run -it --rm --platform linux/amd64 public.ecr.aws/ubuntu/ubuntu:24.04
