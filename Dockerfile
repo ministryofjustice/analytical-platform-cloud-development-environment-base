@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM public.ecr.aws/ubuntu/ubuntu@sha256:da20fb875cfefd317c49e7aaf3998d3e5ad42c5b20f34a0eec6dca2fe4fbb8f4
+FROM public.ecr.aws/ubuntu/ubuntu@sha256:562b04c2e7aedb72b0f919d659f6c607087f839d584037f096d9cd97b308006e
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,9 +9,9 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.23.3" \
+    AWS_CLI_VERSION="2.23.13" \
     AWS_SSO_CLI_VERSION="1.17.0" \
-    CLOUD_PLATFORM_CLI_VERSION="1.37.14" \
+    CLOUD_PLATFORM_CLI_VERSION="1.39.5" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
@@ -20,8 +20,8 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CUDA_VERSION="12.6.3" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.112-0ubuntu1~24.04.1" \
-    HELM_VERSION="3.16.4" \
-    KUBECTL_VERSION="1.29.12" \
+    HELM_VERSION="3.17.0" \
+    KUBECTL_VERSION="1.29.13" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
