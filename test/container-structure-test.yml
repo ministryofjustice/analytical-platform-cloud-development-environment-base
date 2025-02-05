@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.23.3"]
+    expectedOutput: ["aws-cli/2.23.13"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -92,17 +92,17 @@ commandTests:
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.29.12"]
+    expectedOutput: ["Client Version: v1.29.13"]
 
   - name: "helm"
     command: "helm"
     args: ["version"]
-    expectedOutput: ["3.16.4"]
+    expectedOutput: ["3.17.0"]
 
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.37.14"]
+    expectedOutput: ["1.39.5"]
 
   - name: "vim"
     command: "vim"
