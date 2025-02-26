@@ -59,7 +59,7 @@ ENV MANDOC_VERSION="1.14.6-1"
 # renovate: release=noble-updates depName=less
 ENV LESS_VERSION="590-2ubuntu2.1"
 # renovate: release=noble-updates depName=python3.12
-ENV PYTHON3_12_VERSION="3.12.3-1ubuntu0.4"
+ENV PYTHON3_12_VERSION="3.12.3-1ubuntu0.5"
 # renovate: release=noble-updates depName=python3-pip
 ENV PYTHON3_PIP_VERSION="24.0+dfsg-1ubuntu1.1"
 # renovate: release=noble-updates depName=vim
