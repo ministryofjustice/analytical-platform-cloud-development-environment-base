@@ -40,7 +40,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     OLLAMA_VERSION="0.5.7" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.4.2-1.2404.0"
+    R_VERSION="4.4.3-1.2404.0"
 
 # renovate: release=noble depName=apt-transport-https
 ENV APT_TRANSPORT_HTTPS_VERSION="2.7.14build2"
