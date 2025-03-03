@@ -306,8 +306,8 @@ echo "deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nv
 apt-get update --yes
 
 apt-get install --yes \
-  "cuda-cudart-12-6=${NVIDIA_CUDA_CUDART_VERSION}" \
-  "cuda-compat-12-6=${NVIDIA_CUDA_COMPAT_VERSION}"
+  "cuda-cudart-12-8=${NVIDIA_CUDA_CUDART_VERSION}" \
+  "cuda-compat-12-8=${NVIDIA_CUDA_COMPAT_VERSION}"
 
 echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf
 echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
