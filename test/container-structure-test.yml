@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.23.13"]
+    expectedOutput: ["aws-cli/2.24.15"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -52,7 +52,7 @@ commandTests:
   - name: "conda"
     command: "conda"
     args: ["--version"]
-    expectedOutput: ["conda 24.11.1"]
+    expectedOutput: ["conda 25.1.1-2"]
 
   - name: "python (conda)"
     command: "python"
@@ -67,7 +67,7 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v22.13.1"]
+    expectedOutput: ["v22.14.0"]
 
   - name: "corretto"
     command: "java"
@@ -87,7 +87,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.5.7"]
+    expectedOutput: ["0.5.12"]
 
   - name: "kubectl"
     command: "kubectl"
@@ -97,12 +97,12 @@ commandTests:
   - name: "helm"
     command: "helm"
     args: ["version"]
-    expectedOutput: ["3.17.0"]
+    expectedOutput: ["3.17.1"]
 
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.39.5"]
+    expectedOutput: ["1.40.0"]
 
   - name: "vim"
     command: "vim"
