@@ -174,7 +174,7 @@ Releases for Ollama are maintained on [GitHub](https://github.com/ollama/ollama/
 ### NVIDIA CUDA
 
 > [!TIP]
-> Running the commands below is not enough to ensure that the latest version of NVIDIA CUDA is install. Double check there is not a minor or major version increase by inspecting the contents of the [CUDA repository](https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/).
+> Running the commands below is not enough to ensure that the latest version of NVIDIA CUDA is install. Double check there is not a minor or major version increase by inspecting the contents of the [CUDA repository](https://gitlab.com/nvidia/container-images/cuda/-/tree/master/dist).
 
 The latest version of NVIDIA can be obtained by running:
 
