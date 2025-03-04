@@ -1,1 +1,13 @@
-# Testing removing CVEs
+# .NET
+## CVE-2024-0057
+CVE-2024-0057
+
+# Go
+## CVE-2024-34156 (usr/local/bin/aws-sso)
+CVE-2024-34156
+
+## CVE-2024-45337 (usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
+CVE-2024-45337
+
+## CVE-2024-45338 (usr/bin/ollama, usr/local/bin/cloud-platform, usr/local/bin/kubectl)
+CVE-2024-45338
