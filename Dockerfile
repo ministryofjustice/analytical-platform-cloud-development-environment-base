@@ -17,6 +17,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
     CORRETTO_VERSION="1:21.0.6.7-1" \
+    CUDA_VERSION="12.8.0" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.112-0ubuntu1~24.04.1" \
     HELM_VERSION="3.17.1" \
