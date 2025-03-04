@@ -173,6 +173,9 @@ Releases for Ollama are maintained on [GitHub](https://github.com/ollama/ollama/
 
 ### NVIDIA CUDA
 
+> [!TIP]
+> Running the commands below is not enough to ensure that the latest version of NVIDIA CUDA is installed. Double check there is not a minor or major version increase by inspecting the contents of the [CUDA repository](https://gitlab.com/nvidia/container-images/cuda/-/tree/master/dist).
+
 The latest version of NVIDIA can be obtained by running:
 
 ```bash
@@ -194,9 +197,9 @@ echo "deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nv
 
 apt-get update --yes
 
-apt-cache policy cuda-cudart-12-6
+apt-cache policy cuda-cudart-12-8
 
-apt-cache policy cuda-compat-12-6
+apt-cache policy cuda-compat-12-8
 ```
 
 ### Kubernetes CLI

@@ -9,18 +9,18 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.23.13" \
+    AWS_CLI_VERSION="2.24.15" \
     AWS_SSO_CLI_VERSION="1.17.0" \
-    CLOUD_PLATFORM_CLI_VERSION="1.39.5" \
+    CLOUD_PLATFORM_CLI_VERSION="1.40.1" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
     CORRETTO_VERSION="1:21.0.6.7-1" \
-    CUDA_VERSION="12.6.3" \
+    CUDA_VERSION="12.8.0" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.112-0ubuntu1~24.04.1" \
-    HELM_VERSION="3.17.0" \
+    HELM_VERSION="3.17.1" \
     KUBECTL_VERSION="1.29.13" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
@@ -28,16 +28,16 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64" \
     MICROSOFT_SQL_ODBC_VERSION="18.4.1.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.4.1.1-1" \
-    MINICONDA_SHA256="636b209b00b6673471f846581829d4b96b9c3378679925a59a584257c3fef5a3" \
-    MINICONDA_VERSION="24.11.1-0" \
+    MINICONDA_SHA256="4766d85b5f7d235ce250e998ebb5a8a8210cbd4f2b0fea4d2177b3ed9ea87884" \
+    MINICONDA_VERSION="25.1.1-2" \
     NBSTRIPOUT_VERSION="0.8.1" \
-    NODE_LTS_VERSION="22.13.1" \
-    NVIDIA_CUDA_COMPAT_VERSION="560.35.05-0ubuntu1" \
-    NVIDIA_CUDA_CUDART_VERSION="12.6.77-1" \
+    NODE_LTS_VERSION="22.14.0" \
+    NVIDIA_CUDA_COMPAT_VERSION="570.86.15-0ubuntu1" \
+    NVIDIA_CUDA_CUDART_VERSION="12.8.57-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.5.7" \
+    OLLAMA_VERSION="0.5.12" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.4.3-1.2404.0"
@@ -307,8 +307,8 @@ echo "deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nv
 apt-get update --yes
 
 apt-get install --yes \
-  "cuda-cudart-12-6=${NVIDIA_CUDA_CUDART_VERSION}" \
-  "cuda-compat-12-6=${NVIDIA_CUDA_COMPAT_VERSION}"
+  "cuda-cudart-12-8=${NVIDIA_CUDA_CUDART_VERSION}" \
+  "cuda-compat-12-8=${NVIDIA_CUDA_COMPAT_VERSION}"
 
 echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf
 echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
