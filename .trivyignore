@@ -1,24 +1,16 @@
-# Ubuntu
-CVE-2024-43882
-CVE-2024-53103
-CVE-2024-56658
-CVE-2024-53140
-CVE-2024-56672
-CVE-2024-57798
-CVE-2024-56595
-
-# Python
-## setuptools
-CVE-2024-6345 # TODO: @jacobwoffenden - Figure out where this comes from and patch it
-
 # .NET
-## We are running the latest dotnet-sdk from Ubuntu
+## CVE-2024-0057
 CVE-2024-0057
-CVE-2024-38095
 
 # Go
-## aws-sso
-CVE-2024-41110 # Vulnerability in github.com/docker/docker, but we don't run Docker on CDE
+## CVE-2024-34156 (usr/local/bin/aws-sso)
 CVE-2024-34156
+
+## CVE-2024-41110 (usr/local/bin/aws-sso)
+CVE-2024-41110
+
+## CVE-2024-45337 (usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
 CVE-2024-45337
+
+## CVE-2024-45338 (usr/bin/ollama, usr/local/bin/cloud-platform, usr/local/bin/kubectl)
 CVE-2024-45338
