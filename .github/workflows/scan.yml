@@ -59,6 +59,5 @@ jobs:
           payload: |
             {
               "repository": "${{ github.repository }}",
-              "run_id": "${{ github.run_id }}",
-              "job": "${{ github.job }}"
+              "run_id": "${{ github.run_id }}"
             }
