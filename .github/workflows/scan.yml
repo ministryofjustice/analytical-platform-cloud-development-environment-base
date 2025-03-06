@@ -50,7 +50,7 @@ jobs:
 
       - name: DEBUG
         # if: github.event_name == 'schedule'
-        if: steps.scan.outcome == 'failure'
+        if: failure() && steps.scan.outcome == 'failure'
         id: debug
         run: |
           echo "OUTCOME: ${{ steps.scan.outcome }}"
