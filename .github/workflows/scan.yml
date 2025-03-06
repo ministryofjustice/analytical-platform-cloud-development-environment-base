@@ -6,7 +6,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 3 * * *" # Daily at 3AM UTC
+    - cron: "0 9 * * 1-5" # Every weekday at 9AM UTC
 
 permissions: {}
 
@@ -49,8 +49,7 @@ jobs:
           exit-code: 1
 
       - name: Slack CVE Alert
-        # if: github.event_name == 'schedule'
-        if: failure() && steps.scan.outcome == 'failure'
+        if: failure() && github.event_name == 'schedule' && steps.scan.outcome == 'failure'
         id: slack_cve_alert
         uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
         with:
