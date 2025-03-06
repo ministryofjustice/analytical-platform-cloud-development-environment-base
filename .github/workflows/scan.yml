@@ -49,6 +49,8 @@ jobs:
           exit-code: 1
 
       - name: DEBUG
+        # if: github.event_name == 'schedule'
+        if: steps.scan.outcome == 'failure'
         id: debug
         run: |
           echo "OUTCOME: ${{ steps.scan.outcome }}"
