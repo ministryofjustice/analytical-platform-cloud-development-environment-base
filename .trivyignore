@@ -1,6 +1,6 @@
 # .NET
 ## CVE-2024-0057
-CVE-2024-0057
+#CVE-2024-0057 # Commenting out to trigger a failure
 
 # Go
 ## CVE-2024-34156 (usr/local/bin/aws-sso)

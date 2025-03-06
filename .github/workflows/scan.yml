@@ -47,3 +47,9 @@ jobs:
           severity: HIGH,CRITICAL
           ignore-unfixed: true
           exit-code: 1
+
+      - name: DEBUG
+        id: debug
+        run: |
+          echo "OUTCOME: ${{ steps.scan.outcome }}"
+          echo "EXIT CODE: ${{ steps.scan.outputs.exit-code }}"
