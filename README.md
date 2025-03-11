@@ -75,7 +75,7 @@ docker image inspect --format='{{ index .RepoDigests 0 }}' public.ecr.aws/ubuntu
 ### Base APT Packages
 
 The latest versions of the APT packages are managed by [Renovate](https://docs.renovatebot.com/) via the [Renovate `deb` data source](https://docs.renovatebot.com/modules/datasource/deb/) which matches packages through `regex` (regular expression) matching the `# renovate` comments in the [Dockerfile](./Dockerfile).
-The [renovate config](./.github/renovate.json) also disables organisation-level settings for Renovate, so it can compliment rather than conflict with Dependabot.
+The [Renovate config](./.github/renovate.json) also disables organisation-level settings for Renovate, so it can compliment rather than conflict with Dependabot.
 
 If you need to manually get latest versions of the APT packages, they can be obtained by running the following
 
@@ -97,7 +97,7 @@ Releases for AWS SSO CLI are provided on [GitHub](https://github.com/synfinatic/
 
 ### Miniconda
 
-Releases for Miniconda are provided on [docs.anaconda.com](https://docs.anaconda.com/free/miniconda/miniconda-release-notes/), from there we can use [repo.anaconda.com](https://repo.anaconda.com/miniconda/) to determine the artefact name and SHA256 based on a version. We currently use `py312`, `Linux` and `x86_64`variant.
+Releases for Miniconda are provided on [anaconda.com](https://www.anaconda.com/docs/getting-started/miniconda/release-notes), from there we can use [repo.anaconda.com](https://repo.anaconda.com/miniconda/) to determine the artefact name and SHA256 based on a version. We currently use `py312`, `Linux` and `x86_64`variant.
 
 ### Node.js
 

@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM public.ecr.aws/ubuntu/ubuntu@sha256:562b04c2e7aedb72b0f919d659f6c607087f839d584037f096d9cd97b308006e
+FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:562b04c2e7aedb72b0f919d659f6c607087f839d584037f096d9cd97b308006e
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.24.15" \
+    AWS_CLI_VERSION="2.24.20" \
     AWS_SSO_CLI_VERSION="1.17.0" \
     CLOUD_PLATFORM_CLI_VERSION="1.40.1" \
     CONTAINER_GID="1000" \
@@ -21,7 +21,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.112-0ubuntu1~24.04.1" \
     HELM_VERSION="3.17.1" \
-    KUBECTL_VERSION="1.29.13" \
+    KUBECTL_VERSION="1.30.10" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
@@ -32,12 +32,12 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MINICONDA_VERSION="25.1.1-2" \
     NBSTRIPOUT_VERSION="0.8.1" \
     NODE_LTS_VERSION="22.14.0" \
-    NVIDIA_CUDA_COMPAT_VERSION="570.86.15-0ubuntu1" \
-    NVIDIA_CUDA_CUDART_VERSION="12.8.57-1" \
+    NVIDIA_CUDA_COMPAT_VERSION="570.124.06-0ubuntu1" \
+    NVIDIA_CUDA_CUDART_VERSION="12.8.90-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.5.12" \
+    OLLAMA_VERSION="0.5.13" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.4.3-1.2404.0"
