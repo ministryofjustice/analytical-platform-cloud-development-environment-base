@@ -40,6 +40,8 @@ This image is built on Ubuntu 24.04 LTS and includes the following software:
 
 - [nbstripout](https://github.com/kynan/nbstripout)
 
+- [uv](https://github.com/astral-sh/uv)
+
 ## Running Locally
 
 ### Build
@@ -245,6 +247,10 @@ apt-cache policy mssql-tools18
 ### nbstripout
 
 Release for nbstripout are maintained on [GitHub](https://github.com/kynan/nbstripout/releases).
+
+### uv
+
+Release for uv are maintained on [GitHub](https://github.com/astral-sh/uv/releases).
 
 ## Maintenance
 

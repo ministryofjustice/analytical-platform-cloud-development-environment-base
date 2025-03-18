@@ -40,7 +40,8 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     OLLAMA_VERSION="0.6.1" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.4.3-1.2404.0"
+    R_VERSION="4.4.3-1.2404.0" \
+    UV_VERSION="0.6.7"
 
 # renovate: release=noble depName=apt-transport-https
 ENV APT_TRANSPORT_HTTPS_VERSION="2.7.14build2"
@@ -376,6 +377,21 @@ ACCEPT_EULA=Y apt-get install --yes \
 apt-get clean --yes
 
 rm --force --recursive /var/lib/apt/lists/* microsoft.asc microsoft-prod.gpg
+EOF
+
+# uv
+RUN <<EOF
+curl --location --fail-with-body \
+  "https://github.com/astral-sh/uv/releases/download/${UV_VERSION}/uv-x86_64-unknown-linux-gnu.tar.gz" \
+  --output uv.tar.gz
+
+tar --extract --file uv.tar.gz
+
+install --owner nobody --group nogroup --mode 0755 uv-x86_64-unknown-linux-gnu/uv /usr/local/bin/uv
+
+install --owner nobody --group nogroup --mode 0755 uv-x86_64-unknown-linux-gnu/uvx /usr/local/bin/uvx
+
+rm --force --recursive uv.tar.gz uv-x86_64-unknown-linux-gnu
 EOF
 
 USER ${CONTAINER_USER}

@@ -119,6 +119,16 @@ commandTests:
     args: ["-?"]
     expectedOutput: ["Version 18.4.0001.1 Linux"]
 
+  - name: "uv"
+    command: "uv"
+    args: ["--version"]
+    expectedOutput: ["uv 0.6.7"]
+
+  - name: "uvx"
+    command: "uvx"
+    args: ["--version"]
+    expectedOutput: ["uv-tool-uvx 0.6.7"]
+
 fileExistenceTests:
   - name: "/opt/analytical-platform"
     path: "/opt/analytical-platform"
