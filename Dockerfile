@@ -64,7 +64,7 @@ ENV PYTHON3_12_VERSION="3.12.3-1ubuntu0.5"
 # renovate: release=noble-updates depName=python3-pip
 ENV PYTHON3_PIP_VERSION="24.0+dfsg-1ubuntu1.1"
 # renovate: release=noble-updates depName=vim
-ENV VIM_VERSION="2:9.1.0016-1ubuntu7.6"
+ENV VIM_VERSION="2:9.1.0016-1ubuntu7.7"
 # renovate: release=noble-updates depName=unixodbc
 ENV UNIXODBC_VERSION="2.3.12-1ubuntu0.24.04.1"
 # renovate: release=noble-updates depName=unzip
