@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.24.24"]
+    expectedOutput: ["aws-cli/2.25.8"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -87,7 +87,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.6.1"]
+    expectedOutput: ["0.6.3"]
 
   - name: "kubectl"
     command: "kubectl"
@@ -102,7 +102,7 @@ commandTests:
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.40.1"]
+    expectedOutput: ["1.41.0"]
 
   - name: "vim"
     command: "vim"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.6.7"]
+    expectedOutput: ["uv 0.6.11"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uv-tool-uvx 0.6.7"]
+    expectedOutput: ["uv-tool-uvx 0.6.11"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
@@ -203,8 +203,8 @@ fileExistenceTests:
     path: "/usr/local/cuda/lib64/libcudart.so.12"
     shouldExist: true
 
-  - name: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.4.so.1.1"
-    path: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.4.so.1.1"
+  - name: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.5.so.1.1"
+    path: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.5.so.1.1"
     shouldExist: true
 
 metadataTest:

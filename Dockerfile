@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:562b04c2e7aedb72b0f919d659f6c607087f839d584037f096d9cd97b308006e
+FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:4d860156ddae5923ed93d6b161c6b2f0f437d8086210f087db85b83fc2689914
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,9 +9,9 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.24.24" \
+    AWS_CLI_VERSION="2.25.8" \
     AWS_SSO_CLI_VERSION="1.17.0" \
-    CLOUD_PLATFORM_CLI_VERSION="1.40.1" \
+    CLOUD_PLATFORM_CLI_VERSION="1.41.0" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
@@ -26,7 +26,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64" \
-    MICROSOFT_SQL_ODBC_VERSION="18.4.1.1-1" \
+    MICROSOFT_SQL_ODBC_VERSION="18.5.1.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.4.1.1-1" \
     MINICONDA_SHA256="4766d85b5f7d235ce250e998ebb5a8a8210cbd4f2b0fea4d2177b3ed9ea87884" \
     MINICONDA_VERSION="25.1.1-2" \
@@ -37,11 +37,11 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.6.1" \
+    OLLAMA_VERSION="0.6.3" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.4.3-1.2404.0" \
-    UV_VERSION="0.6.7"
+    UV_VERSION="0.6.11"
 
 # renovate: release=noble depName=apt-transport-https
 ENV APT_TRANSPORT_HTTPS_VERSION="2.7.14build2"
