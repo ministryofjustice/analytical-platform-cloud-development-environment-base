@@ -22,5 +22,7 @@ jobs:
       - name: Get Latest Release
         id: get_latest_release
         shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release list --repo ${{ github.repository }} --exclude-drafts --exclude-pre-releases --limit 1
