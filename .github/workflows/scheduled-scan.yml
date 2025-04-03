@@ -19,10 +19,44 @@ jobs:
     permissions:
       contents: read
     steps:
-      - name: Get Latest Release
+      - name: Get Latest Release Tag
         id: get_latest_release
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release list --repo ${{ github.repository }} --exclude-drafts --exclude-pre-releases --limit 1
+          latestReleaseTag=$(gh release list --repo ${{ github.repository }} --exclude-drafts --exclude-pre-releases --json "isLatest,tagName" | jq -r '.[] | select(.isLatest == true) | .tagName')
+          export latestReleaseTag
+
+          echo "latest-release-tag=$latestReleaseTag" >>"${GITHUB_ENV}"
+
+      - name: Clean Actions Runner
+        id: clean_actions_runner
+        uses: ministryofjustice/github-actions/clean-actions-runner@db1a54895bf5fb975c60af47e5a3aab96505ca3e # v18.6.0
+        with:
+          confirm: true
+
+      - name: Scan
+        id: scan
+        uses: aquasecurity/trivy-action@6c175e9c4083a92bbca2f9724c8a5e33bc2d97a5 # v0.30.0
+        env:
+          TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
+          TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db:1
+        with:
+          image-ref: ghcr.io/${{ github.repository }}:${{ env.latest-release-tag }}
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: 1
+
+      - name: Slack CVE Alert
+        if: failure() && steps.scan.outcome == 'failure'
+        id: slack_cve_alert
+        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
+        with:
+          webhook-type: incoming-webhook
+          webhook: ${{ secrets.CVE_SCAN_SLACK_WEBHOOK_URL }}
+          payload: |
+            {
+              "repository": "${{ github.repository }}",
+              "run_id": "${{ github.run_id }}"
+            }
