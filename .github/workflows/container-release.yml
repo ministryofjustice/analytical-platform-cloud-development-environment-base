@@ -17,4 +17,4 @@ jobs:
       contents: write
       id-token: write
       packages: write
-    uses: ministryofjustice/analytical-platform-github-actions/.github/workflows/reusable-container-release.yml@55f446c6e2fc8856ec59a71ae85bf26b9e55588f # v0.0.1
+    uses: ministryofjustice/analytical-platform-github-actions/.github/workflows/reusable-container-release.yml@a428f866f5c0c12312ece3f21ea99573104078fd # v0.0.2
