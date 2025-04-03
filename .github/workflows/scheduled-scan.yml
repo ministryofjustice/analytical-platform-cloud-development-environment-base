@@ -1,0 +1,26 @@
+---
+name: ⏰ Scheduled Scan
+
+on:
+  schedule:
+    - cron: "0 9 * * 1-5" # Every weekday at 9AM UTC
+  workflow_dispatch:
+  ## TEST ##
+  pull_request:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  scheduled-scan:
+    name: Scheduled Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Get Latest Release
+        id: get_latest_release
+        shell: bash
+        run: |
+          gh release list --repo ${{ github.repository }} --exclude-drafts --exclude-pre-releases --limit 1
