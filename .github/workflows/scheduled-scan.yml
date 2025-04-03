@@ -39,6 +39,8 @@ jobs:
       - name: Download .trivyignore
         id: download_trivyignore
         shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           downloadTrivyignore=$(gh api "repos/${{ github.repository }}/contents/.trivyignore?ref=${{ env.latest-release-tag }}" 2>/dev/null || true)
           export downloadTrivyignore
