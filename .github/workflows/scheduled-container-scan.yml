@@ -5,10 +5,6 @@ on:
   schedule:
     - cron: "0 9 * * 1-5" # Every weekday at 9AM UTC
   workflow_dispatch:
-  ### TEST ###
-  pull_request:
-    branches:
-      - main
 
 permissions: {}
 
