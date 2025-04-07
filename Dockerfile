@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.25.8" \
+    AWS_CLI_VERSION="2.25.11" \
     AWS_SSO_CLI_VERSION="1.17.0" \
     CLOUD_PLATFORM_CLI_VERSION="1.41.0" \
     CONTAINER_GID="1000" \
@@ -37,11 +37,11 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.6.3" \
+    OLLAMA_VERSION="0.6.4" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.4.3-1.2404.0" \
-    UV_VERSION="0.6.11"
+    UV_VERSION="0.6.12"
 
 # renovate: release=noble depName=apt-transport-https
 ENV APT_TRANSPORT_HTTPS_VERSION="2.7.14build2"

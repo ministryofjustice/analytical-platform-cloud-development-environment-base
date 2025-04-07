@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.25.8"]
+    expectedOutput: ["aws-cli/2.25.11"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -87,7 +87,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.6.3"]
+    expectedOutput: ["0.6.4"]
 
   - name: "kubectl"
     command: "kubectl"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.6.11"]
+    expectedOutput: ["uv 0.6.12"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uv-tool-uvx 0.6.11"]
+    expectedOutput: ["uv-tool-uvx 0.6.12"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
