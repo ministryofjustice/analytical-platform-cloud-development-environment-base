@@ -77,12 +77,12 @@ commandTests:
   - name: "dotnet"
     command: "dotnet"
     args: ["--version"]
-    expectedOutput: ["8.0.114"]
+    expectedOutput: ["8.0.115"]
 
   - name: "r"
     command: "R"
     args: ["--version"]
-    expectedOutput: ["R version 4.4.3"]
+    expectedOutput: ["R version 4.5.0"]
 
   - name: "ollama"
     command: "ollama"
