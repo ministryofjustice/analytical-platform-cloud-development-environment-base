@@ -14,3 +14,6 @@ CVE-2024-45337
 
 ## CVE-2024-45338 (usr/bin/ollama, usr/local/bin/cloud-platform, usr/local/bin/kubectl)
 CVE-2024-45338
+
+## CVE-2025-22869 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
+CVE-2025-22869
