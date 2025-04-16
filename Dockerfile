@@ -19,7 +19,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CORRETTO_VERSION="1:21.0.6.7-1" \
     CUDA_VERSION="12.8.1" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="8.0.114-0ubuntu1~24.04.1" \
+    DOTNET_SDK_VERSION="8.0.115-0ubuntu1~24.04.1" \
     HELM_VERSION="3.17.2" \
     KUBECTL_VERSION="1.30.10" \
     LANG="C.UTF-8" \
@@ -40,7 +40,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     OLLAMA_VERSION="0.6.4" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.4.3-1.2404.0" \
+    R_VERSION="4.5.0-1.2404.0" \
     UV_VERSION="0.6.12"
 
 # renovate: release=noble depName=apt-transport-https
