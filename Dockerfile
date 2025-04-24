@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:4d860156ddae5923ed93d6b161c6b2f0f437d8086210f087db85b83fc2689914
+FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:e3b7fe80bcb7bd1b8c2301b8cf88973aa04774afdcf34d645897117dcbc0bc4a
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,19 +9,19 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.25.11" \
+    AWS_CLI_VERSION="2.27.0" \
     AWS_SSO_CLI_VERSION="1.17.0" \
-    CLOUD_PLATFORM_CLI_VERSION="1.41.0" \
+    CLOUD_PLATFORM_CLI_VERSION="1.43.0" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
-    CORRETTO_VERSION="1:21.0.6.7-1" \
+    CORRETTO_VERSION="1:21.0.7.6-1" \
     CUDA_VERSION="12.8.1" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.115-0ubuntu1~24.04.1" \
-    HELM_VERSION="3.17.2" \
-    KUBECTL_VERSION="1.30.10" \
+    HELM_VERSION="3.17.3" \
+    KUBECTL_VERSION="1.30.12" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
@@ -31,17 +31,17 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MINICONDA_SHA256="4766d85b5f7d235ce250e998ebb5a8a8210cbd4f2b0fea4d2177b3ed9ea87884" \
     MINICONDA_VERSION="25.1.1-2" \
     NBSTRIPOUT_VERSION="0.8.1" \
-    NODE_LTS_VERSION="22.14.0" \
-    NVIDIA_CUDA_COMPAT_VERSION="570.124.06-0ubuntu1" \
+    NODE_LTS_VERSION="22.15.0" \
+    NVIDIA_CUDA_COMPAT_VERSION="570.133.20-0ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="12.8.90-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.6.4" \
+    OLLAMA_VERSION="0.6.6" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.5.0-1.2404.0" \
-    UV_VERSION="0.6.12"
+    R_VERSION="4.5.0-2.2404.0" \
+    UV_VERSION="0.6.16"
 
 # renovate: release=noble depName=apt-transport-https
 ENV APT_TRANSPORT_HTTPS_VERSION="2.7.14build2"
