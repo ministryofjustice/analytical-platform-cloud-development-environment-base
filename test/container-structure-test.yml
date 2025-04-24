@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.25.11"]
+    expectedOutput: ["aws-cli/2.27.0"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -67,12 +67,12 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v22.14.0"]
+    expectedOutput: ["v22.15.0"]
 
   - name: "corretto"
     command: "java"
     args: ["--version"]
-    expectedOutput: ["openjdk 21.0.6"]
+    expectedOutput: ["openjdk 21.0.7"]
 
   - name: "dotnet"
     command: "dotnet"
@@ -87,22 +87,22 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.6.4"]
+    expectedOutput: ["0.6.6"]
 
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.30.10"]
+    expectedOutput: ["Client Version: v1.30.12"]
 
   - name: "helm"
     command: "helm"
     args: ["version"]
-    expectedOutput: ["3.17.2"]
+    expectedOutput: ["3.17.3"]
 
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.41.0"]
+    expectedOutput: ["1.43.0"]
 
   - name: "vim"
     command: "vim"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.6.12"]
+    expectedOutput: ["uv 0.6.16"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uv-tool-uvx 0.6.12"]
+    expectedOutput: ["uv-tool-uvx 0.6.16"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
