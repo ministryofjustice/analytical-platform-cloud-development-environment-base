@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.27.0"]
+    expectedOutput: ["aws-cli/2.27.9"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -52,7 +52,7 @@ commandTests:
   - name: "conda"
     command: "conda"
     args: ["--version"]
-    expectedOutput: ["conda 25.1.1"]
+    expectedOutput: ["conda 25.3.1"]
 
   - name: "python (conda)"
     command: "python"
@@ -87,7 +87,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.6.6"]
+    expectedOutput: ["0.6.8"]
 
   - name: "kubectl"
     command: "kubectl"
@@ -102,7 +102,7 @@ commandTests:
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.43.0"]
+    expectedOutput: ["1.44.1"]
 
   - name: "vim"
     command: "vim"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.6.16"]
+    expectedOutput: ["uv 0.7.2"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uv-tool-uvx 0.6.16"]
+    expectedOutput: ["uvx 0.7.2"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
