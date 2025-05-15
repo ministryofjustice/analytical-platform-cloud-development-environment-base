@@ -9,8 +9,8 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.27.9" \
-    AWS_SSO_CLI_VERSION="1.17.0" \
+    AWS_CLI_VERSION="2.27.15" \
+    AWS_SSO_CLI_VERSION="2.0.0" \
     CLOUD_PLATFORM_CLI_VERSION="1.44.1" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
@@ -19,7 +19,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CORRETTO_VERSION="1:21.0.7.6-1" \
     CUDA_VERSION="12.9.0" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="8.0.115-0ubuntu1~24.04.1" \
+    DOTNET_SDK_VERSION="8.0.116-0ubuntu1~24.04.1" \
     HELM_VERSION="3.17.3" \
     KUBECTL_VERSION="1.30.12" \
     LANG="C.UTF-8" \
@@ -31,7 +31,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MINICONDA_SHA256="8937a2c9a86cfc5495ba2234476f89686beff5c8e0569b1ed5771a927c75107b" \
     MINICONDA_VERSION="25.3.1-1" \
     NBSTRIPOUT_VERSION="0.8.1" \
-    NODE_LTS_VERSION="22.15.0" \
+    NODE_LTS_VERSION="22.15.1" \
     NVIDIA_CUDA_COMPAT_VERSION="575.51.03-0ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="12.9.37-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
@@ -41,7 +41,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.5.0-3.2404.0" \
-    UV_VERSION="0.7.2"
+    UV_VERSION="0.7.3"
 
 # renovate: release=noble depName=apt-transport-https
 ENV APT_TRANSPORT_HTTPS_VERSION="2.7.14build2"
