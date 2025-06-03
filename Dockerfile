@@ -168,6 +168,7 @@ EOF
 # Installs AWS SSO CLI (https://github.com/synfinatic/aws-sso-cli)
 COPY --chown="${CONTAINER_USER}:${CONTAINER_GROUP}" --chmod=0644 src${ANALYTICAL_PLATFORM_DIRECTORY}/aws-sso/config.yaml ${ANALYTICAL_PLATFORM_DIRECTORY}/aws-sso/config.yaml
 # TODO: @jacobwoffenden - How do we make this persistent in the runtime environment?
+# checkov:skip=CKV_SECRET_6: Used to encrypt the AWS SSO configuration file, will be addressses as per the above TODO.
 ENV AWS_SSO_FILE_PASSWORD="analyticalplatform"
 RUN <<EOF
 curl --location --fail-with-body \
