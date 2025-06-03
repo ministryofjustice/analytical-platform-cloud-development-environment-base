@@ -42,12 +42,12 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.27.15"]
+    expectedOutput: ["aws-cli/2.27.27"]
 
   - name: "aws-sso"
     command: "aws-sso"
     args: ["version"]
-    expectedOutput: ["AWS SSO CLI Version 2.0.0"]
+    expectedOutput: ["AWS SSO CLI Version 2.0.3"]
 
   - name: "conda"
     command: "conda"
@@ -67,7 +67,7 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v22.15.1"]
+    expectedOutput: ["v22.16.0"]
 
   - name: "corretto"
     command: "java"
@@ -87,22 +87,22 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.6.8"]
+    expectedOutput: ["0.9.0"]
 
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.30.12"]
+    expectedOutput: ["Client Version: v1.30.13"]
 
   - name: "helm"
     command: "helm"
     args: ["version"]
-    expectedOutput: ["3.17.3"]
+    expectedOutput: ["3.18.2"]
 
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.44.1"]
+    expectedOutput: ["1.46.0"]
 
   - name: "vim"
     command: "vim"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.7.3"]
+    expectedOutput: ["uv 0.7.9"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.7.3"]
+    expectedOutput: ["uvx 0.7.9"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
