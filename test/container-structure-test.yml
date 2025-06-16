@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.27.27"]
+    expectedOutput: ["aws-cli/2.27.35"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -102,7 +102,7 @@ commandTests:
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.46.0"]
+    expectedOutput: ["1.46.§"]
 
   - name: "vim"
     command: "vim"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.7.9"]
+    expectedOutput: ["uv 0.7.13"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.7.9"]
+    expectedOutput: ["uvx 0.7.13"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
