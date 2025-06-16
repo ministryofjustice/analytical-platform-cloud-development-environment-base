@@ -77,7 +77,7 @@ commandTests:
   - name: "dotnet"
     command: "dotnet"
     args: ["--version"]
-    expectedOutput: ["8.0.116"]
+    expectedOutput: ["8.0.117"]
 
   - name: "r"
     command: "R"
@@ -102,7 +102,7 @@ commandTests:
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.46.§"]
+    expectedOutput: ["1.46.1"]
 
   - name: "vim"
     command: "vim"
