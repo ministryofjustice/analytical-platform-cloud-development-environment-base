@@ -40,7 +40,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     OLLAMA_VERSION="0.9.0" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.5.0-3.2404.0" \
+    R_VERSION="4.5.1-1.2404.0" \
     UV_VERSION="0.7.13"
 
 # renovate: release=noble depName=apt-transport-https
@@ -60,7 +60,7 @@ ENV MANDOC_VERSION="1.14.6-1"
 # renovate: release=noble-updates depName=less
 ENV LESS_VERSION="590-2ubuntu2.1"
 # renovate: release=noble-updates depName=python3.12
-ENV PYTHON3_12_VERSION="3.12.3-1ubuntu0.5"
+ENV PYTHON3_12_VERSION="3.12.3-1ubuntu0.6"
 # renovate: release=noble-updates depName=python3-pip
 ENV PYTHON3_PIP_VERSION="24.0+dfsg-1ubuntu1.1"
 # renovate: release=noble-updates depName=vim
@@ -393,6 +393,28 @@ install --owner nobody --group nogroup --mode 0755 uv-x86_64-unknown-linux-gnu/u
 install --owner nobody --group nogroup --mode 0755 uv-x86_64-unknown-linux-gnu/uvx /usr/local/bin/uvx
 
 rm --force --recursive uv.tar.gz uv-x86_64-unknown-linux-gnu
+EOF
+
+# Docker
+RUN <<EOF
+curl --location --fail-with-body \
+  "https://download.docker.com/linux/ubuntu/gpg" \
+  --output docker.asc
+
+install -D --owner root --group root --mode 644 docker.asc /etc/apt/keyrings/docker.asc
+
+echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable" > /etc/apt/sources.list.d/corretto.list
+
+apt-get update --yes
+
+apt-get install --yes \
+  docker-ce-cli=5:28.2.2-1~ubuntu.24.04~noble \
+  docker-buildx-plugin=0.24.0-1~ubuntu.24.04~noble \
+  docker-compose-plugin=2.36.2-1~ubuntu.24.04~noble
+
+apt-get clean --yes
+
+rm --force --recursive /var/lib/apt/lists/*
 EOF
 
 USER ${CONTAINER_USER}
