@@ -82,7 +82,7 @@ commandTests:
   - name: "r"
     command: "R"
     args: ["--version"]
-    expectedOutput: ["R version 4.5.0"]
+    expectedOutput: ["R version 4.5.1"]
 
   - name: "ollama"
     command: "ollama"
@@ -128,6 +128,21 @@ commandTests:
     command: "uvx"
     args: ["--version"]
     expectedOutput: ["uvx 0.7.13"]
+
+  - name: "docker"
+    command: "docker"
+    args: ["--version"]
+    expectedOutput: ["Docker version 28.2.2"]
+
+  - name: "docker buildx"
+    command: "docker"
+    args: ["buildx", "version"]
+    expectedOutput: ["github.com/docker/buildx v0.24.0"]
+
+  - name: "docker compose"
+    command: "docker"
+    args: ["compose", "version"]
+    expectedOutput: ["Docker Compose version v2.36.2"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
