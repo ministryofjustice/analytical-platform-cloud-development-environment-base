@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:932333528e27f2be8ae92535c4c3c2c1030a4cf368abbec1cf61d9ee8aa7cf41
+FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:adde43aa8a773e100cb2318bfb51d584bd25b914f99afdc710060cf5f5266ccd
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.27.35" \
+    AWS_CLI_VERSION="2.27.42" \
     AWS_SSO_CLI_VERSION="2.0.3" \
     CLOUD_PLATFORM_CLI_VERSION="1.46.1" \
     CONTAINER_GID="1000" \
@@ -20,16 +20,16 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CUDA_VERSION="12.9.1" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.117-0ubuntu1~24.04.1" \
-    HELM_VERSION="3.18.2" \
-    KUBECTL_VERSION="1.30.13" \
+    HELM_VERSION="3.18.3" \
+    KUBECTL_VERSION="1.31.10" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64" \
     MICROSOFT_SQL_ODBC_VERSION="18.5.1.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.4.1.1-1" \
-    MINICONDA_SHA256="8937a2c9a86cfc5495ba2234476f89686beff5c8e0569b1ed5771a927c75107b" \
-    MINICONDA_VERSION="25.3.1-1" \
+    MINICONDA_SHA256="b99e5bcdf8cd2df9ffd11019eac8a20cf84598267941500935d62e14a0e2a6f6" \
+    MINICONDA_VERSION="25.5.1-0" \
     NBSTRIPOUT_VERSION="0.8.1" \
     NODE_LTS_VERSION="22.16.0" \
     NVIDIA_CUDA_COMPAT_VERSION="575.57.08-0ubuntu1" \
@@ -37,38 +37,11 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.9.0" \
+    OLLAMA_VERSION="0.9.2" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.5.0-3.2404.0" \
-    UV_VERSION="0.7.13"
-
-# renovate: release=noble depName=apt-transport-https
-ENV APT_TRANSPORT_HTTPS_VERSION="2.8.3"
-# renovate: release=noble depName=ca-certificates
-ENV CA_CERTIFICATES_VERSION="20240203"
-# renovate: release=noble-updates depName=curl
-ENV CURL_VERSION="8.5.0-2ubuntu10.6"
-# renovate: release=noble-updates depName=git
-ENV GIT_VERSION="1:2.43.0-1ubuntu7.2"
-# renovate: release=noble depName=ffmpeg
-ENV FFMPEG_VERSION="7:6.1.1-3ubuntu5"
-# renovate: release=noble depName=jq
-ENV JQ_VERSION="1.7.1-3build1"
-# renovate: release=noble depName=mandoc
-ENV MANDOC_VERSION="1.14.6-1"
-# renovate: release=noble-updates depName=less
-ENV LESS_VERSION="590-2ubuntu2.1"
-# renovate: release=noble-updates depName=python3.12
-ENV PYTHON3_12_VERSION="3.12.3-1ubuntu0.5"
-# renovate: release=noble-updates depName=python3-pip
-ENV PYTHON3_PIP_VERSION="24.0+dfsg-1ubuntu1.1"
-# renovate: release=noble-updates depName=vim
-ENV VIM_VERSION="2:9.1.0016-1ubuntu7.8"
-# renovate: release=noble-updates depName=unixodbc
-ENV UNIXODBC_VERSION="2.3.12-1ubuntu0.24.04.1"
-# renovate: release=noble-updates depName=unzip
-ENV UNZIP_VERSION="6.0-28ubuntu4.1"
+    R_VERSION="4.5.1-1.2404.0" \
+    UV_VERSION="0.7.14"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -95,19 +68,19 @@ RUN <<EOF
 apt-get update --yes
 
 apt-get install --yes \
-  "apt-transport-https=${APT_TRANSPORT_HTTPS_VERSION}" \
-  "ca-certificates=${CA_CERTIFICATES_VERSION}" \
-  "curl=${CURL_VERSION}" \
-  "git=${GIT_VERSION}" \
-  "ffmpeg=${FFMPEG_VERSION}" \
-  "jq=${JQ_VERSION}" \
-  "mandoc=${MANDOC_VERSION}" \
-  "less=${LESS_VERSION}" \
-  "python3.12=${PYTHON3_12_VERSION}" \
-  "python3-pip=${PYTHON3_PIP_VERSION}" \
-  "vim=${VIM_VERSION}" \
-  "unixodbc=${UNIXODBC_VERSION}" \
-  "unzip=${UNZIP_VERSION}"
+  "apt-transport-https=2.8.3" \
+  "ca-certificates=20240203" \
+  "curl=8.5.0-2ubuntu10.6" \
+  "git=1:2.43.0-1ubuntu7.2" \
+  "ffmpeg=7:6.1.1-3ubuntu5" \
+  "jq=1.7.1-3build1" \
+  "mandoc=1.14.6-1" \
+  "less=590-2ubuntu2.1" \
+  "python3.12=3.12.3-1ubuntu0.7" \
+  "python3-pip=24.0+dfsg-1ubuntu1.1" \
+  "vim=2:9.1.0016-1ubuntu7.8" \
+  "unixodbc=2.3.12-1ubuntu0.24.04.1" \
+  "unzip=6.0-28ubuntu4.1"
 
 apt-get clean --yes
 

@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.27.35"]
+    expectedOutput: ["aws-cli/2.27.42"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -52,17 +52,17 @@ commandTests:
   - name: "conda"
     command: "conda"
     args: ["--version"]
-    expectedOutput: ["conda 25.3.1"]
+    expectedOutput: ["conda 25.5.1"]
 
   - name: "python (conda)"
     command: "python"
     args: ["--version"]
-    expectedOutput: ["Python 3.12.9"]
+    expectedOutput: ["Python 3.12.11"]
 
   - name: "pip (conda)"
     command: "pip"
     args: ["--version"]
-    expectedOutput: ["pip 25.0"]
+    expectedOutput: ["pip 25.1"]
 
   - name: "node"
     command: "node"
@@ -82,22 +82,22 @@ commandTests:
   - name: "r"
     command: "R"
     args: ["--version"]
-    expectedOutput: ["R version 4.5.0"]
+    expectedOutput: ["R version 4.5.1"]
 
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.9.0"]
+    expectedOutput: ["0.9.2"]
 
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.30.13"]
+    expectedOutput: ["Client Version: v1.31.10"]
 
   - name: "helm"
     command: "helm"
     args: ["version"]
-    expectedOutput: ["3.18.2"]
+    expectedOutput: ["3.18.3"]
 
   - name: "cloud-platform"
     command: "cloud-platform"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.7.13"]
+    expectedOutput: ["uv 0.7.14"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.7.13"]
+    expectedOutput: ["uvx 0.7.14"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
