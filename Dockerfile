@@ -77,7 +77,7 @@ apt-get install --yes \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
   "python3.12=3.12.3-1ubuntu0.7" \
-  "python3-pip=24.0+dfsg-1ubuntu1.1" \
+  "python3-pip=24.0+dfsg-1ubuntu1.2" \
   "vim=2:9.1.0016-1ubuntu7.8" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
   "unzip=6.0-28ubuntu4.1"
