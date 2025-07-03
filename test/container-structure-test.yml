@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.7.14"]
+    expectedOutput: ["uv 0.7.18"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.7.14"]
+    expectedOutput: ["uvx 0.7.18"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
