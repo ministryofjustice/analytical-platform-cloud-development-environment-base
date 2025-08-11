@@ -29,3 +29,6 @@ CVE-2025-22868
 
 ## CVE-2022-40898 (Python (python-pkg))
 CVE-2022-40898
+
+## CVE-2025-22868 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
+CVE-2025-47907
