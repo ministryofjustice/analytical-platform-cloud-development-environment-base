@@ -87,12 +87,12 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.9.6"]
+    expectedOutput: ["0.11.4"]
 
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.31.10"]
+    expectedOutput: ["Client Version: v1.33.3"]
 
   - name: "helm"
     command: "helm"
