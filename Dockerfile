@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:a0dc77bc556621fd5f59aa3a1ab15397e663d21df492eee218e9cbcedccd84a4
+FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:b40d671bf589b6e5eaaceae32d7eb325a69182963519760571161df996d0d62a
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,39 +9,39 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.27.57" \
+    AWS_CLI_VERSION="2.28.15" \
     AWS_SSO_CLI_VERSION="2.0.3" \
-    CLOUD_PLATFORM_CLI_VERSION="1.47.0" \
+    CLOUD_PLATFORM_CLI_VERSION="1.47.1" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
     CORRETTO_VERSION="1:21.0.8.9-1" \
-    CUDA_VERSION="12.9.1" \
+    CUDA_VERSION="13.0.0" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.119-0ubuntu1~24.04.1" \
-    HELM_VERSION="3.18.4" \
-    KUBECTL_VERSION="1.33.3" \
+    HELM_VERSION="3.18.6" \
+    KUBECTL_VERSION="1.33.4" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
-    LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64" \
+    LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64" \
     MICROSOFT_SQL_ODBC_VERSION="18.5.1.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.4.1.1-1" \
     MINICONDA_SHA256="e3228df32afc6d43cb190a416b91937cdcd1c6308d9fe652274539a07142966f" \
     MINICONDA_VERSION="25.5.1-1" \
     NBSTRIPOUT_VERSION="0.8.1" \
-    NODE_LTS_VERSION="22.17.1" \
-    NVIDIA_CUDA_COMPAT_VERSION="575.57.08-0ubuntu1" \
-    NVIDIA_CUDA_CUDART_VERSION="12.9.79-1" \
+    NODE_LTS_VERSION="22.18.0" \
+    NVIDIA_CUDA_COMPAT_VERSION="580.65.06-0ubuntu1" \
+    NVIDIA_CUDA_CUDART_VERSION="13.0.48-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.11.4" \
+    OLLAMA_VERSION="0.11.6" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.5.1-1.2404.0" \
-    UV_VERSION="0.8.2"
+    UV_VERSION="0.8.13"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -76,7 +76,7 @@ apt-get install --yes \
   "jq=1.7.1-3ubuntu0.24.04.1" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
-  "python3.12=3.12.3-1ubuntu0.7" \
+  "python3.12=3.12.3-1ubuntu0.8" \
   "python3-pip=24.0+dfsg-1ubuntu1.2" \
   "vim=2:9.1.0016-1ubuntu7.8" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
