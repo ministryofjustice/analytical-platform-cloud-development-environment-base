@@ -199,8 +199,8 @@ fileExistenceTests:
     uid: 1000
     gid: 1000
 
-  - name: "/usr/local/cuda/lib64/libcudart.so.12"
-    path: "/usr/local/cuda/lib64/libcudart.so.12"
+  - name: "/usr/local/cuda/lib64/libcudart.so.13"
+    path: "/usr/local/cuda/lib64/libcudart.so.13"
     shouldExist: true
 
   - name: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.5.so.1.1"
