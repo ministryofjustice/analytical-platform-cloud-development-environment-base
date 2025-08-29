@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.28.17"]
+    expectedOutput: ["aws-cli/2.28.20"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -67,7 +67,7 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v22.18.0"]
+    expectedOutput: ["v22.19.0"]
 
   - name: "corretto"
     command: "java"
@@ -87,7 +87,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.11.7"]
+    expectedOutput: ["0.11.8"]
 
   - name: "kubectl"
     command: "kubectl"
@@ -102,7 +102,7 @@ commandTests:
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.47.1"]
+    expectedOutput: ["1.48.0"]
 
   - name: "vim"
     command: "vim"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.8.13"]
+    expectedOutput: ["uv 0.8.14"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.8.13"]
+    expectedOutput: ["uvx 0.8.14"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
