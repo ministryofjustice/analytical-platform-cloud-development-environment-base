@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.27.57"]
+    expectedOutput: ["aws-cli/2.28.20"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -52,7 +52,7 @@ commandTests:
   - name: "conda"
     command: "conda"
     args: ["--version"]
-    expectedOutput: ["conda 25.5.1"]
+    expectedOutput: ["conda 25.7.0"]
 
   - name: "python (conda)"
     command: "python"
@@ -67,7 +67,7 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v22.17.1"]
+    expectedOutput: ["v22.19.0"]
 
   - name: "corretto"
     command: "java"
@@ -87,22 +87,22 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.11.4"]
+    expectedOutput: ["0.11.8"]
 
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.33.3"]
+    expectedOutput: ["Client Version: v1.33.4"]
 
   - name: "helm"
     command: "helm"
     args: ["version"]
-    expectedOutput: ["3.18.4"]
+    expectedOutput: ["3.18.6"]
 
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.47.0"]
+    expectedOutput: ["1.48.0"]
 
   - name: "vim"
     command: "vim"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.8.2"]
+    expectedOutput: ["uv 0.8.14"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.8.2"]
+    expectedOutput: ["uvx 0.8.14"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
@@ -199,8 +199,8 @@ fileExistenceTests:
     uid: 1000
     gid: 1000
 
-  - name: "/usr/local/cuda/lib64/libcudart.so.12"
-    path: "/usr/local/cuda/lib64/libcudart.so.12"
+  - name: "/usr/local/cuda/lib64/libcudart.so.13"
+    path: "/usr/local/cuda/lib64/libcudart.so.13"
     shouldExist: true
 
   - name: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.5.so.1.1"
