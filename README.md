@@ -248,11 +248,15 @@ apt-cache policy mssql-tools18
 
 ### nbstripout
 
-Release for nbstripout are maintained on [GitHub](https://github.com/kynan/nbstripout/releases).
+Releases for nbstripout are maintained on [GitHub](https://github.com/kynan/nbstripout/releases).
 
 ### uv
 
-Release for uv are maintained on [GitHub](https://github.com/astral-sh/uv/releases).
+Releases for uv are maintained on [GitHub](https://github.com/astral-sh/uv/releases).
+
+### git-lfs
+
+Releases for git-lfs are maintained on [GitHub](https://github.com/git-lfs/git-lfs/releases).
 
 ## Maintenance
 
