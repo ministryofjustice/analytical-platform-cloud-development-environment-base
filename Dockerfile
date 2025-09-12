@@ -20,6 +20,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CUDA_VERSION="13.0.0" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.119-0ubuntu1~24.04.1" \
+    GIT_LFS_VERSION="3.7.0" \
     HELM_VERSION="3.18.6" \
     KUBECTL_VERSION="1.33.4" \
     LANG="C.UTF-8" \
@@ -366,6 +367,23 @@ install --owner nobody --group nogroup --mode 0755 uv-x86_64-unknown-linux-gnu/u
 install --owner nobody --group nogroup --mode 0755 uv-x86_64-unknown-linux-gnu/uvx /usr/local/bin/uvx
 
 rm --force --recursive uv.tar.gz uv-x86_64-unknown-linux-gnu
+EOF
+
+# Installs git-lfs (https://github.com/git-lfs)
+ENV GIT_LFS_VERSION_SHA="e7ebba491af8a54e560be3a00666fa97e4cf2bbbb223178a0934b8ef74cf9bed"
+RUN <<EOF
+curl --location --fail-with-body \
+  "https://github.com/git-lfs/git-lfs/releases/download/v${GIT_LFS_VERSION}/git-lfs-linux-amd64-v${GIT_LFS_VERSION}.tar.gz" \
+  --output "git-lfs.tar.gz"
+
+GIT_LFS_CALCULATED_SHA=$(sha256sum git-lfs.tar.gz)
+GIT_LFS_CALCULATED_SHA=($GIT_LFS_CALCULATED_SHA)
+if test "${GIT_LFS_CALCULATED_SHA[0]}" != "${GIT_LFS_VERSION_SHA}"; then exit 1
+fi
+
+tar --extract --file git-lfs.tar.gz
+
+install --owner nobody --group nogroup --mode 0755 git-lfs-${GIT_LFS_VERSION} /usr/local/bin/git-lfs
 EOF
 
 USER ${CONTAINER_USER}
