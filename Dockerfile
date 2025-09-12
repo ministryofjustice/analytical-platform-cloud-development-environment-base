@@ -377,7 +377,8 @@ curl --location --fail-with-body \
   --output "git-lfs.tar.gz"
 
 GIT_LFS_CALCULATED_SHA=$(sha256sum git-lfs.tar.gz)
-GIT_LFS_CALCULATED_SHA=($GIT_LFS_CALCULATED_SHA)
+IFS=" " read -r -a GIT_LFS_CALCULATED_SHA <<< "$GIT_LFS_CALCULATED_SHA"
+
 if test "${GIT_LFS_CALCULATED_SHA[0]}" != "${GIT_LFS_VERSION_SHA}"; then exit 1
 fi
 
