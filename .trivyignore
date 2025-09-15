@@ -36,3 +36,9 @@ CVE-2025-47907
 ## Trivy: misreading due to heredoc structure
 AVD-DS-0017
 AVD-DS-0029
+
+# AWS_SSO_FILE_PASSWORD false alert
+AVD-DS-0031 
+
+# HEALTHCHECK handled downstream
+AVD-DS-0026
