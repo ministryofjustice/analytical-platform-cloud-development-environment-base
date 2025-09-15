@@ -384,7 +384,7 @@ fi
 
 tar --extract --file git-lfs.tar.gz
 
-install --directory --owner nobody --group nogroup --mode 0755 git-lfs-${GIT_LFS_VERSION} /usr/local/bin/git-lfs
+install --owner nobody --group nogroup --mode 0755 "git-lfs-${GIT_LFS_VERSION}/git-lfs" /usr/local/bin/git-lfs
 
 rm --force --recursive git-lfs-${GIT_LFS_VERSION} git-lfs.tar.gz
 EOF
