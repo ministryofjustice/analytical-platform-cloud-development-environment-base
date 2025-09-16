@@ -102,7 +102,7 @@ commandTests:
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.48.0"]
+    expectedOutput: ["1.49.0"]
 
   - name: "vim"
     command: "vim"
@@ -128,6 +128,11 @@ commandTests:
     command: "uvx"
     args: ["--version"]
     expectedOutput: ["uvx 0.8.14"]
+
+  - name: "git-lfs"
+    command: "git-lfs"
+    args: ["--version"]
+    expectedOutput: ["git-lfs/3.7.0"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"

@@ -11,7 +11,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     AWS_CLI_VERSION="2.28.20" \
     AWS_SSO_CLI_VERSION="2.0.3" \
-    CLOUD_PLATFORM_CLI_VERSION="1.48.0" \
+    CLOUD_PLATFORM_CLI_VERSION="1.49.0" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
@@ -20,6 +20,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CUDA_VERSION="13.0.0" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.119-0ubuntu1~24.04.1" \
+    GIT_LFS_VERSION="3.7.0" \
     HELM_VERSION="3.18.6" \
     KUBECTL_VERSION="1.33.4" \
     LANG="C.UTF-8" \
@@ -366,6 +367,26 @@ install --owner nobody --group nogroup --mode 0755 uv-x86_64-unknown-linux-gnu/u
 install --owner nobody --group nogroup --mode 0755 uv-x86_64-unknown-linux-gnu/uvx /usr/local/bin/uvx
 
 rm --force --recursive uv.tar.gz uv-x86_64-unknown-linux-gnu
+EOF
+
+# Installs git-lfs (https://github.com/git-lfs)
+ENV GIT_LFS_VERSION_SHA="e7ebba491af8a54e560be3a00666fa97e4cf2bbbb223178a0934b8ef74cf9bed"
+RUN <<EOF
+curl --location --fail-with-body \
+  "https://github.com/git-lfs/git-lfs/releases/download/v${GIT_LFS_VERSION}/git-lfs-linux-amd64-v${GIT_LFS_VERSION}.tar.gz" \
+  --output "git-lfs.tar.gz"
+
+GIT_LFS_CALCULATED_SHA=$(sha256sum git-lfs.tar.gz)
+IFS=" " read -r -a GIT_LFS_CALCULATED_SHA <<< "$GIT_LFS_CALCULATED_SHA"
+
+if test "${GIT_LFS_CALCULATED_SHA[0]}" != "${GIT_LFS_VERSION_SHA}"; then exit 1
+fi
+
+tar --extract --file git-lfs.tar.gz
+
+install --owner nobody --group nogroup --mode 0755 "git-lfs-${GIT_LFS_VERSION}/git-lfs" /usr/local/bin/git-lfs
+
+rm --force --recursive git-lfs-${GIT_LFS_VERSION} git-lfs.tar.gz
 EOF
 
 USER ${CONTAINER_USER}
