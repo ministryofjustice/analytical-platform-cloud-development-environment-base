@@ -9,8 +9,8 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.28.20" \
-    AWS_SSO_CLI_VERSION="2.0.3" \
+    AWS_CLI_VERSION="2.30.5" \
+    AWS_SSO_CLI_VERSION="2.1.0" \
     CLOUD_PLATFORM_CLI_VERSION="1.49.0" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
@@ -21,7 +21,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.119-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.0" \
-    HELM_VERSION="3.18.6" \
+    HELM_VERSION="3.19.0" \
     KUBECTL_VERSION="1.33.4" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
@@ -33,16 +33,16 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MINICONDA_VERSION="25.7.0-2" \
     NBSTRIPOUT_VERSION="0.8.1" \
     NODE_LTS_VERSION="22.19.0" \
-    NVIDIA_CUDA_COMPAT_VERSION="580.65.06-0ubuntu1" \
-    NVIDIA_CUDA_CUDART_VERSION="13.0.48-1" \
+    NVIDIA_CUDA_COMPAT_VERSION="580.82.07-0ubuntu1" \
+    NVIDIA_CUDA_CUDART_VERSION="13.0.88-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.11.8" \
+    OLLAMA_VERSION="0.11.11" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.5.1-1.2404.0" \
-    UV_VERSION="0.8.14"
+    UV_VERSION="0.8.18"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -79,7 +79,7 @@ apt-get install --yes \
   "less=590-2ubuntu2.1" \
   "python3.12=3.12.3-1ubuntu0.8" \
   "python3-pip=24.0+dfsg-1ubuntu1.2" \
-  "vim=2:9.1.0016-1ubuntu7.8" \
+  "vim=2:9.1.0016-1ubuntu7.9" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
   "unzip=6.0-28ubuntu4.1"
 
