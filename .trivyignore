@@ -33,5 +33,16 @@ CVE-2022-40898
 ## CVE-2025-47907 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
 CVE-2025-47907
 
+## Trivy: misreading due to heredoc structure
+AVD-DS-0017
+AVD-DS-0029
+
+# AWS_SSO_FILE_PASSWORD false alert
+AVD-DS-0031
+
+# HEALTHCHECK handled downstream
+AVD-DS-0026
+
 ## CVE-2025-47906 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/git-lfs, usr/local/bin/kubectl)
 CVE-2025-47906
+
