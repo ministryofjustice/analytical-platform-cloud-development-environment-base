@@ -42,3 +42,7 @@ AVD-DS-0031
 
 # HEALTHCHECK handled downstream
 AVD-DS-0026
+
+## CVE-2025-47906 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/git-lfs, usr/local/bin/kubectl)
+CVE-2025-47906
+
