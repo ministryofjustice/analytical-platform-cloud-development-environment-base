@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:b40d671bf589b6e5eaaceae32d7eb325a69182963519760571161df996d0d62a
+FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:5dcf95d194f9781a99394c4084c4d2930fb7576c36f5abf817ccc13ef6a55c34
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.30.5" \
+    AWS_CLI_VERSION="2.31.4" \
     AWS_SSO_CLI_VERSION="2.1.0" \
     CLOUD_PLATFORM_CLI_VERSION="1.49.0" \
     CONTAINER_GID="1000" \
@@ -19,7 +19,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CORRETTO_VERSION="1:21.0.8.9-1" \
     CUDA_VERSION="13.0.0" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="8.0.119-0ubuntu1~24.04.1" \
+    DOTNET_SDK_VERSION="8.0.120-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.0" \
     HELM_VERSION="3.19.0" \
     KUBECTL_VERSION="1.33.4" \
@@ -32,17 +32,17 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MINICONDA_SHA256="188b5d94ab3acefdeaebd7cb470d2fb74a3280563c77075de6e3e1d58d84ab0a" \
     MINICONDA_VERSION="25.7.0-2" \
     NBSTRIPOUT_VERSION="0.8.1" \
-    NODE_LTS_VERSION="22.19.0" \
+    NODE_LTS_VERSION="22.20.0" \
     NVIDIA_CUDA_COMPAT_VERSION="580.82.07-0ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="13.0.88-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.11.11" \
+    OLLAMA_VERSION="0.12.3" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.5.1-1.2404.0" \
-    UV_VERSION="0.8.18"
+    UV_VERSION="0.8.22"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -78,7 +78,7 @@ apt-get install --yes \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
   "python3.12=3.12.3-1ubuntu0.8" \
-  "python3-pip=24.0+dfsg-1ubuntu1.2" \
+  "python3-pip=24.0+dfsg-1ubuntu1.3" \
   "vim=2:9.1.0016-1ubuntu7.9" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
   "unzip=6.0-28ubuntu4.1"
