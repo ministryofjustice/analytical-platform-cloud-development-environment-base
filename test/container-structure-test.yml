@@ -67,17 +67,17 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v22.20.0"]
+    expectedOutput: ["v22.21.0"]
 
   - name: "corretto"
     command: "java"
     args: ["--version"]
-    expectedOutput: ["openjdk 21.0.8"]
+    expectedOutput: ["openjdk 21.0.9"]
 
   - name: "dotnet"
     command: "dotnet"
     args: ["--version"]
-    expectedOutput: ["8.0.120"]
+    expectedOutput: ["8.0.121"]
 
   - name: "r"
     command: "R"
@@ -87,7 +87,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.12.3"]
+    expectedOutput: ["0.12.6"]
 
   - name: "kubectl"
     command: "kubectl"
@@ -102,7 +102,7 @@ commandTests:
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.49.0"]
+    expectedOutput: ["1.49.4"]
 
   - name: "vim"
     command: "vim"
@@ -122,17 +122,17 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.8.22"]
+    expectedOutput: ["uv 0.9.5"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.8.22"]
+    expectedOutput: ["uvx 0.9.5"]
 
   - name: "git-lfs"
     command: "git-lfs"
     args: ["--version"]
-    expectedOutput: ["git-lfs/3.7.0"]
+    expectedOutput: ["git-lfs/3.7.1"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
