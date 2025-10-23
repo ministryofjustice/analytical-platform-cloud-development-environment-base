@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:5dcf95d194f9781a99394c4084c4d2930fb7576c36f5abf817ccc13ef6a55c34
+FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:ef59d9e82939bbce08973bdffb8761b025f75369fb7d2882cdc4938b5a9e992e
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,18 +9,18 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.31.4" \
+    AWS_CLI_VERSION="2.31.20" \
     AWS_SSO_CLI_VERSION="2.1.0" \
-    CLOUD_PLATFORM_CLI_VERSION="1.49.0" \
+    CLOUD_PLATFORM_CLI_VERSION="1.49.4" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
-    CORRETTO_VERSION="1:21.0.8.9-1" \
-    CUDA_VERSION="13.0.0" \
+    CORRETTO_VERSION="1:21.0.9.10-1" \
+    CUDA_VERSION="13.0.1" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="8.0.120-0ubuntu1~24.04.1" \
-    GIT_LFS_VERSION="3.7.0" \
+    DOTNET_SDK_VERSION="8.0.121-0ubuntu1~24.04.1" \
+    GIT_LFS_VERSION="3.7.1" \
     HELM_VERSION="3.19.0" \
     KUBECTL_VERSION="1.33.4" \
     LANG="C.UTF-8" \
@@ -32,17 +32,17 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MINICONDA_SHA256="188b5d94ab3acefdeaebd7cb470d2fb74a3280563c77075de6e3e1d58d84ab0a" \
     MINICONDA_VERSION="25.7.0-2" \
     NBSTRIPOUT_VERSION="0.8.1" \
-    NODE_LTS_VERSION="22.20.0" \
-    NVIDIA_CUDA_COMPAT_VERSION="580.82.07-0ubuntu1" \
-    NVIDIA_CUDA_CUDART_VERSION="13.0.88-1" \
+    NODE_LTS_VERSION="22.21.0" \
+    NVIDIA_CUDA_COMPAT_VERSION="580.95.05-0ubuntu1" \
+    NVIDIA_CUDA_CUDART_VERSION="13.0.96-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.12.3" \
+    OLLAMA_VERSION="0.12.6" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.5.1-1.2404.0" \
-    UV_VERSION="0.8.22"
+    UV_VERSION="0.9.5"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -274,7 +274,7 @@ curl --location --fail-with-body \
   "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/3bf863cc.pub" \
   --output "3bf863cc.pub"
 
-cat 3bf863cc.pub | gpg --dearmor --output nvidia.gpg
+cat 3bf863cc.pub | gpg --dearmor --yes --output nvidia.gpg
 
 install -D --owner root --group root --mode 644 nvidia.gpg /etc/apt/keyrings/nvidia.gpg
 
@@ -370,7 +370,7 @@ rm --force --recursive uv.tar.gz uv-x86_64-unknown-linux-gnu
 EOF
 
 # Installs git-lfs (https://github.com/git-lfs)
-ENV GIT_LFS_VERSION_SHA="e7ebba491af8a54e560be3a00666fa97e4cf2bbbb223178a0934b8ef74cf9bed"
+ENV GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08"
 RUN <<EOF
 curl --location --fail-with-body \
   "https://github.com/git-lfs/git-lfs/releases/download/v${GIT_LFS_VERSION}/git-lfs-linux-amd64-v${GIT_LFS_VERSION}.tar.gz" \
