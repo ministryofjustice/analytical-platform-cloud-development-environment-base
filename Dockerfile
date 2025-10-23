@@ -274,7 +274,7 @@ curl --location --fail-with-body \
   "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/3bf863cc.pub" \
   --output "3bf863cc.pub"
 
-cat 3bf863cc.pub | gpg --dearmor --yes --output nvidia.gpg
+cat 3bf863cc.pub | gpg --dearmor --output nvidia.gpg
 
 install -D --owner root --group root --mode 644 nvidia.gpg /etc/apt/keyrings/nvidia.gpg
 
