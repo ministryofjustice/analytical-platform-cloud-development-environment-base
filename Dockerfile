@@ -182,7 +182,7 @@ EOF
 # Install Node.js LTS (https://nodejs.org/)
 RUN <<EOF
 curl --location --fail-with-body \
-  "https://deb.nodesource.com/setup_lts.x" \
+  "https://deb.nodesource.com/setup_22.x" \
   --output "node.sh"
 
 bash node.sh
