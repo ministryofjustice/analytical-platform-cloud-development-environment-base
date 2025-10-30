@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.31.20"]
+    expectedOutput: ["aws-cli/2.31.25"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -52,7 +52,7 @@ commandTests:
   - name: "conda"
     command: "conda"
     args: ["--version"]
-    expectedOutput: ["conda 25.7.0"]
+    expectedOutput: ["conda 25.9.1"]
 
   - name: "python (conda)"
     command: "python"
