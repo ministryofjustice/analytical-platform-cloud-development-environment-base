@@ -87,7 +87,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.12.6"]
+    expectedOutput: ["0.12.7"]
 
   - name: "kubectl"
     command: "kubectl"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.9.5"]
+    expectedOutput: ["uv 0.9.6"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.9.5"]
+    expectedOutput: ["uvx 0.9.6"]
 
   - name: "git-lfs"
     command: "git-lfs"
