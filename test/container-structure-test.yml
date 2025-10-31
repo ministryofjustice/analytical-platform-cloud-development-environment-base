@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.31.20"]
+    expectedOutput: ["aws-cli/2.31.25"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -52,17 +52,17 @@ commandTests:
   - name: "conda"
     command: "conda"
     args: ["--version"]
-    expectedOutput: ["conda 25.7.0"]
+    expectedOutput: ["conda 25.9.1"]
 
   - name: "python (conda)"
     command: "python"
     args: ["--version"]
-    expectedOutput: ["Python 3.12.11"]
+    expectedOutput: ["Python 3.12.12"]
 
   - name: "pip (conda)"
     command: "pip"
     args: ["--version"]
-    expectedOutput: ["pip 25.1"]
+    expectedOutput: ["pip 25.2"]
 
   - name: "node"
     command: "node"
@@ -87,7 +87,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.12.6"]
+    expectedOutput: ["0.12.7"]
 
   - name: "kubectl"
     command: "kubectl"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.9.5"]
+    expectedOutput: ["uv 0.9.6"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.9.5"]
+    expectedOutput: ["uvx 0.9.6"]
 
   - name: "git-lfs"
     command: "git-lfs"

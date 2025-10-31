@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.31.20" \
+    AWS_CLI_VERSION="2.31.25" \
     AWS_SSO_CLI_VERSION="2.1.0" \
     CLOUD_PLATFORM_CLI_VERSION="1.49.4" \
     CONTAINER_GID="1000" \
@@ -29,8 +29,8 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64" \
     MICROSOFT_SQL_ODBC_VERSION="18.5.1.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.4.1.1-1" \
-    MINICONDA_SHA256="188b5d94ab3acefdeaebd7cb470d2fb74a3280563c77075de6e3e1d58d84ab0a" \
-    MINICONDA_VERSION="25.7.0-2" \
+    MINICONDA_SHA256="a0def9c732d94b156529ef7db8edd6e1862cee784a27a4961870dca86e89fba4" \
+    MINICONDA_VERSION="25.9.1-1" \
     NBSTRIPOUT_VERSION="0.8.1" \
     NODE_LTS_VERSION="22.21.0" \
     NVIDIA_CUDA_COMPAT_VERSION="580.95.05-0ubuntu1" \
@@ -38,11 +38,11 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.12.6" \
+    OLLAMA_VERSION="0.12.7" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.5.1-1.2404.0" \
-    UV_VERSION="0.9.5"
+    UV_VERSION="0.9.6"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -182,7 +182,7 @@ EOF
 # Install Node.js LTS (https://nodejs.org/)
 RUN <<EOF
 curl --location --fail-with-body \
-  "https://deb.nodesource.com/setup_lts.x" \
+  "https://deb.nodesource.com/setup_22.x" \
   --output "node.sh"
 
 bash node.sh
