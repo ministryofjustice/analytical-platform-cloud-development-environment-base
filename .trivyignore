@@ -57,8 +57,8 @@ CVE-2025-61723 exp:2025-12-01
 ## CVE-2025-61724 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
 CVE-2025-61724 exp:2025-12-01
 
-## CVE-2025-25621 (usr/local/bin/helm)
-CVE-2025-25621 exp:2025-12-01
+## CVE-2024-25621 (usr/local/bin/helm)
+CVE-2024-25621 exp:2025-12-01
 
 ## Trivy: misreading due to heredoc structure
 AVD-DS-0017
