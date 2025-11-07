@@ -9,14 +9,14 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.31.25" \
+    AWS_CLI_VERSION="2.31.31" \
     AWS_SSO_CLI_VERSION="2.1.0" \
-    CLOUD_PLATFORM_CLI_VERSION="1.49.4" \
+    CLOUD_PLATFORM_CLI_VERSION="1.49.5" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
-    CORRETTO_VERSION="1:21.0.9.10-1" \
+    CORRETTO_VERSION="1:21.0.9.11-1" \
     CUDA_VERSION="13.0.1" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.121-0ubuntu1~24.04.1" \
@@ -38,11 +38,11 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.12.7" \
+    OLLAMA_VERSION="0.12.10" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.5.1-1.2404.0" \
-    UV_VERSION="0.9.6"
+    R_VERSION="4.5.2-1.2404.0" \
+    UV_VERSION="0.9.7"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 

@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.31.25"]
+    expectedOutput: ["aws-cli/2.31.31"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -82,12 +82,12 @@ commandTests:
   - name: "r"
     command: "R"
     args: ["--version"]
-    expectedOutput: ["R version 4.5.1"]
+    expectedOutput: ["R version 4.5.2"]
 
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.12.7"]
+    expectedOutput: ["0.12.10"]
 
   - name: "kubectl"
     command: "kubectl"
@@ -102,7 +102,7 @@ commandTests:
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.49.4"]
+    expectedOutput: ["1.49.5"]
 
   - name: "vim"
     command: "vim"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.9.6"]
+    expectedOutput: ["uv 0.9.7"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.9.6"]
+    expectedOutput: ["uvx 0.9.7"]
 
   - name: "git-lfs"
     command: "git-lfs"
