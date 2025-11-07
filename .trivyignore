@@ -48,6 +48,12 @@ CVE-2025-58187 exp:2025-12-01
 ## CVE-2025-58188 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
 CVE-2025-58188 exp:2025-12-01
 
+## CVE-2025-58189 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
+CVE-2025-58189 exp:2025-12-01
+
+## CVE-2025-61723 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
+CVE-2025-61723 exp:2025-12-01
+
 ## CVE-2025-61724 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
 CVE-2025-61724 exp:2025-12-01
 
