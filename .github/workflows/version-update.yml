@@ -1,0 +1,55 @@
+name: Scheduled Version Updates
+
+on:
+  schedule:
+    # Run weekly on Monday at 9:00 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # Allow manual triggering
+    inputs:
+      components:
+        description: 'Specific components to update (comma-separated, or "all")'
+        required: false
+        default: 'all'
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  create-update-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create update issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            // Read the version update instructions
+            const instructions = fs.readFileSync('.github/workflows/version-update-instructions.md', 'utf8');
+
+            // Create an issue with the instructions
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Automated Version Update - ${new Date().toISOString().split('T')[0]}`,
+              body: instructions,
+              labels: ['dependencies', 'automated', 'github-copilot-agent']
+            });
+
+            console.log(`Created issue #${issue.data.number}`);
+
+            // Add a comment to trigger the Copilot Coding Agent
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.data.number,
+              body: `#github-pull-request_copilot-coding-agent
+
+Please execute the version update task as described in this issue. Check all software versions from the README.md, compare them with the current Dockerfile, and update any outdated versions.`
+            });

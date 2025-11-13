@@ -66,6 +66,9 @@ make run
 
 ## Managing Software Versions
 
+> [!TIP]
+> **Automated Updates**: This repository includes automation for checking and updating software versions using GitHub Copilot's coding agent. See [docs/automated-version-updates.md](docs/automated-version-updates.md) for details on scheduled updates and manual triggering.
+
 ### Ubuntu
 
 Dependabot is configured to do this in [`.github/dependabot.yml`](.github/dependabot.yml), but if you need to get the digest, do the following
