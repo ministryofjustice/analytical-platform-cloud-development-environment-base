@@ -49,7 +49,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issue.data.number,
-              body: `#github-pull-request_copilot-coding-agent
-
-Please execute the version update task as described in this issue. Check all software versions from the README.md, compare them with the current Dockerfile, and update any outdated versions.`
+              body: '#github-pull-request_copilot-coding-agent\n\nPlease execute the version update task as described in this issue. Check all software versions from the README.md, compare them with the current Dockerfile, and update any outdated versions.'
             });
