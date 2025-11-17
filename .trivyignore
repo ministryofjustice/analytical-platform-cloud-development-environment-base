@@ -72,3 +72,6 @@ AVD-DS-0026
 
 ## CVE-2025-47906 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/git-lfs, usr/local/bin/kubectl)
 CVE-2025-47906
+
+### CVE-2025-63811 (usr/local/bin/aws-sso (gobinary))
+CVE-2025-63811 exp:2025-12-17
