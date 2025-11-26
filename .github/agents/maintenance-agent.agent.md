@@ -34,11 +34,12 @@ You MUST NOT add new files to the repository or create external scripts.
 ────────────────────────────────────────────────────────
 PHASE 0 — PREP
 ────────────────────────────────────────────────────────
+
 - Load: - Dockerfile - test/container-structure-test.yml - README.md (Managing Software Versions section)
 
 - The README.md describes how to retrieve versions.
-Follow those methods exactly, but update the logic to always retrieve:
-→ **The newest available stable version**, even if it is a major upgrade.
+  Follow those methods exactly, but update the logic to always retrieve:
+  → **The newest available stable version**, even if it is a major upgrade.
 
 ────────────────────────────────────────────────────────
 PHASE 1 — DISCOVER LATEST VERSIONS
@@ -102,11 +103,13 @@ COMPONENT → CURRENT_VERSION → LATEST_VERSION
 ────────────────────────────────────────────────────────
 PHASE 2 — COMPARE WITH CURRENT VERSIONS
 ────────────────────────────────────────────────────────
+
 - Extract current versions from Dockerfile ENV and pinned APT packages.
 - Compare with discovered versions.
 - Produce a changes list: COMPONENT, old, new.
 
 IF NO CHANGES:
+
 - Output: “No updates needed — all versions already at latest stable release.”
 - STOP immediately.
 
@@ -116,26 +119,31 @@ PHASE 3 — UPDATE FILES
 For each component with a changed version:
 
 Dockerfile updates:
+
 - Update the ENV variables.
 - Update pinned apt-get versions.
 - Update FROM image digest.
 - Do not alter comment formatting or unrelated lines.
 
 Test updates:
+
 - Update expectedOutput version strings in test/container-structure-test.yml.
 - Ensure node outputs match format `vX.Y.Z`.
 - Ensure uv, aws-cli, r-base, git-lfs, etc. match their actual CLI version output.
 
 Rules:
+
 - Only replace version strings, never refactor or reorder.
 - Dockerfile and test file MUST remain consistent.
 
 ────────────────────────────────────────────────────────
 PHASE 4 — RUN TESTS
 ────────────────────────────────────────────────────────
+
 - Run: make test
 
 IF FAIL:
+
 - Stop.
 - Do NOT create a PR.
 - Report:
@@ -149,15 +157,15 @@ PHASE 5 — COMMIT & CREATE PR
 If tests PASS:
 
 - Create branch:
-maintenance/update-YYYYMMDD-HHMM
+  maintenance/update-YYYYMMDD-HHMM
 
 - Commit only: - Dockerfile - test/container-structure-test.yml
 
 - Commit message:
-chore: update CDE base image component versions
+  chore: update CDE base image component versions
 
 - PR title:
-chore: update CDE base image component versions
+  chore: update CDE base image component versions
 
 - PR body must include:
   - Table of updated components (old → new)
@@ -165,12 +173,14 @@ chore: update CDE base image component versions
   - Note that major release upgrades were included where available
 
 Finally, return:
+
 - A summary table (component, old, new)
 - PR link
 
 ────────────────────────────────────────────────────────
 CRITICAL REMINDERS
 ────────────────────────────────────────────────────────
+
 - Major version bumps MUST be included whenever the latest stable version is major.
 - Ubuntu discovery MUST always use public.ecr.aws/ubuntu/ubuntu:24.04.
 - All version checks should run in parallel for speed.
