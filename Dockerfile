@@ -9,9 +9,9 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.31.31" \
+    AWS_CLI_VERSION="2.32.4" \
     AWS_SSO_CLI_VERSION="2.1.0" \
-    CLOUD_PLATFORM_CLI_VERSION="1.49.5" \
+    CLOUD_PLATFORM_CLI_VERSION="1.50.1" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
@@ -21,28 +21,28 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.121-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
-    HELM_VERSION="3.19.0" \
-    KUBECTL_VERSION="1.33.4" \
+    HELM_VERSION="4.0.1" \
+    KUBECTL_VERSION="1.34.2" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64" \
     MICROSOFT_SQL_ODBC_VERSION="18.5.1.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.4.1.1-1" \
-    MINICONDA_SHA256="a0def9c732d94b156529ef7db8edd6e1862cee784a27a4961870dca86e89fba4" \
-    MINICONDA_VERSION="25.9.1-1" \
-    NBSTRIPOUT_VERSION="0.8.1" \
-    NODE_LTS_VERSION="22.21.0" \
-    NVIDIA_CUDA_COMPAT_VERSION="580.95.05-0ubuntu1" \
+    MINICONDA_SHA256="07fc00c146a481f7ae2657a31eb7ec0d5d77a107b981d58ab5d7cd8bc99be778" \
+    MINICONDA_VERSION="25.9.1-3" \
+    NBSTRIPOUT_VERSION="0.8.2" \
+    NODE_LTS_VERSION="24.11.1" \
+    NVIDIA_CUDA_COMPAT_VERSION="580.105.08-0ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="13.0.96-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.12.10" \
+    OLLAMA_VERSION="0.13.0" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.5.2-1.2404.0" \
-    UV_VERSION="0.9.7"
+    UV_VERSION="0.9.12"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -77,7 +77,7 @@ apt-get install --yes \
   "jq=1.7.1-3ubuntu0.24.04.1" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
-  "python3.12=3.12.3-1ubuntu0.8" \
+  "python3.12=3.12.3-1ubuntu0.9" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
   "vim=2:9.1.0016-1ubuntu7.9" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
@@ -182,7 +182,7 @@ EOF
 # Install Node.js LTS (https://nodejs.org/)
 RUN <<EOF
 curl --location --fail-with-body \
-  "https://deb.nodesource.com/setup_22.x" \
+  "https://deb.nodesource.com/setup_24.x" \
   --output "node.sh"
 
 bash node.sh
