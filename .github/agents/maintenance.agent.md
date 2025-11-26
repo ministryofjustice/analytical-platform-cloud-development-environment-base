@@ -88,7 +88,12 @@ GitHub release-based tools:
 Miniconda:
 
 - Use README.md guidance but select the latest py312 installer available.
-- Retrieve both the installer name and the SHA256.
+- **CRITICAL**: Always download the installer and compute the SHA256 checksum directly:
+  ```bash
+  curl -s "https://repo.anaconda.com/miniconda/Miniconda3-py312_VERSION-Linux-x86_64.sh" | sha256sum
+  ```
+- Do NOT rely on published checksums as they may be outdated.
+- Retrieve both the installer version string and the computed SHA256.
 
 Ubuntu base image digest:
 
