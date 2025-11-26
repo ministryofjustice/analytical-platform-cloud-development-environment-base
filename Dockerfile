@@ -21,8 +21,8 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.121-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
-    HELM_VERSION="3.19.0" \
-    KUBECTL_VERSION="1.33.4" \
+    HELM_VERSION="4.0.1" \
+    KUBECTL_VERSION="1.34.2" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
@@ -32,7 +32,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MINICONDA_SHA256="07fc00c146a481f7ae2657a31eb7ec0d5d77a107b981d58ab4c1d6621dd0b64b" \
     MINICONDA_VERSION="25.9.1-3" \
     NBSTRIPOUT_VERSION="0.8.2" \
-    NODE_LTS_VERSION="22.21.0" \
+    NODE_LTS_VERSION="24.11.1" \
     NVIDIA_CUDA_COMPAT_VERSION="580.105.08-0ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="13.0.96-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
@@ -42,7 +42,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.5.2-1.2404.0" \
-    UV_VERSION="0.9.11"
+    UV_VERSION="0.9.12"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -77,7 +77,7 @@ apt-get install --yes \
   "jq=1.7.1-3ubuntu0.24.04.1" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
-  "python3.12=3.12.3-1ubuntu0.8" \
+  "python3.12=3.12.3-1ubuntu0.9" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
   "vim=2:9.1.0016-1ubuntu7.9" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
@@ -182,7 +182,7 @@ EOF
 # Install Node.js LTS (https://nodejs.org/)
 RUN <<EOF
 curl --location --fail-with-body \
-  "https://deb.nodesource.com/setup_22.x" \
+  "https://deb.nodesource.com/setup_24.x" \
   --output "node.sh"
 
 bash node.sh
