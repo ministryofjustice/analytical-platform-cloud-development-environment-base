@@ -75,3 +75,12 @@ CVE-2025-47906
 
 ### CVE-2025-63811 (usr/local/bin/aws-sso (gobinary))
 CVE-2025-63811 exp:2025-12-17
+
+## CVE-2025-58183 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
+CVE-2025-58183
+
+## CVE-2025-58186 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
+CVE-2025-58186
+
+## CVE-2025-58187 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
+CVE-2025-58187
