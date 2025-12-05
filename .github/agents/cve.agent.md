@@ -20,7 +20,7 @@ The CVE scanning workflow runs daily and fails when HIGH or CRITICAL vulnerabili
 
 ## Decision Framework: When to IGNORE vs FIX a CVE
 
-### ✅ CVE CAN BE IGNORED (add to .trivyignore) when:
+### ✅ CVE CAN BE IGNORED (add to .trivyignore)
 
 1. **Third-party binary with no update available**
    - The CVE is in a Go binary we don't build (e.g., ollama, aws-sso, cloud-platform, helm, kubectl, git-lfs)
@@ -42,7 +42,7 @@ The CVE scanning workflow runs daily and fails when HIGH or CRITICAL vulnerabili
    - Use expiration date: `CVE-XXXX-XXXXX exp:YYYY-MM-DD`
    - Set expiration to 30 days from current date
 
-### ❌ CVE SHOULD BE FIXED (update Dockerfile) when:
+### ❌ CVE SHOULD BE FIXED (update Dockerfile)
 
 1. **System package vulnerability**
    - The CVE is in an apt package we install directly
@@ -87,12 +87,12 @@ Read the Dockerfile to identify:
 - Whether we can update to a version that includes the fix
 
 For Go binaries, check if the latest release from upstream includes the fix:
-- ollama: https://github.com/ollama/ollama/releases
-- aws-sso: https://github.com/synfinatic/aws-sso-cli/releases
-- cloud-platform: https://github.com/ministryofjustice/cloud-platform-cli/releases
-- git-lfs: https://github.com/git-lfs/git-lfs/releases
-- helm: https://github.com/helm/helm/releases
-- kubectl: https://kubernetes.io/releases/
+- ollama: <https://github.com/ollama/ollama/releases>
+- aws-sso: <https://github.com/synfinatic/aws-sso-cli/releases>
+- cloud-platform: <https://github.com/ministryofjustice/cloud-platform-cli/releases>
+- git-lfs: <https://github.com/git-lfs/git-lfs/releases>
+- helm: <https://github.com/helm/helm/releases>
+- kubectl: <https://kubernetes.io/releases/>
 
 ### Step 4: Determine Action
 
@@ -103,13 +103,13 @@ Based on the decision framework:
 ### Step 5: Update .trivyignore (if ignoring)
 
 Add entries in the format:
-```
+```text
 ## CVE-XXXX-XXXXX (affected binaries/packages)
 CVE-XXXX-XXXXX
 ```
 
 Or with expiration for temporary ignores:
-```
+```text
 ## CVE-XXXX-XXXXX (affected binaries/packages)
 CVE-XXXX-XXXXX exp:YYYY-MM-DD
 ```
@@ -130,7 +130,7 @@ Create a branch and PR with:
 
 ## Example PR Descriptions
 
-### For Ignored CVE (third-party binary):
+### For Ignored CVE (third-party binary)
 
 ```markdown
 ## Summary
@@ -166,7 +166,7 @@ The fix requires the upstream projects to rebuild with Go >= X.Y.Z. We will moni
 :copilot: This PR was created by [cve.agent.md](https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base/blob/main/.github/agents/cve.agent.md).
 ```
 
-### For Fixed CVE:
+### For Fixed CVE
 
 ```markdown
 ## Summary
