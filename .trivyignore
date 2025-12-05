@@ -1,64 +1,96 @@
 # .NET
-## CVE-2024-0057
-CVE-2024-0057
+## CVE-2024-0057 - .NET Security Feature Bypass (CRITICAL 9.1)
+## Reason: Waiting for upstream fix in base image
+CVE-2024-0057 exp:2026-03-05
 
-## CVE-2025-26646
-CVE-2025-26646
+## CVE-2025-26646 - .NET External Control of File Name (HIGH 8.0)
+## Reason: Waiting for upstream fix in base image
+CVE-2025-26646 exp:2026-03-05
 
 # Go
-## CVE-2024-34156 (usr/local/bin/aws-sso)
-CVE-2024-34156
+## CVE-2024-34156 (usr/local/bin/aws-sso) - Decoder.Decode stack exhaustion (HIGH 7.5)
+## Reason: Waiting for upstream fix in aws-sso
+CVE-2024-34156 exp:2026-03-05
 
-## CVE-2024-41110 (usr/local/bin/aws-sso)
-CVE-2024-41110
+## CVE-2024-41110 (usr/local/bin/aws-sso) - Docker AuthZ bypass (CRITICAL 9.9)
+## Reason: Waiting for upstream fix in aws-sso; low likelihood of exploitation in this context
+CVE-2024-41110 exp:2026-03-05
 
 ## CVE-2024-45337 (usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
-CVE-2024-45337
+## Reason: Waiting for upstream fix
+CVE-2024-45337 exp:2026-03-05
 
 ## CVE-2024-45338 (usr/bin/ollama, usr/local/bin/cloud-platform, usr/local/bin/kubectl)
-CVE-2024-45338
+## Reason: Waiting for upstream fix
+CVE-2024-45338 exp:2026-03-05
 
 ## CVE-2025-22869 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
-CVE-2025-22869
+## Reason: Waiting for upstream fix
+CVE-2025-22869 exp:2026-03-05
 
 ## CVE-2025-22874 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/helm, usr/bin/kubectl)
-CVE-2025-22874
+## Reason: Waiting for upstream fix
+CVE-2025-22874 exp:2026-03-05
 
 ## CVE-2025-22868 (usr/local/bin/cloud-platform, usr/local/bin/kubectl)
-CVE-2025-22868
+## Reason: Waiting for upstream fix
+CVE-2025-22868 exp:2026-03-05
 
-## CVE-2022-40898 (Python (python-pkg))
-CVE-2022-40898
+## CVE-2022-40898 (Python (python-pkg)) - Wheel CLI DoS (HIGH 7.5)
+## Reason: Waiting for upstream fix in Python wheel package
+CVE-2022-40898 exp:2026-03-05
 
 ## CVE-2025-47907 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-47907
+## Reason: Waiting for upstream fix
+CVE-2025-47907 exp:2026-03-05
 
 ## CVE-2025-47912 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-47912 exp:2025-12-01
+## Reason: Waiting for upstream fix - EXPIRED, extended for review
+CVE-2025-47912 exp:2026-03-05
 
 ## CVE-2025-58183 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-58183 exp:2025-12-01
+## Reason: Waiting for upstream fix - EXPIRED, extended for review
+CVE-2025-58183 exp:2026-03-05
 
 ## CVE-2025-58186 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-58186 exp:2025-12-01
+## Reason: Waiting for upstream fix - EXPIRED, extended for review
+CVE-2025-58186 exp:2026-03-05
 
 ## CVE-2025-58187 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-58187 exp:2025-12-01
+## Reason: Waiting for upstream fix - EXPIRED, extended for review
+CVE-2025-58187 exp:2026-03-05
 
 ## CVE-2025-58188 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-58188 exp:2025-12-01
+## Reason: Waiting for upstream fix - EXPIRED, extended for review
+CVE-2025-58188 exp:2026-03-05
 
 ## CVE-2025-58189 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-58189 exp:2025-12-01
+## Reason: Waiting for upstream fix - EXPIRED, extended for review
+CVE-2025-58189 exp:2026-03-05
 
 ## CVE-2025-61723 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-61723 exp:2025-12-01
+## Reason: Waiting for upstream fix - EXPIRED, extended for review
+CVE-2025-61723 exp:2026-03-05
 
 ## CVE-2025-61724 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-61724 exp:2025-12-01
+## Reason: Waiting for upstream fix - EXPIRED, extended for review
+CVE-2025-61724 exp:2026-03-05
 
-## CVE-2024-25621 (usr/local/bin/helm)
-CVE-2024-25621 exp:2025-12-01
+## CVE-2024-25621 (usr/local/bin/helm) - containerd permission vulnerability (HIGH 7.3)
+## Reason: Waiting for upstream fix - EXPIRED, extended for review
+CVE-2024-25621 exp:2026-03-05
+
+## CVE-2025-47906 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/git-lfs, usr/local/bin/kubectl)
+## Reason: Waiting for upstream fix
+CVE-2025-47906 exp:2026-03-05
+
+## CVE-2025-63811 (usr/local/bin/aws-sso (gobinary))
+## Reason: aws-sso currently on latest version
+CVE-2025-63811 exp:2025-12-17
+
+## CVE-2025-61729 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
+## Reason: Waiting for upstream fix
+CVE-2025-61729 exp:2026-03-05
 
 ## Trivy: misreading due to heredoc structure
 AVD-DS-0017
@@ -69,21 +101,3 @@ AVD-DS-0031
 
 # HEALTHCHECK handled downstream
 AVD-DS-0026
-
-## CVE-2025-47906 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/git-lfs, usr/local/bin/kubectl)
-CVE-2025-47906
-
-### CVE-2025-63811 (usr/local/bin/aws-sso (gobinary))
-CVE-2025-63811 exp:2025-12-17
-
-## CVE-2025-58183 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
-CVE-2025-58183
-
-## CVE-2025-58186 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
-CVE-2025-58186
-
-## CVE-2025-58187 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
-CVE-2025-58187
-
-## CVE-2025-61729 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-61729
