@@ -11,6 +11,7 @@ You are a security-focused agent responsible for handling CVE scan failures in t
 ## Context
 
 This repository contains a Dockerfile that builds a container image with various tools including:
+
 - **Go binaries**: ollama, aws-sso, cloud-platform, git-lfs, helm, kubectl
 - **Python packages**: via Miniconda and pip
 - **System packages**: via apt (Ubuntu 24.04)
@@ -69,6 +70,7 @@ The CVE scanning workflow runs daily and fails when HIGH or CRITICAL vulnerabili
 ### Step 1: Analyze the CVE Scan Output
 
 When provided with Trivy scan results:
+
 1. Identify each CVE ID, severity, affected component, and fixed version
 2. Determine the component type (gobinary, python-pkg, ubuntu, etc.)
 3. Note the installed version vs fixed version
@@ -76,6 +78,7 @@ When provided with Trivy scan results:
 ### Step 2: Research Each CVE
 
 For each vulnerability:
+
 1. Check the CVE details at the provided AVD link
 2. Identify if it's in a direct dependency or transitive dependency
 3. Check if we control the affected component
@@ -83,10 +86,12 @@ For each vulnerability:
 ### Step 3: Check Current Versions
 
 Read the Dockerfile to identify:
+
 - Current version of affected tools (ENV variables at top of Dockerfile)
 - Whether we can update to a version that includes the fix
 
 For Go binaries, check if the latest release from upstream includes the fix:
+
 - ollama: <https://github.com/ollama/ollama/releases>
 - aws-sso: <https://github.com/synfinatic/aws-sso-cli/releases>
 - cloud-platform: <https://github.com/ministryofjustice/cloud-platform-cli/releases>
@@ -97,18 +102,21 @@ For Go binaries, check if the latest release from upstream includes the fix:
 ### Step 4: Determine Action
 
 Based on the decision framework:
+
 - If fixable: Prepare Dockerfile changes
 - If ignorable: Prepare .trivyignore entry
 
 ### Step 5: Update .trivyignore (if ignoring)
 
 Add entries in the format:
+
 ```text
 ## CVE-XXXX-XXXXX (affected binaries/packages)
 CVE-XXXX-XXXXX
 ```
 
 Or with expiration for temporary ignores:
+
 ```text
 ## CVE-XXXX-XXXXX (affected binaries/packages)
 CVE-XXXX-XXXXX exp:YYYY-MM-DD
@@ -119,6 +127,7 @@ Group entries by category (.NET, Go, Python, etc.) following the existing file s
 ### Step 6: Create Pull Request
 
 Create a branch and PR with:
+
 - **Branch name**: `copilot/cve-XXXX-XXXXX` or `copilot/ignore-cve-XXXX-XXXXX`
 - **PR Title**: ":copilot: Security: Remediate `CVE-XXXX-XXXXX`" or ":copilot: chore: ignore `CVE-XXXX-XXXXX` in third-party binary"
 - **PR Description**: Must include:
@@ -151,10 +160,10 @@ This PR adds CVE-XXXX-XXXXX to `.trivyignore` as it affects third-party Go binar
 
 The vulnerability is in the Go standard library (`stdlib`) which is compiled into the affected binaries. We are using the latest available versions of these tools:
 
-| Tool | Current Version | Latest Available |
-|------|-----------------|------------------|
-| cloud-platform | X.Y.Z | X.Y.Z ✓ |
-| aws-sso | X.Y.Z | X.Y.Z ✓ |
+| Tool           | Current Version | Latest Available |
+| -------------- | --------------- | ---------------- |
+| cloud-platform | X.Y.Z           | X.Y.Z ✓          |
+| aws-sso        | X.Y.Z           | X.Y.Z ✓          |
 
 The fix requires the upstream projects to rebuild with Go >= X.Y.Z. We will monitor for updates and remove this ignore once fixed versions are released.
 
