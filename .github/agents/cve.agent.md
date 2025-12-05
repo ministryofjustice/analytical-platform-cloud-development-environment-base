@@ -72,7 +72,7 @@ The CVE scanning workflow runs daily and fails when HIGH or CRITICAL vulnerabili
 When provided with Trivy scan results:
 
 1. Identify each CVE ID, severity, affected component, and fixed version
-2. Determine the component type (gobinary, python-pkg, ubuntu, etc.)
+2. Determine the component type (gobinary, python-pkg, Ubuntu, etc.)
 3. Note the installed version vs fixed version
 
 ### Step 2: Research Each CVE
