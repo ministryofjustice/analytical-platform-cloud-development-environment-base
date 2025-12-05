@@ -85,5 +85,5 @@ CVE-2025-58186
 ## CVE-2025-58187 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
 CVE-2025-58187
 
-## CVE-2025-61729 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
+## CVE-2025-61729 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/git-lfs, usr/local/bin/helm, usr/local/bin/kubectl)
 CVE-2025-61729

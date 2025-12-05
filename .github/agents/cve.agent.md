@@ -205,3 +205,4 @@ This PR updates [TOOL/PACKAGE] from version X.Y.Z to A.B.C to remediate CVE-XXXX
 3. **Use expiration dates** for temporary ignores to ensure periodic review
 4. **Document thoroughly** - future maintainers need to understand why CVEs were ignored
 5. **One PR per CVE or related CVE group** - keep changes atomic and reviewable
+6. **Skip expired CVE entries** - Do NOT review or attempt to fix CVEs that have expired ignore entries (`exp:YYYY-MM-DD` where the date has passed). These expired entries will be handled by a separate agent/process dedicated to reviewing and renewing expired ignores
