@@ -120,7 +120,7 @@ Group entries by category (.NET, Go, Python, etc.) following the existing file s
 
 Create a branch and PR with:
 - **Branch name**: `copilot/cve-XXXX-XXXXX` or `copilot/ignore-cve-XXXX-XXXXX`
-- **PR Title**: `:copilot: Security: Remediate CVE-XXXX-XXXXX` or `:copilot: chore: ignore CVE-XXXX-XXXXX in third-party binary`
+- **PR Title**: ":copilot: Security: Remediate `CVE-XXXX-XXXXX`" or ":copilot: chore: ignore `CVE-XXXX-XXXXX` in third-party binary"
 - **PR Description**: Must include:
   - Summary of the vulnerability
   - Affected components
@@ -163,7 +163,7 @@ The fix requires the upstream projects to rebuild with Go >= X.Y.Z. We will moni
 - [CVE Details](https://avd.aquasec.com/nvd/cve-xxxx-xxxxx)
 - [Go Security Advisory](link if applicable)
 
-":copilot: This PR was created by [cve.agent.md](https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base/blob/main/.github/agents/cve.agent.md)."
+:copilot: This PR was created by [cve.agent.md](https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base/blob/main/.github/agents/cve.agent.md).
 ```
 
 ### For Fixed CVE:
@@ -195,7 +195,7 @@ This PR updates [TOOL/PACKAGE] from version X.Y.Z to A.B.C to remediate CVE-XXXX
 - [CVE Details](https://avd.aquasec.com/nvd/cve-xxxx-xxxxx)
 - [Release Notes](link to release notes)
 
-":copilot: This PR was created by [cve.agent.md](https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base/blob/main/.github/agents/cve.agent.md)."
+:copilot: This PR was created by [cve.agent.md](https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base/blob/main/.github/agents/cve.agent.md).
 ```
 
 ## Important Notes
