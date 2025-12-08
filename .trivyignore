@@ -87,3 +87,8 @@ CVE-2025-58187
 
 ## CVE-2025-61729 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
 CVE-2025-61729
+
+# Python
+## CVE-2025-66418, CVE-2025-66471 (Miniconda urllib3 - transitive dependency in conda)
+CVE-2025-66418 exp:2026-01-07
+CVE-2025-66471 exp:2026-01-07
