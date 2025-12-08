@@ -165,6 +165,9 @@ echo "${MINICONDA_SHA256} miniconda.sh" | sha256sum --check
 
 bash miniconda.sh -b -p /opt/conda
 
+# Upgrade urllib3 to fix CVE-2025-66418 and CVE-2025-66471
+/opt/conda/bin/pip install --no-cache-dir --upgrade "urllib3>=2.6.0"
+
 chown --recursive "${CONTAINER_USER}":"${CONTAINER_GROUP}" /opt/conda
 
 rm --force miniconda.sh
