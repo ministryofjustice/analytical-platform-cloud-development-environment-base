@@ -61,7 +61,7 @@ CVE-2025-61724 exp:2025-12-01
 CVE-2024-25621 exp:2025-12-01
 
 ## CVE-2025-63811 (usr/local/bin/aws-sso)
-CVE-2025-63811 exp:2026-17-01
+CVE-2025-63811 exp:2026-01-17
 
 ## Trivy: misreading due to heredoc structure
 AVD-DS-0017
