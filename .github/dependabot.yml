@@ -13,6 +13,8 @@ updates:
       analytical-platform-github-actions:
         patterns:
           - "ministryofjustice/analytical-platform-github-actions*"
+    cooldown:
+      default-days: 7
   - package-ecosystem: "devcontainers"
     directory: "/"
     schedule:
@@ -20,6 +22,8 @@ updates:
     commit-message:
       prefix: ":dependabot: devcontainers"
       include: "scope"
+    cooldown:
+      default-days: 7
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
@@ -27,3 +31,5 @@ updates:
     commit-message:
       prefix: ":dependabot: docker"
       include: "scope"
+    cooldown:
+      default-days: 7
