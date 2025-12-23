@@ -71,9 +71,9 @@ make run
 Dependabot is configured to do this in [`.github/dependabot.yml`](.github/dependabot.yml), but if you need to get the digest, do the following
 
 ```bash
-docker pull --platform linux/amd64 public.ecr.aws/ubuntu/ubuntu:24.04
+docker pull --platform linux/amd64 docker.io/library/ubuntu:24.04
 
-docker image inspect --format='{{ index .RepoDigests 0 }}' public.ecr.aws/ubuntu/ubuntu:24.04
+docker image inspect --format='{{ index .RepoDigests 0 }}' docker.io/library/ubuntu:24.04
 ```
 
 ### Base APT Packages
@@ -84,7 +84,7 @@ The [Renovate config](./.github/renovate.json) also disables organisation-level 
 If you need to manually get latest versions of the APT packages, they can be obtained by running the following
 
 ```bash
-docker run -it --rm --platform linux/amd64 public.ecr.aws/ubuntu/ubuntu:24.04
+docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
 apt-get update
 
@@ -112,7 +112,7 @@ Releases for Node.js LTS are provided on [nodejs.org](https://nodejs.org/en)
 The last version of Amazon Corretto can be obtained by running:
 
 ```bash
-docker run -it --rm --platform linux/amd64 public.ecr.aws/ubuntu/ubuntu:24.04
+docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
 apt-get update
 
@@ -138,7 +138,7 @@ apt-cache policy java-21-amazon-corretto-jdk
 The latest version of .NET SDK can be obtained by running:
 
 ```bash
-docker run -it --rm --platform linux/amd64 public.ecr.aws/ubuntu/ubuntu:24.04
+docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
 apt-get update --yes
 
@@ -150,7 +150,7 @@ apt-cache policy dotnet-sdk-8.0
 The latest version of R can be obtained by running:
 
 ```bash
-docker run -it --rm --platform linux/amd64 public.ecr.aws/ubuntu/ubuntu:24.04
+docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
 apt-get update --yes
 
@@ -183,7 +183,7 @@ Releases for Ollama are maintained on [GitHub](https://github.com/ollama/ollama/
 The latest version of NVIDIA can be obtained by running:
 
 ```bash
-docker run -it --rm --platform linux/amd64 public.ecr.aws/ubuntu/ubuntu:24.04
+docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
 apt-get update
 
@@ -201,9 +201,9 @@ echo "deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nv
 
 apt-get update --yes
 
-apt-cache policy cuda-cudart-13-0
+apt-cache policy cuda-cudart-13-1
 
-apt-cache policy cuda-compat-13-0
+apt-cache policy cuda-compat-13-1
 ```
 
 ### Kubernetes CLI
@@ -223,7 +223,7 @@ Releases for Cloud Platform CLI are maintained on [GitHub](https://github.com/mi
 The latest version of Microsoft ODBC driver for SQL Server can be obtained by running:
 
 ```bash
-docker run -it --rm --platform linux/amd64 public.ecr.aws/ubuntu/ubuntu:24.04
+docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
 apt-get update --yes
 
