@@ -98,6 +98,7 @@ CVE-2025-66471 exp:2026-01-07
 
 # Python (python-pkg - jaraco.context (METADATA ))
 GHSA-58pv-8j8x-9vj2 exp:2026-01-28
+CVE-2026-23949 exp:2026-02-05
 
 ## CVE-2026-21441 - (Miniconda urllib3 - transitive dependency in conda)
 CVE-2026-21441
