@@ -127,7 +127,7 @@ commandTests:
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.9.24"]
+    expectedOutput: ["uvx 0.9.27"]
 
   - name: "git-lfs"
     command: "git-lfs"
