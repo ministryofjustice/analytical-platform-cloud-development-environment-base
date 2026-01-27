@@ -1,118 +1,43 @@
-# .NET
-## CVE-2024-0057
-CVE-2024-0057
-
-## CVE-2025-26646
-CVE-2025-26646
-
-# Go
-## CVE-2024-34156 (usr/local/bin/aws-sso)
-CVE-2024-34156
-
-## CVE-2024-41110 (usr/local/bin/aws-sso)
-CVE-2024-41110
-
 ## CVE-2024-45337 (usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
-CVE-2024-45337
-
-## CVE-2024-45338 (usr/bin/ollama, usr/local/bin/cloud-platform, usr/local/bin/kubectl)
-CVE-2024-45338
+CVE-2024-45337 exp:2026-04-27
 
 ## CVE-2025-22869 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
-CVE-2025-22869
+CVE-2025-22869 exp:2026-04-27
 
 ## CVE-2025-22874 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/helm, usr/bin/kubectl)
-CVE-2025-22874
+CVE-2025-22874 exp:2026-04-27
 
 ## CVE-2025-22868 (usr/local/bin/cloud-platform, usr/local/bin/kubectl)
-CVE-2025-22868
-
-## CVE-2022-40898 (Python (python-pkg))
-CVE-2022-40898
+CVE-2025-22868 exp:2026-04-27
 
 ## CVE-2025-47907 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-47907
-
-## CVE-2025-47912 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-47912 exp:2025-12-01
+CVE-2025-47907 exp:2026-04-27
 
 ## CVE-2025-58183 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-58183 exp:2025-12-01
-
-## CVE-2025-58186 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-58186 exp:2025-12-01
-
-## CVE-2025-58187 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-58187 exp:2025-12-01
-
-## CVE-2025-58188 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-58188 exp:2025-12-01
-
-## CVE-2025-58189 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-58189 exp:2025-12-01
-
-## CVE-2025-61723 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-61723 exp:2025-12-01
-
-## CVE-2025-61724 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-61724 exp:2025-12-01
-
-## CVE-2024-25621 (usr/local/bin/helm)
-CVE-2024-25621 exp:2025-12-01
-
-## CVE-2025-63811 (usr/local/bin/aws-sso)
-CVE-2025-63811 exp:2026-01-17
-
-## Trivy: misreading due to heredoc structure
-AVD-DS-0017
-AVD-DS-0029
-
-# AWS_SSO_FILE_PASSWORD false alert
-AVD-DS-0031
-
-# HEALTHCHECK handled downstream
-AVD-DS-0026
-
-## CVE-2025-47906 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/git-lfs, usr/local/bin/kubectl)
-CVE-2025-47906
-
-### CVE-2025-63811 (usr/local/bin/aws-sso (gobinary))
-CVE-2025-63811 exp:2025-12-17
-
-## CVE-2025-58183 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
-CVE-2025-58183
-
-## CVE-2025-58186 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
-CVE-2025-58186
-
-## CVE-2025-58187 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform)
-CVE-2025-58187
+CVE-2025-58183 exp:2026-02-09
 
 ## CVE-2025-61729 (usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/helm, usr/local/bin/kubectl)
-CVE-2025-61729
+CVE-2025-61729 exp:2026-04-27
 
-# Python
-## CVE-2025-66418, CVE-2025-66471 (Miniconda urllib3 - transitive dependency in conda)
-CVE-2025-66418 exp:2026-01-07
-CVE-2025-66471 exp:2026-01-07
+## Trivy: misreading due to heredoc structure
+AVD-DS-0017 exp:2026-04-27
+AVD-DS-0029 exp:2026-04-27
+
+# AWS_SSO_FILE_PASSWORD false alert
+AVD-DS-0031 exp:2026-04-27
+
+# HEALTHCHECK handled downstream
+AVD-DS-0026 exp:2026-04-27
 
 # Python (python-pkg - jaraco.context (METADATA ))
 GHSA-58pv-8j8x-9vj2 exp:2026-01-28
 CVE-2026-23949 exp:2026-02-05
 
 ## CVE-2026-21441 - (Miniconda urllib3 - transitive dependency in conda)
-CVE-2026-21441
-
-# linux-libc-dev (kernel headers)
-# These CVEs are in the Linux kernel, not the container. linux-libc-dev only provides
-# header files for compilation - the actual kernel runs on the Kubernetes node host.
-# Container isolation (seccomp, namespaces, capabilities) prevents exploitation.
-# The host kernel is patched separately by the platform/infrastructure team.
-## CVE-2025-38666: AppleTalk AARP proxy use-after-free - obsolete protocol, requires kernel module loading (blocked in containers)
-CVE-2025-38666
+CVE-2026-21441 exp:2026-04-27
 
 ## CVE-2025-63811 - (usr/local/bin/aws-sso)
-CVE-2025-63811
+CVE-2025-63811 exp:2026-04-27
 
 ## CVE-2026-24049 (Python (python-pkg) - wheel (METADATA))
 CVE-2026-24049 exp:2026-02-06
