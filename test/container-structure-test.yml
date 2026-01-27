@@ -87,7 +87,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.15.2"]
+    expectedOutput: ["0.15.1"]
 
   - name: "kubectl"
     command: "kubectl"
