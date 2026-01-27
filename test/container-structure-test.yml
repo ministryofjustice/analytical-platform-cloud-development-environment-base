@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.32.32"]
+    expectedOutput: ["aws-cli/2.33.7"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -67,12 +67,12 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v24.12.0"]
+    expectedOutput: ["v24.13.0"]
 
   - name: "corretto"
     command: "java"
     args: ["--version"]
-    expectedOutput: ["openjdk 21.0.9"]
+    expectedOutput: ["openjdk 21.0.10"]
 
   - name: "dotnet"
     command: "dotnet"
@@ -97,7 +97,7 @@ commandTests:
   - name: "helm"
     command: "helm"
     args: ["version"]
-    expectedOutput: ["3.19.4"]
+    expectedOutput: ["3.20.0"]
 
   - name: "cloud-platform"
     command: "cloud-platform"
@@ -112,7 +112,7 @@ commandTests:
   - name: "nbstripout"
     command: "nbstripout"
     args: ["--version"]
-    expectedOutput: ["0.8.2"]
+    expectedOutput: ["0.9.0"]
 
   - name: "sqlcmd"
     command: "sqlcmd"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.9.24"]
+    expectedOutput: ["uv 0.9.27"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.9.24"]
+    expectedOutput: ["uvx 0.9.27"]
 
   - name: "git-lfs"
     command: "git-lfs"

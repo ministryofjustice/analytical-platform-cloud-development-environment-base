@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:c35e29c9450151419d9448b0fd75374fec4fff364a27f176fb458d472dfc9e54
+FROM docker.io/library/ubuntu:24.04@sha256:cd1dba651b3080c3686ecf4e3c4220f026b521fb76978881737d24f200828b2b
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,19 +9,19 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.32.32" \
+    AWS_CLI_VERSION="2.33.7" \
     AWS_SSO_CLI_VERSION="2.1.0" \
     CLOUD_PLATFORM_CLI_VERSION="1.50.3" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
-    CORRETTO_VERSION="1:21.0.9.11-1" \
+    CORRETTO_VERSION="1:21.0.10.7-1" \
     CUDA_VERSION="13.1.0" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.122-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
-    HELM_VERSION="3.19.4" \
+    HELM_VERSION="3.20.0" \
     KUBECTL_VERSION="1.33.6" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
@@ -31,8 +31,8 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MICROSOFT_SQL_TOOLS_VERSION="18.6.1.1-1" \
     MINICONDA_SHA256="498ddb7c091002e4fd76e3496d91d2d915b183d1d850bef6e060fd45e2523213" \
     MINICONDA_VERSION="25.11.1-1" \
-    NBSTRIPOUT_VERSION="0.8.2" \
-    NODE_LTS_VERSION="24.12.0" \
+    NBSTRIPOUT_VERSION="0.9.0" \
+    NODE_LTS_VERSION="24.13.0" \
     NVIDIA_CUDA_COMPAT_VERSION="590.48.01-0ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="13.1.80-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
@@ -42,7 +42,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.5.2-1.2404.0" \
-    UV_VERSION="0.9.24"
+    UV_VERSION="0.9.27"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
