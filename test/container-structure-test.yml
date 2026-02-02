@@ -92,7 +92,7 @@ commandTests:
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.33.6"]
+    expectedOutput: ["Client Version: v1.33.7"]
 
   - name: "helm"
     command: "helm"
