@@ -19,7 +19,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CORRETTO_VERSION="1:21.0.10.7-1" \
     CUDA_VERSION="13.1.0" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="8.0.122-0ubuntu1~24.04.1" \
+    DOTNET_SDK_VERSION="8.0.123-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
     HELM_VERSION="3.20.0" \
     KUBECTL_VERSION="1.33.7" \
@@ -77,7 +77,7 @@ apt-get install --yes \
   "jq=1.7.1-3ubuntu0.24.04.1" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
-  "python3.12=3.12.3-1ubuntu0.10" \
+  "python3.12=3.12.3-1ubuntu0.11" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
   "vim=2:9.1.0016-1ubuntu7.9" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
