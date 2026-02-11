@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.33.7" \
+    AWS_CLI_VERSION="2.33.19" \
     AWS_SSO_CLI_VERSION="2.1.0" \
     CLOUD_PLATFORM_CLI_VERSION="1.50.3" \
     CONTAINER_GID="1000" \
@@ -32,17 +32,17 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MINICONDA_SHA256="498ddb7c091002e4fd76e3496d91d2d915b183d1d850bef6e060fd45e2523213" \
     MINICONDA_VERSION="25.11.1-1" \
     NBSTRIPOUT_VERSION="0.9.0" \
-    NODE_LTS_VERSION="24.13.0" \
+    NODE_LTS_VERSION="24.13.1" \
     NVIDIA_CUDA_COMPAT_VERSION="590.48.01-0ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="13.1.80-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.13.5" \
+    OLLAMA_VERSION="0.15.6" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.5.2-1.2404.0" \
-    UV_VERSION="0.9.27"
+    UV_VERSION="0.9.30"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -81,7 +81,8 @@ apt-get install --yes \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
   "vim=2:9.1.0016-1ubuntu7.9" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
-  "unzip=6.0-28ubuntu4.1"
+  "unzip=6.0-28ubuntu4.1" \
+  "zstd=1.5.5+dfsg2-2build1.1"
 
 apt-get clean --yes
 
@@ -253,8 +254,8 @@ EOF
 # Ollama
 RUN <<EOF
 curl --location --fail-with-body \
-  "https://github.com/ollama/ollama/releases/download/v${OLLAMA_VERSION}/ollama-linux-amd64.tgz" \
-  --output ollama-linux-amd64.tgz
+  "https://github.com/ollama/ollama/releases/download/v${OLLAMA_VERSION}/ollama-linux-amd64.tar.zst" \
+  --output ollama-linux-amd64.tar.zst
 
 curl --location --fail-with-body \
   "https://github.com/ollama/ollama/releases/download/v${OLLAMA_VERSION}/sha256sum.txt" \
@@ -262,9 +263,9 @@ curl --location --fail-with-body \
 
 sha256sum --check --ignore-missing ollama-sha256sum.txt
 
-tar -C /usr -xzf ollama-linux-amd64.tgz
+tar -C /usr --use-compress-program=unzstd -xf ollama-linux-amd64.tar.zst
 
-rm --force --recursive ollama-linux-amd64.tgz ollama-sha256sum.txt
+rm --force --recursive ollama-linux-amd64.tar.zst ollama-sha256sum.txt
 EOF
 
 # NVIDIA CUDA

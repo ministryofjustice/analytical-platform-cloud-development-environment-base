@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.33.7"]
+    expectedOutput: ["aws-cli/2.33.19"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -67,7 +67,7 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v24.13.0"]
+    expectedOutput: ["v24.13.1"]
 
   - name: "corretto"
     command: "java"
@@ -87,7 +87,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.13.5"]
+    expectedOutput: ["0.15.6"]
 
   - name: "kubectl"
     command: "kubectl"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.9.27"]
+    expectedOutput: ["uv 0.9.30"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.9.27"]
+    expectedOutput: ["uvx 0.9.30"]
 
   - name: "git-lfs"
     command: "git-lfs"
