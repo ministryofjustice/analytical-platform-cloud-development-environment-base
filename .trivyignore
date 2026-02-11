@@ -49,3 +49,6 @@ CVE-2025-61728 exp:2026-02-14
 ## CVE-2025-61730 + CVE-2025-68121 (stdlib - usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/git-lfs, usr/local/bin/helm, usr/local/bin/kubectl)
 CVE-2025-61730 exp:2026-04-09
 CVE-2025-68121 exp:2026-04-09
+
+## Python (python-pkg) - cryptography (METADATA)
+CVE-2026-26007 exp:2026-02-25
