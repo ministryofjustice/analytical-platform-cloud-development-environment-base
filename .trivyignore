@@ -43,8 +43,8 @@ CVE-2025-63811 exp:2026-04-27
 CVE-2026-24049 exp:2026-02-23
 
 ## CVE-2025-61726 + CVE-2025-61728 (stdlib - usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/git-lfs, usr/local/bin/kubectl)
-CVE-2025-61726 exp:2026-02-14
-CVE-2025-61728 exp:2026-02-14
+CVE-2025-61726 exp:2026-03-02
+CVE-2025-61728 exp:2026-03-02
 
 ## CVE-2025-61730 + CVE-2025-68121 (stdlib - usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/git-lfs, usr/local/bin/helm, usr/local/bin/kubectl)
 CVE-2025-61730 exp:2026-04-09
