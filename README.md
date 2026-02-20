@@ -44,6 +44,10 @@ This image is built on Ubuntu 24.04 LTS and includes the following software:
 
 - [uv](https://github.com/astral-sh/uv)
 
+- [GitHub CLI](https://cli.github.com/)
+
+- [GitHub Copilot CLI](https://github.com/features/copilot/cli)
+
 ## Running Locally
 
 ### Build
@@ -257,6 +261,28 @@ Releases for uv are maintained on [GitHub](https://github.com/astral-sh/uv/relea
 ### git-lfs
 
 Releases for git-lfs are maintained on [GitHub](https://github.com/git-lfs/git-lfs/releases).
+
+### GitHub CLI
+
+The latest version of GitHub CLI can be obtained by running:
+
+```bash
+curl --location --fail-with-body \
+  "https://cli.github.com/packages/githubcli-archive-keyring.gpg" \
+  --output "githubcli-archive-keyring.gpg"
+
+install -D --owner root --group root --mode 644 githubcli-archive-keyring.gpg /etc/apt/keyrings/githubcli-archive-keyring.gpg
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" > /etc/apt/sources.list.d/github-cli.list
+
+apt-get update --yes
+
+apt-cache policy gh
+```
+
+### GitHub Copilot CLI
+
+Releases for GitHub Copilot CLI are maintained on [GitHub](https://github.com/github/copilot-cli/releases).
 
 ## Maintenance
 

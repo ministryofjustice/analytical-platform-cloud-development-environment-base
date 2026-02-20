@@ -21,6 +21,9 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.124-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
+    GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08" \
+    GITHUB_CLI_VERSION="2.87.0" \
+    GITHUB_COPILOT_CLI_VERSION="0.0.412" \
     HELM_VERSION="3.20.0" \
     KUBECTL_VERSION="1.33.7" \
     LANG="C.UTF-8" \
@@ -371,7 +374,6 @@ rm --force --recursive uv.tar.gz uv-x86_64-unknown-linux-gnu
 EOF
 
 # Installs git-lfs (https://github.com/git-lfs)
-ENV GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08"
 RUN <<EOF
 curl --location --fail-with-body \
   "https://github.com/git-lfs/git-lfs/releases/download/v${GIT_LFS_VERSION}/git-lfs-linux-amd64-v${GIT_LFS_VERSION}.tar.gz" \
@@ -388,6 +390,38 @@ tar --extract --file git-lfs.tar.gz
 install --owner nobody --group nogroup --mode 0755 "git-lfs-${GIT_LFS_VERSION}/git-lfs" /usr/local/bin/git-lfs
 
 rm --force --recursive git-lfs-${GIT_LFS_VERSION} git-lfs.tar.gz
+EOF
+
+# GitHub CLI
+RUN <<EOF
+curl --location --fail-with-body \
+  "https://cli.github.com/packages/githubcli-archive-keyring.gpg" \
+  --output "githubcli-archive-keyring.gpg"
+
+install -D --owner root --group root --mode 644 githubcli-archive-keyring.gpg /etc/apt/keyrings/githubcli-archive-keyring.gpg
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" > /etc/apt/sources.list.d/github-cli.list
+
+apt-get update --yes
+
+apt-get install --yes "gh=${GITHUB_CLI_VERSION}"
+
+apt-get clean --yes
+
+rm --force --recursive /var/lib/apt/lists/* githubcli-archive-keyring.gpg
+EOF
+
+# GitHub Copilot CLI
+RUN <<EOF
+curl --location --fail-with-body \
+  "https://github.com/github/copilot-cli/releases/download/v${GITHUB_COPILOT_CLI_VERSION}/copilot-linux-x64.tar.gz" \
+  --output "copilot.tar.gz"
+
+tar --extract --file copilot.tar.gz
+
+install --owner nobody --group nogroup --mode 0755 copilot /usr/local/bin/copilot
+
+rm --force --recursive copilot.tar.gz copilot
 EOF
 
 USER ${CONTAINER_USER}

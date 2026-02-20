@@ -134,6 +134,16 @@ commandTests:
     args: ["--version"]
     expectedOutput: ["git-lfs/3.7.1"]
 
+  - name: "gh"
+    command: "gh"
+    args: ["--version"]
+    expectedOutput: ["gh version 2.87.0"]
+
+  - name: "copilot"
+    command: "copilot"
+    args: ["--version"]
+    expectedOutput: ["GitHub Copilot CLI 0.0.412"]
+
 fileExistenceTests:
   - name: "/opt/analytical-platform"
     path: "/opt/analytical-platform"
