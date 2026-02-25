@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.33.19"]
+    expectedOutput: ["aws-cli/2.33.29"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -67,7 +67,7 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v24.13.1"]
+    expectedOutput: ["v24.14.0"]
 
   - name: "corretto"
     command: "java"
@@ -92,7 +92,7 @@ commandTests:
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.33.7"]
+    expectedOutput: ["Client Version: v1.33.8"]
 
   - name: "helm"
     command: "helm"
@@ -112,7 +112,7 @@ commandTests:
   - name: "nbstripout"
     command: "nbstripout"
     args: ["--version"]
-    expectedOutput: ["0.9.0"]
+    expectedOutput: ["0.9.1"]
 
   - name: "sqlcmd"
     command: "sqlcmd"
@@ -137,12 +137,12 @@ commandTests:
   - name: "gh"
     command: "gh"
     args: ["--version"]
-    expectedOutput: ["gh version 2.87.2"]
+    expectedOutput: ["gh version 2.87.3"]
 
   - name: "copilot"
     command: "copilot"
     args: ["--version"]
-    expectedOutput: ["GitHub Copilot CLI 0.0.412"]
+    expectedOutput: ["GitHub Copilot CLI 0.0.417"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"

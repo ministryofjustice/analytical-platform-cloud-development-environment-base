@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:cd1dba651b3080c3686ecf4e3c4220f026b521fb76978881737d24f200828b2b
+FROM docker.io/library/ubuntu:24.04@sha256:d1e2e92c075e5ca139d51a140fff46f84315c0fdce203eab2807c7e495eff4f9
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.33.19" \
+    AWS_CLI_VERSION="2.33.29" \
     AWS_SSO_CLI_VERSION="2.1.0" \
     CLOUD_PLATFORM_CLI_VERSION="1.50.3" \
     CONTAINER_GID="1000" \
@@ -22,10 +22,10 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DOTNET_SDK_VERSION="8.0.124-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
     GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08" \
-    GITHUB_CLI_VERSION="2.87.2" \
-    GITHUB_COPILOT_CLI_VERSION="0.0.412" \
+    GITHUB_CLI_VERSION="2.87.3" \
+    GITHUB_COPILOT_CLI_VERSION="0.0.417" \
     HELM_VERSION="3.20.0" \
-    KUBECTL_VERSION="1.33.7" \
+    KUBECTL_VERSION="1.33.8" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
@@ -34,8 +34,8 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MICROSOFT_SQL_TOOLS_VERSION="18.6.1.1-1" \
     MINICONDA_SHA256="498ddb7c091002e4fd76e3496d91d2d915b183d1d850bef6e060fd45e2523213" \
     MINICONDA_VERSION="25.11.1-1" \
-    NBSTRIPOUT_VERSION="0.9.0" \
-    NODE_LTS_VERSION="24.13.1" \
+    NBSTRIPOUT_VERSION="0.9.1" \
+    NODE_LTS_VERSION="24.14.0" \
     NVIDIA_CUDA_COMPAT_VERSION="590.48.01-0ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="13.1.80-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
@@ -74,7 +74,7 @@ apt-get update --yes
 apt-get install --yes \
   "apt-transport-https=2.8.3" \
   "ca-certificates=20240203" \
-  "curl=8.5.0-2ubuntu10.6" \
+  "curl=8.5.0-2ubuntu10.7" \
   "git=1:2.43.0-1ubuntu7.3" \
   "ffmpeg=7:6.1.1-3ubuntu5" \
   "jq=1.7.1-3ubuntu0.24.04.1" \
