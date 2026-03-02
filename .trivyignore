@@ -30,8 +30,7 @@ AVD-DS-0031 exp:2026-04-27
 AVD-DS-0026 exp:2026-04-27
 
 # Python (python-pkg - jaraco.context (METADATA ))
-GHSA-58pv-8j8x-9vj2 exp:2026-01-28
-CVE-2026-23949 exp:2026-02-28
+CVE-2026-23949 exp:2026-04-01
 
 ## CVE-2026-21441 - (Miniconda urllib3 - transitive dependency in conda)
 CVE-2026-21441 exp:2026-04-27
@@ -40,11 +39,13 @@ CVE-2026-21441 exp:2026-04-27
 CVE-2025-63811 exp:2026-04-27
 
 ## CVE-2026-24049 (Python (python-pkg) - wheel (METADATA))
-CVE-2026-24049 exp:2026-02-28
+CVE-2026-24049 exp:2026-04-01
 
-## CVE-2025-61726 + CVE-2025-61728 (stdlib - usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/git-lfs, usr/local/bin/kubectl)
-CVE-2025-61726 exp:2026-03-02
-CVE-2025-61728 exp:2026-03-02
+## CVE-2025-61726 + CVE-2025-61728 (stdlib - usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/git-lfs)
+## All affected tools are at their latest versions
+## These are memory exhaustion (net/url) and CPU exhaustion (archive/zip) issues - low exploitability in a dev environment
+CVE-2025-61726 exp:2026-04-01
+CVE-2025-61728 exp:2026-04-01
 
 ## CVE-2025-61730 + CVE-2025-68121 (stdlib - usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/git-lfs, usr/local/bin/helm, usr/local/bin/kubectl)
 CVE-2025-61730 exp:2026-04-09
