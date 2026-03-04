@@ -9,9 +9,9 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.33.29" \
+    AWS_CLI_VERSION="2.34.1" \
     AWS_SSO_CLI_VERSION="2.1.0" \
-    CLOUD_PLATFORM_CLI_VERSION="1.50.3" \
+    CLOUD_PLATFORM_CLI_VERSION="1.50.9" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
@@ -23,9 +23,9 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     GIT_LFS_VERSION="3.7.1" \
     GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08" \
     GITHUB_CLI_VERSION="2.87.3" \
-    GITHUB_COPILOT_CLI_VERSION="0.0.417" \
-    HELM_VERSION="3.20.0" \
-    KUBECTL_VERSION="1.33.8" \
+    GITHUB_COPILOT_CLI_VERSION="0.0.421" \
+    HELM_VERSION="4.1.1" \
+    KUBECTL_VERSION="1.35.2" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
@@ -41,11 +41,11 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.15.6" \
+    OLLAMA_VERSION="0.17.6" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.5.2-1.2404.0" \
-    UV_VERSION="0.9.30"
+    UV_VERSION="0.10.8"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
