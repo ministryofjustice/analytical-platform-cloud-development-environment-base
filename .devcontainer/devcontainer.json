@@ -12,7 +12,9 @@
       "extensions": [
         "EditorConfig.EditorConfig",
         "GitHub.vscode-github-actions",
-        "GitHub.vscode-pull-request-github"
+        "GitHub.vscode-pull-request-github",
+        "GitHub.copilot-chat",
+        "GitHub.copilot"
       ]
     }
   }
