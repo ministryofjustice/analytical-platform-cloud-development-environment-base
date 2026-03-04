@@ -97,17 +97,17 @@ Compare each "Candidate" version with the Dockerfile. Update the relevant `ENV` 
 
 Check the latest release for each tool distributed via GitHub releases:
 
-| Tool | GitHub API URL | Dockerfile ENV |
-|------|---------------|----------------|
-| AWS CLI | `https://api.github.com/repos/aws/aws-cli/tags?per_page=5` | `AWS_CLI_VERSION` |
-| AWS SSO CLI | `https://api.github.com/repos/synfinatic/aws-sso-cli/releases/latest` | `AWS_SSO_CLI_VERSION` |
+| Tool               | GitHub API URL                                                                      | Dockerfile ENV               |
+| ------------------ | ----------------------------------------------------------------------------------- | ---------------------------- |
+| AWS CLI            | `https://api.github.com/repos/aws/aws-cli/tags?per_page=5`                          | `AWS_CLI_VERSION`            |
+| AWS SSO CLI        | `https://api.github.com/repos/synfinatic/aws-sso-cli/releases/latest`               | `AWS_SSO_CLI_VERSION`        |
 | Cloud Platform CLI | `https://api.github.com/repos/ministryofjustice/cloud-platform-cli/releases/latest` | `CLOUD_PLATFORM_CLI_VERSION` |
-| Helm | `https://api.github.com/repos/helm/helm/releases/latest` | `HELM_VERSION` |
-| Ollama | `https://api.github.com/repos/ollama/ollama/releases/latest` | `OLLAMA_VERSION` |
-| nbstripout | `https://api.github.com/repos/kynan/nbstripout/releases/latest` | `NBSTRIPOUT_VERSION` |
-| uv | `https://api.github.com/repos/astral-sh/uv/releases/latest` | `UV_VERSION` |
-| git-lfs | `https://api.github.com/repos/git-lfs/git-lfs/releases/latest` | `GIT_LFS_VERSION` |
-| GitHub Copilot CLI | `https://api.github.com/repos/github/copilot-cli/releases/latest` | `GITHUB_COPILOT_CLI_VERSION` |
+| Helm               | `https://api.github.com/repos/helm/helm/releases/latest`                            | `HELM_VERSION`               |
+| Ollama             | `https://api.github.com/repos/ollama/ollama/releases/latest`                        | `OLLAMA_VERSION`             |
+| nbstripout         | `https://api.github.com/repos/kynan/nbstripout/releases/latest`                     | `NBSTRIPOUT_VERSION`         |
+| uv                 | `https://api.github.com/repos/astral-sh/uv/releases/latest`                         | `UV_VERSION`                 |
+| git-lfs            | `https://api.github.com/repos/git-lfs/git-lfs/releases/latest`                      | `GIT_LFS_VERSION`            |
+| GitHub Copilot CLI | `https://api.github.com/repos/github/copilot-cli/releases/latest`                   | `GITHUB_COPILOT_CLI_VERSION` |
 
 For each, fetch the latest release tag and strip any `v` prefix. Compare with the current Dockerfile ENV value.
 
@@ -158,24 +158,24 @@ Update `test/container-structure-test.yml` to match any changed versions. Each t
 
 Key mappings between Dockerfile versions and test expected output:
 
-| Dockerfile ENV | Test name | Expected output format |
-|----------------|-----------|----------------------|
-| `AWS_CLI_VERSION` | aws | `aws-cli/X.Y.Z` |
-| `AWS_SSO_CLI_VERSION` | aws-sso | `AWS SSO CLI Version X.Y.Z` |
-| `OLLAMA_VERSION` | ollama | `X.Y.Z` |
-| `KUBECTL_VERSION` | kubectl | `Client Version: vX.Y.Z` |
-| `HELM_VERSION` | helm | `X.Y.Z` |
-| `CLOUD_PLATFORM_CLI_VERSION` | cloud-platform | `X.Y.Z` |
-| `NBSTRIPOUT_VERSION` | nbstripout | `X.Y.Z` |
-| `UV_VERSION` | uv | `uv X.Y.Z` |
-| `UV_VERSION` | uvx | `uvx X.Y.Z` |
-| `GIT_LFS_VERSION` | git-lfs | `git-lfs/X.Y.Z` |
-| `GITHUB_CLI_VERSION` | gh | `gh version X.Y.Z` |
-| `GITHUB_COPILOT_CLI_VERSION` | copilot | `GitHub Copilot CLI X.Y.Z` |
-| `NODE_LTS_VERSION` | node | `vX.Y.Z` |
-| `CORRETTO_VERSION` | corretto | `openjdk X.Y.Z` (major.minor.patch from version) |
-| `DOTNET_SDK_VERSION` | dotnet | `X.Y.Z` (numeric prefix) |
-| `R_VERSION` | r | `R version X.Y.Z` (first 3 components) |
+| Dockerfile ENV               | Test name      | Expected output format                           |
+| ---------------------------- | -------------- | ------------------------------------------------ |
+| `AWS_CLI_VERSION`            | aws            | `aws-cli/X.Y.Z`                                  |
+| `AWS_SSO_CLI_VERSION`        | aws-sso        | `AWS SSO CLI Version X.Y.Z`                      |
+| `OLLAMA_VERSION`             | ollama         | `X.Y.Z`                                          |
+| `KUBECTL_VERSION`            | kubectl        | `Client Version: vX.Y.Z`                         |
+| `HELM_VERSION`               | helm           | `X.Y.Z`                                          |
+| `CLOUD_PLATFORM_CLI_VERSION` | cloud-platform | `X.Y.Z`                                          |
+| `NBSTRIPOUT_VERSION`         | nbstripout     | `X.Y.Z`                                          |
+| `UV_VERSION`                 | uv             | `uv X.Y.Z`                                       |
+| `UV_VERSION`                 | uvx            | `uvx X.Y.Z`                                      |
+| `GIT_LFS_VERSION`            | git-lfs        | `git-lfs/X.Y.Z`                                  |
+| `GITHUB_CLI_VERSION`         | gh             | `gh version X.Y.Z`                               |
+| `GITHUB_COPILOT_CLI_VERSION` | copilot        | `GitHub Copilot CLI X.Y.Z`                       |
+| `NODE_LTS_VERSION`           | node           | `vX.Y.Z`                                         |
+| `CORRETTO_VERSION`           | corretto       | `openjdk X.Y.Z` (major.minor.patch from version) |
+| `DOTNET_SDK_VERSION`         | dotnet         | `X.Y.Z` (numeric prefix)                         |
+| `R_VERSION`                  | r              | `R version X.Y.Z` (first 3 components)           |
 
 ### Step 10: Commit and Create Pull Request
 
@@ -209,9 +209,9 @@ Resolves ministryofjustice/analytical-platform#<ISSUE_NUMBER>
 
 ### Updated Versions
 
-| Package | Previous | Updated |
-|---------|----------|---------|
-| <package> | <old> | <new> |
+| Package   | Previous | Updated |
+| --------- | -------- | ------- |
+| <package> | <old>    | <new>   |
 
 ### Already at Latest
 
