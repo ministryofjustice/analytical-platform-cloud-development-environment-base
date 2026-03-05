@@ -18,7 +18,11 @@ Maintenance is triggered by a scheduled issue in the `ministryofjustice/analytic
 
 ### Step 1: Create a Branch
 
-Create a branch from `main` named `maintenance/update-versions-<month>-<year>` (e.g. `maintenance/update-versions-march-2026`).
+Create a branch from `main` using a timestamp-based name:
+
+```bash
+git checkout -b copilot-maintenance/update-$(date +%Y%m%d-%H%M)
+```
 
 ### Step 2: Check Ubuntu Base Image Digest
 
@@ -179,12 +183,12 @@ Key mappings between Dockerfile versions and test expected output:
 
 ### Step 10: Commit and Create Pull Request
 
-Commit all changes with a descriptive message and push:
+Commit all changes with a descriptive message and push. Use the current branch name (created in Step 1):
 
 ```bash
 git add -A
 git commit -m "chore: update software versions for <month> <year> maintenance"
-git push --set-upstream origin maintenance/update-versions-<month>-<year>
+git push --set-upstream origin "$(git branch --show-current)"
 ```
 
 Create a PR using the GitHub CLI:
@@ -236,3 +240,4 @@ The following are already at their latest available versions (no changes needed)
 6. **One PR per maintenance cycle** — combine all updates into a single PR
 7. **Document what was checked** — the PR must list both updated and already-current packages so reviewers know everything was verified
 8. **NVIDIA CUDA version** — check for minor/major version increases by inspecting the [CUDA repository](https://gitlab.com/nvidia/container-images/cuda/-/tree/master/dist) as apt-cache alone may not show these
+9. **Detect new packages** — before starting updates, parse the Dockerfile for all `ENV` version variables and all versioned `apt-get install` packages. Compare against the list of packages documented in this agent (Steps 3–7). If any package in the Dockerfile is **not covered** by this agent, **stop and alert the user** with a message like: _"The Dockerfile contains package `<NAME>` (version `<VERSION>`) which is not tracked by this agent. Please update `.github/agents/maintenance.agent.md` to include instructions for checking this package before proceeding."_ Do not silently skip unknown packages.
