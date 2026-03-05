@@ -53,3 +53,6 @@ CVE-2025-68121 exp:2026-04-09
 
 ## Python (python-pkg) - cryptography (METADATA)
 CVE-2026-26007 exp:2026-03-10
+
+## CVE-2025-15558 - (Github CLI)
+CVE-2025-15558
