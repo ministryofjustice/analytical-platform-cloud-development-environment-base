@@ -195,7 +195,8 @@ Create a PR using the GitHub CLI:
 
 ```bash
 gh pr create \
-  --title "chore: update software versions for <month> <year> maintenance" \
+  --title ":copilot: chore(maintenance): Cloud Base Development Environment Maintenance" \
+  --label "copilot" \
   --body "<PR body>" \
   --base main
 ```
