@@ -234,7 +234,7 @@ The following are already at their latest available versions (no changes needed)
 ## Important Rules
 
 1. **Always check ALL versions** — do not skip any software component
-2. **kubectl is special** — only update the patch version within the current minor version; never bump the minor version
+2. **kubectl is special** — only update the patch version within the current minor version; never bump the minor version. Alert the user if there is a potential minor version that could be updated. 
 3. **Update both Dockerfile AND tests** — every version change must be reflected in both files
 4. **Verify SHA256 hashes** — when updating Miniconda or git-lfs, always recompute and update the SHA256 hash
 5. **Strip version prefixes** — GitHub tags often include a `v` prefix; remove it when setting ENV values
@@ -249,4 +249,4 @@ The following are already at their latest available versions (no changes needed)
    (version `<VERSION>`) which is not tracked by this agent. Please update
    `.github/agents/maintenance.agent.md` to include instructions for checking
    this package before proceeding."_ Do not silently skip unknown packages.
-10. **Use the issue number** — the PR must reference the original scheduled maintenance issue in the analytical-platform repository to link them together
+10. **Use the issue number** — the PR must reference the original scheduled maintenance issue in the analytical-platform repository to link them together, ask the user for this if it is not provided in the user input.
