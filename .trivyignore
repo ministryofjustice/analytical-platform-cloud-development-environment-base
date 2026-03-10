@@ -29,17 +29,8 @@ AVD-DS-0031 exp:2026-04-27
 # HEALTHCHECK handled downstream
 AVD-DS-0026 exp:2026-04-27
 
-# Python (python-pkg - jaraco.context (METADATA ))
-CVE-2026-23949 exp:2026-04-01
-
-## CVE-2026-21441 - (Miniconda urllib3 - transitive dependency in conda)
-CVE-2026-21441 exp:2026-04-27
-
 ## CVE-2025-63811 - (usr/local/bin/aws-sso)
 CVE-2025-63811 exp:2026-04-27
-
-## CVE-2026-24049 (Python (python-pkg) - wheel (METADATA))
-CVE-2026-24049 exp:2026-04-01
 
 ## CVE-2025-61726 + CVE-2025-61728 (stdlib - usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/git-lfs)
 ## All affected tools are at their latest versions
@@ -50,9 +41,6 @@ CVE-2025-61728 exp:2026-04-01
 ## CVE-2025-61730 + CVE-2025-68121 (stdlib - usr/bin/ollama, usr/local/bin/aws-sso, usr/local/bin/cloud-platform, usr/local/bin/git-lfs, usr/local/bin/helm, usr/local/bin/kubectl)
 CVE-2025-61730 exp:2026-04-09
 CVE-2025-68121 exp:2026-04-09
-
-## Python (python-pkg) - cryptography (METADATA)
-CVE-2026-26007 exp:2026-03-10
 
 ## CVE-2025-15558 - (Github CLI)
 CVE-2025-15558 exp:2026-03-20
