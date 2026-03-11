@@ -137,7 +137,7 @@ commandTests:
   - name: "gh"
     command: "gh"
     args: ["--version"]
-    expectedOutput: ["gh version 2.87.3"]
+    expectedOutput: ["gh version 2.88.0"]
 
   - name: "copilot"
     command: "copilot"
