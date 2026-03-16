@@ -19,10 +19,10 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CORRETTO_VERSION="1:21.0.10.7-1" \
     CUDA_VERSION="13.1.0" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="8.0.124-0ubuntu1~24.04.1" \
+    DOTNET_SDK_VERSION="8.0.125-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
     GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08" \
-    GITHUB_CLI_VERSION="2.87.3" \
+    GITHUB_CLI_VERSION="2.88.0" \
     GITHUB_COPILOT_CLI_VERSION="0.0.421" \
     HELM_VERSION="4.1.1" \
     KUBECTL_VERSION="1.33.8" \
@@ -74,7 +74,7 @@ apt-get update --yes
 apt-get install --yes \
   "apt-transport-https=2.8.3" \
   "ca-certificates=20240203" \
-  "curl=8.5.0-2ubuntu10.7" \
+  "curl=8.5.0-2ubuntu10.8" \
   "git=1:2.43.0-1ubuntu7.3" \
   "ffmpeg=7:6.1.1-3ubuntu5" \
   "jq=1.7.1-3ubuntu0.24.04.1" \
