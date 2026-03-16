@@ -77,12 +77,12 @@ commandTests:
   - name: "dotnet"
     command: "dotnet"
     args: ["--version"]
-    expectedOutput: ["8.0.124"]
+    expectedOutput: ["8.0.125"]
 
   - name: "r"
     command: "R"
     args: ["--version"]
-    expectedOutput: ["R version 4.5.2"]
+    expectedOutput: ["R version 4.5.3"]
 
   - name: "ollama"
     command: "ollama"
@@ -137,7 +137,7 @@ commandTests:
   - name: "gh"
     command: "gh"
     args: ["--version"]
-    expectedOutput: ["gh version 2.87.3"]
+    expectedOutput: ["gh version 2.88.1"]
 
   - name: "copilot"
     command: "copilot"
