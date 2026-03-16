@@ -44,7 +44,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     OLLAMA_VERSION="0.17.6" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.5.2-1.2404.0" \
+    R_VERSION="4.5.3-1.2404.0" \
     UV_VERSION="0.10.8"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
