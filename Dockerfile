@@ -82,7 +82,7 @@ apt-get install --yes \
   "less=590-2ubuntu2.1" \
   "python3.12=3.12.3-1ubuntu0.12" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
-  "vim=2:9.1.0016-1ubuntu7.9" \
+  "vim=2:9.1.0016-1ubuntu7.10" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
   "unzip=6.0-28ubuntu4.1" \
   "zstd=1.5.5+dfsg2-2build1.1"
