@@ -47,3 +47,8 @@ CVE-2025-15558 exp:2026-03-20
 
 ## CVE-2026-32597 - (PyJWT (METADATA))
 CVE-2026-32597 exp:2026-03-30
+
+## CVE-2026-25679 (stdlib - usr/local/bin/cloud-platform, usr/local/bin/git-lfs, usr/local/bin/helm, usr/local/bin/kubectl)
+## Incorrect parsing of IPv6 host literals in net/url - requires Go 1.25.8+/1.26.1+ to fix
+## All affected tools are at or near latest release; none compile with patched Go yet
+CVE-2026-25679 exp:2026-03-30
