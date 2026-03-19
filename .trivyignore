@@ -52,3 +52,6 @@ CVE-2026-32597 exp:2026-03-30
 ## Incorrect parsing of IPv6 host literals in net/url - requires Go 1.25.8+/1.26.1+ to fix
 ## All affected tools are at or near latest release; none compile with patched Go yet
 CVE-2026-25679 exp:2026-03-30
+
+## CVE-2026-33186 - (github cli - google.golang.org)
+CVE-2026-33186 exp:2026-03-30
