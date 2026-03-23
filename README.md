@@ -1,4 +1,4 @@
-# Analyical Platform Cloud Development Environment Base
+# Analytical Platform Cloud Development Environment Base
 
 [![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/analytical-platform-cloud-development-environment-base/badge)](https://github-community.service.justice.gov.uk/repository-standards/analytical-platform-cloud-development-environment-base)
 
