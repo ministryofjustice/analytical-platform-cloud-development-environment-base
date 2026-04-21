@@ -205,9 +205,9 @@ echo "deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nv
 
 apt-get update --yes
 
-apt-cache policy cuda-cudart-13-1
+apt-cache policy cuda-cudart-13-2
 
-apt-cache policy cuda-compat-13-1
+apt-cache policy cuda-compat-13-2
 ```
 
 ### Kubernetes CLI
