@@ -57,7 +57,7 @@ commandTests:
   - name: "python (conda)"
     command: "python"
     args: ["--version"]
-    expectedOutput: ["Python 3.12.12"]
+    expectedOutput: ["Python 3.12.13"]
 
   - name: "pip (conda)"
     command: "pip"
@@ -117,7 +117,7 @@ commandTests:
   - name: "sqlcmd"
     command: "sqlcmd"
     args: ["-?"]
-    expectedOutput: ["Version 18.6.0001.1 Linux"]
+    expectedOutput: ["Version 18.6.0002.1 Linux"]
 
   - name: "uv"
     command: "uv"
@@ -218,8 +218,8 @@ fileExistenceTests:
     path: "/usr/local/cuda/lib64/libcudart.so.13"
     shouldExist: true
 
-  - name: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.6.so.1.1"
-    path: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.6.so.1.1"
+  - name: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.6.so.2.1"
+    path: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.6.so.2.1"
     shouldExist: true
 
 metadataTest:
