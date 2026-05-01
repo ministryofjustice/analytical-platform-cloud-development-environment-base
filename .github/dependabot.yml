@@ -2,7 +2,7 @@
 version: 2
 
 updates:
-  - package-ecosystem: "devcontainers"
+c  - package-ecosystem: "devcontainers"
     commit-message:
       include: "scope"
       prefix: ":dependabot: devcontainers"

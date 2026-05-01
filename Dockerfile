@@ -77,12 +77,12 @@ apt-get install --yes \
   "curl=8.5.0-2ubuntu10.8" \
   "git=1:2.43.0-1ubuntu7.3" \
   "ffmpeg=7:6.1.1-3ubuntu5" \
-  "jq=1.7.1-3ubuntu0.24.04.1" \
+  "jq=1.7.1-3ubuntu0.24.04.2" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
-  "python3.12=3.12.3-1ubuntu0.12" \
+  "python3.12=3.12.3-1ubuntu0.13" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
-  "vim=2:9.1.0016-1ubuntu7.10" \
+  "vim=2:9.1.0016-1ubuntu7.12" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
   "unzip=6.0-28ubuntu4.1" \
   "zstd=1.5.5+dfsg2-2build1.1"
