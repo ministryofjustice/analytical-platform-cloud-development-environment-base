@@ -44,7 +44,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     OLLAMA_VERSION="0.22.1" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.6.0-2.2404.0" \
+    R_VERSION="4.6.1-1.2404.1" \
     UV_VERSION="0.11.25"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
@@ -73,7 +73,7 @@ apt-get update --yes
 
 apt-get install --yes \
   "apt-transport-https=2.8.3" \
-  "ca-certificates=20240203" \
+  "ca-certificates=20260601~24.04.1" \
   "curl=8.5.0-2ubuntu10.9" \
   "git=1:2.43.0-1ubuntu7.3" \
   "ffmpeg=7:6.1.1-3ubuntu5" \

@@ -82,7 +82,7 @@ commandTests:
   - name: "r"
     command: "R"
     args: ["--version"]
-    expectedOutput: ["R version 4.6.0"]
+    expectedOutput: ["R version 4.6.1"]
 
   - name: "ollama"
     command: "ollama"
