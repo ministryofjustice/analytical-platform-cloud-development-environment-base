@@ -22,7 +22,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DOTNET_SDK_VERSION="8.0.128-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
     GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08" \
-    GITHUB_CLI_VERSION="2.92.0" \
+    GITHUB_CLI_VERSION="2.95.0" \
     GITHUB_COPILOT_CLI_VERSION="1.0.39" \
     HELM_VERSION="4.1.4" \
     KUBECTL_VERSION="1.35.3" \
@@ -146,7 +146,7 @@ EOF
 # Installs AWS SSO CLI (https://github.com/synfinatic/aws-sso-cli)
 COPY --chown="${CONTAINER_USER}:${CONTAINER_GROUP}" --chmod=0644 src${ANALYTICAL_PLATFORM_DIRECTORY}/aws-sso/config.yaml ${ANALYTICAL_PLATFORM_DIRECTORY}/aws-sso/config.yaml
 # TODO: @jacobwoffenden - How do we make this persistent in the runtime environment?
-# checkov:skip=CKV_SECRET_6: Used to encrypt the AWS SSO configuration file, will be addressses as per the above TODO.
+# checkov:skip=CKV_SECRET_6: Used to encrypt the AWS SSO configuration file, will be addresses as per the above TODO.
 ENV AWS_SSO_FILE_PASSWORD="analyticalplatform"
 RUN <<EOF
 curl --location --fail-with-body \
