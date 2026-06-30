@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:c4a8d5503dfb2a3eb8ab5f807da5bc69a85730fb49b5cfca2330194ebcc41c7b
+FROM docker.io/library/ubuntu:24.04@sha256:786a8b558f7be160c6c8c4a54f9a57274f3b4fb1491cf65146521ae77ff1dc54
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,8 +9,8 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.34.39" \
-    AWS_SSO_CLI_VERSION="2.1.0" \
+    AWS_CLI_VERSION="2.35.12" \
+    AWS_SSO_CLI_VERSION="2.3.1" \
     CLOUD_PLATFORM_CLI_VERSION="1.50.9" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
@@ -19,7 +19,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CORRETTO_VERSION="1:21.0.11.10-1" \
     CUDA_VERSION="13.1.0" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="8.0.126-0ubuntu1~24.04.1" \
+    DOTNET_SDK_VERSION="8.0.128-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
     GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08" \
     GITHUB_CLI_VERSION="2.92.0" \
@@ -45,7 +45,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.6.0-2.2404.0" \
-    UV_VERSION="0.11.8"
+    UV_VERSION="0.11.25"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -74,7 +74,7 @@ apt-get update --yes
 apt-get install --yes \
   "apt-transport-https=2.8.3" \
   "ca-certificates=20240203" \
-  "curl=8.5.0-2ubuntu10.8" \
+  "curl=8.5.0-2ubuntu10.9" \
   "git=1:2.43.0-1ubuntu7.3" \
   "ffmpeg=7:6.1.1-3ubuntu5" \
   "jq=1.7.1-3ubuntu0.24.04.2" \
@@ -82,7 +82,7 @@ apt-get install --yes \
   "less=590-2ubuntu2.1" \
   "python3.12=3.12.3-1ubuntu0.13" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
-  "vim=2:9.1.0016-1ubuntu7.12" \
+  "vim=2:9.1.0016-1ubuntu7.16" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
   "unzip=6.0-28ubuntu4.1" \
   "zstd=1.5.5+dfsg2-2build1.1"
