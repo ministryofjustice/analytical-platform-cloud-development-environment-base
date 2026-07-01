@@ -17,6 +17,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
     CORRETTO_VERSION="1:21.0.11.10-1" \
+    CRYPTOGRAPHY_VERSION="49.0.0" \
     CUDA_VERSION="13.1.0" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.128-0ubuntu1~24.04.1" \
@@ -24,7 +25,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08" \
     GITHUB_CLI_VERSION="2.95.0" \
     GITHUB_COPILOT_CLI_VERSION="1.0.39" \
-    HELM_VERSION="4.1.4" \
+    HELM_VERSION="4.2.2" \
     KUBECTL_VERSION="1.35.3" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
@@ -32,19 +33,22 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64" \
     MICROSOFT_SQL_ODBC_VERSION="18.6.2.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.6.2.1-1" \
+    MSGPACK_VERSION="1.2.1" \
     MINICONDA_SHA256="32673413a39a21ae3997c9b38236e9df15c9fcef930b510487c64fe259e03f95" \
     MINICONDA_VERSION="26.3.2-2" \
     NBSTRIPOUT_VERSION="0.9.1" \
-    NODE_LTS_VERSION="24.14.0" \
+    NODE_LTS_VERSION="24.18.0" \
     NVIDIA_CUDA_COMPAT_VERSION="590.48.01-0ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="13.1.80-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.22.1" \
+    OLLAMA_VERSION="0.30.1" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
+    PYJWT_VERSION="2.13.0" \
     R_VERSION="4.6.1-1.2404.1" \
+    URLLIB3_VERSION="2.7.0" \
     UV_VERSION="0.11.25"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
@@ -80,6 +84,7 @@ apt-get install --yes \
   "jq=1.7.1-3ubuntu0.24.04.2" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
+  "libgnutls30t64=3.8.3-1.1ubuntu3.6" \
   "python3.12=3.12.3-1ubuntu0.13" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
   "vim=2:9.1.0016-1ubuntu7.16" \
@@ -180,6 +185,16 @@ RUN <<EOF
 pip install --no-cache-dir "nbstripout==${NBSTRIPOUT_VERSION}"
 
 nbstripout --install --system
+EOF
+
+# Conda Python Package Upgrades
+# Upgrade conda Python packages to address known vulnerabilities
+RUN <<EOF
+/opt/conda/bin/pip install --no-cache-dir \
+  "cryptography==${CRYPTOGRAPHY_VERSION}" \
+  "msgpack==${MSGPACK_VERSION}" \
+  "PyJWT==${PYJWT_VERSION}" \
+  "urllib3==${URLLIB3_VERSION}"
 EOF
 
 # Node.js LTS

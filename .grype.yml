@@ -1,0 +1,169 @@
+ignore:
+  # ===========================================================================
+  # Go binary vulnerabilities — transitive dependencies in pre-built binaries
+  # All tools are at their latest available versions. Vulnerabilities are in
+  # compiled-in Go dependencies; upstream maintainers must rebuild to fix.
+  # ===========================================================================
+
+  # golang.org/x/crypto
+  # Affects: cloud-platform v1.50.9, git-lfs v3.7.1, ollama v0.22.1, helm v4.2.2
+  # Upstream must rebuild with golang.org/x/crypto >= 0.52.0
+  - vulnerability: GHSA-v778-237x-gjrc
+  - vulnerability: GO-2024-3321
+  - vulnerability: GHSA-hcg3-q754-cr77
+  - vulnerability: GO-2025-3487
+  - vulnerability: GO-2025-4116
+  - vulnerability: GO-2026-5005
+  - vulnerability: GO-2026-5006
+  - vulnerability: GO-2026-5013
+  - vulnerability: GO-2026-5017
+  - vulnerability: GO-2026-5018
+  - vulnerability: GO-2026-5019
+  - vulnerability: GO-2026-5020
+  - vulnerability: GO-2026-5021
+  - vulnerability: GO-2026-5023
+
+  # golang.org/x/net
+  # Affects: cloud-platform v1.50.9, git-lfs v3.7.1, ollama v0.22.1, kubectl v1.35.3, helm v4.2.2
+  # Upstream must rebuild with golang.org/x/net >= 0.55.0
+  - vulnerability: GO-2024-2687
+  - vulnerability: GO-2024-3333
+  - vulnerability: GO-2026-4918
+  - vulnerability: GO-2026-5026
+
+  # golang.org/x/oauth2
+  # Affects: cloud-platform v1.50.9
+  # Upstream must rebuild with golang.org/x/oauth2 >= 0.27.0
+  - vulnerability: GHSA-6v2p-p543-phr9
+  - vulnerability: GO-2025-3488
+
+  # golang.org/x/image
+  # Affects: ollama v0.22.1
+  # Upstream must rebuild with golang.org/x/image >= 0.43.0
+  - vulnerability: GO-2026-4961
+  - vulnerability: GO-2026-5032
+  - vulnerability: GO-2026-5061
+  - vulnerability: GO-2026-5062
+  - vulnerability: GO-2026-5066
+
+  # google.golang.org/protobuf
+  # Affects: cloud-platform v1.50.9
+  # Upstream must rebuild with google.golang.org/protobuf >= 1.33.0
+  - vulnerability: GHSA-8r3f-844c-mc37
+
+  # github.com/buger/jsonparser
+  # Affects: ollama v0.22.1
+  # Upstream must rebuild with github.com/buger/jsonparser >= 1.1.2
+  - vulnerability: GHSA-6g7g-w4f8-9c9x
+
+  # github.com/moby/spdystream
+  # Affects: cloud-platform v1.50.9, kubectl v1.35.3
+  # Upstream must rebuild with github.com/moby/spdystream >= 0.5.1
+  - vulnerability: GHSA-pc3f-x583-g7j2
+
+  # go.opentelemetry.io/otel
+  # Affects: kubectl v1.35.3
+  # Upstream must rebuild with go.opentelemetry.io/otel >= 1.41.0
+  - vulnerability: GHSA-mh2q-q3fh-2475
+
+  # Go stdlib
+  # Affects: cloud-platform v1.50.9, ollama v0.22.1, git-lfs v3.7.1, kubectl v1.35.3, helm v4.2.2
+  # Upstream must rebuild each binary with the corresponding patched Go version
+  - vulnerability: GO-2025-3563
+  - vulnerability: GO-2025-3749
+  - vulnerability: GO-2025-3849
+  - vulnerability: GO-2025-4006
+  - vulnerability: GO-2025-4007
+  - vulnerability: GO-2025-4009
+  - vulnerability: GO-2025-4013
+  - vulnerability: GO-2025-4155
+  - vulnerability: GO-2026-4337
+  - vulnerability: GO-2026-4341
+  - vulnerability: GO-2026-4601
+  - vulnerability: GO-2026-4870
+  - vulnerability: GO-2026-4946
+  - vulnerability: GO-2026-4947
+  - vulnerability: GO-2026-4971
+  - vulnerability: GO-2026-4977
+  - vulnerability: GO-2026-4981
+  - vulnerability: GO-2026-4986
+  - vulnerability: GO-2026-5038
+  - vulnerability: CVE-2025-4674
+  - vulnerability: CVE-2025-22871
+  - vulnerability: CVE-2025-22874
+  - vulnerability: CVE-2025-47907
+  - vulnerability: CVE-2025-58187
+  - vulnerability: CVE-2025-58188
+  - vulnerability: CVE-2025-61723
+  - vulnerability: CVE-2025-61725
+  - vulnerability: CVE-2025-61726
+  - vulnerability: CVE-2025-61729
+  - vulnerability: CVE-2025-61731
+  - vulnerability: CVE-2025-61732
+  - vulnerability: CVE-2025-68119
+  - vulnerability: CVE-2025-68121
+  - vulnerability: CVE-2026-25679
+  - vulnerability: CVE-2026-27140
+  - vulnerability: CVE-2026-27143
+  - vulnerability: CVE-2026-27144
+  - vulnerability: CVE-2026-32280
+  - vulnerability: CVE-2026-32281
+  - vulnerability: CVE-2026-32283
+  - vulnerability: CVE-2026-33811
+  - vulnerability: CVE-2026-33814
+  - vulnerability: CVE-2026-39820
+  - vulnerability: CVE-2026-39836
+  - vulnerability: CVE-2026-42499
+  - vulnerability: CVE-2026-42501
+  - vulnerability: CVE-2026-42504
+
+  # ===========================================================================
+  # OpenSSL in conda (Miniconda v26.3.2-2, openssl v3.5.6)
+  # ===========================================================================
+
+  # Most fix versions reference older OpenSSL branches (1.0.2zq, 3.0.21) that are
+  # not applicable to the 3.5.x line in use. CVE-2026-42764 is fixed in 3.5.7 but
+  # that version is not yet available via conda. Monitor for availability and remove
+  # once conda ships openssl >= 3.5.7.
+  - vulnerability: CVE-2026-34180
+  - vulnerability: CVE-2026-34181
+  - vulnerability: CVE-2026-34182
+  - vulnerability: CVE-2026-34183
+  - vulnerability: CVE-2026-42764
+  - vulnerability: CVE-2026-45445
+  - vulnerability: CVE-2026-45447
+  - vulnerability: CVE-2026-7383
+  - vulnerability: CVE-2026-9076
+
+  # ===========================================================================
+  # Python binary in conda (python v3.12.13) and AWS CLI bundle (python v3.14.5)
+  # ===========================================================================
+
+  # Fixes require Python >= 3.13. Miniconda ships Python 3.12 and the AWS CLI
+  # v2.35.12 bundles its own Python 3.14.5 which cannot be upgraded independently.
+  # Monitor for a Miniconda Python 3.13 base or AWS CLI releases with patched Python.
+  - vulnerability: CVE-2026-3644
+  - vulnerability: CVE-2026-4224
+  - vulnerability: CVE-2026-4519
+  - vulnerability: CVE-2026-7210
+  - vulnerability: CVE-2026-9669
+
+  # ===========================================================================
+  # npm packages vendored inside Node.js v24.18.0 / npm
+  # ===========================================================================
+
+  # minimatch, tar, and picomatch are bundled inside npm's own node_modules and
+  # cannot be upgraded independently. Monitor Node.js/npm releases for fixes.
+
+  # minimatch (fixed in >= 10.2.3)
+  - vulnerability: GHSA-23c5-xmqv-rm74
+  - vulnerability: GHSA-3ppc-4f35-3m26
+  - vulnerability: GHSA-7r86-cg39-jmmj
+
+  # tar (fixed in >= 7.5.11)
+  - vulnerability: GHSA-83g3-92jg-28cx
+  - vulnerability: GHSA-9ppj-qmqm-q256
+  - vulnerability: GHSA-qffp-2rhf-9h96
+
+  # picomatch (fixed in >= 4.0.4)
+  - vulnerability: GHSA-c2c7-rcm5-vvqj
