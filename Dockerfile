@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:786a8b558f7be160c6c8c4a54f9a57274f3b4fb1491cf65146521ae77ff1dc54
+FROM public.ecr.aws/ubuntu/ubuntu:24.04@sha256:8c10ecc59261c77dd866fa8587f1b9cbf172ad8f1253f0af96eaae0fa390c132
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -18,7 +18,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CONTAINER_USER="analyticalplatform" \
     CORRETTO_VERSION="1:21.0.11.10-1" \
     CRYPTOGRAPHY_VERSION="49.0.0" \
-    CUDA_VERSION="13.1.0" \
+    CUDA_VERSION="13.2.0" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="8.0.128-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
@@ -38,8 +38,8 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MINICONDA_VERSION="26.3.2-2" \
     NBSTRIPOUT_VERSION="0.9.1" \
     NODE_LTS_VERSION="24.18.0" \
-    NVIDIA_CUDA_COMPAT_VERSION="590.48.01-0ubuntu1" \
-    NVIDIA_CUDA_CUDART_VERSION="13.1.80-1" \
+    NVIDIA_CUDA_COMPAT_VERSION="595.71.05-1ubuntu1" \
+    NVIDIA_CUDA_CUDART_VERSION="13.2.75-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
