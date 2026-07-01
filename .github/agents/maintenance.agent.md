@@ -97,6 +97,19 @@ Compare each "Candidate" version with the Dockerfile. Update the relevant `ENV` 
 
 **Important**: For Node.js, the apt version includes a suffix (e.g. `24.14.0-1nodesource1`), but the `NODE_LTS_VERSION` ENV only stores the base version (e.g. `24.14.0`). Strip the suffix when comparing.
 
+**Important**: NVIDIA CUDA is tracked by three Dockerfile `ENV` values: `CUDA_VERSION`, `NVIDIA_CUDA_CUDART_VERSION`, and `NVIDIA_CUDA_COMPAT_VERSION`. The `apt-cache policy` output covers the `cuda-cudart-13-1` and `cuda-compat-13-1` package versions, but you must also confirm whether the CUDA release family itself has moved to a newer minor or major version.
+
+To do that, inspect the NVIDIA CUDA repository in addition to the apt candidates:
+
+- https://gitlab.com/nvidia/container-images/cuda/-/tree/master/dist
+
+Compare the current `CUDA_VERSION` in the Dockerfile with the latest available CUDA release for Ubuntu 24.04. If a newer CUDA minor or major version is available, update the agent run accordingly:
+
+1. Update `CUDA_VERSION`
+2. Update `NVIDIA_CUDA_CUDART_VERSION` and `NVIDIA_CUDA_COMPAT_VERSION` to the matching package versions for that CUDA release
+3. Update the package names in the Dockerfile if the CUDA apt package suffix changes, for example from `cuda-cudart-13-1` to a newer series
+4. Update any version-coupled test paths, such as `/usr/local/cuda/lib64/libcudart.so.13`, when the CUDA major version changes
+
 ### Step 5: Check GitHub-Released Binary Versions
 
 Check the latest release for each tool distributed via GitHub releases:
@@ -155,6 +168,7 @@ For any versions that need updating:
 2. For APT packages installed inline (not via ENV), update the version in the `apt-get install` command
 3. For Miniconda, update both `MINICONDA_VERSION` and `MINICONDA_SHA256`
 4. For git-lfs, update both `GIT_LFS_VERSION` and `GIT_LFS_VERSION_SHA`
+5. For NVIDIA CUDA, update `CUDA_VERSION`, `NVIDIA_CUDA_CUDART_VERSION`, `NVIDIA_CUDA_COMPAT_VERSION`, and any CUDA package names that encode the release series
 
 ### Step 9: Update Container Structure Tests
 
@@ -180,6 +194,8 @@ Key mappings between Dockerfile versions and test expected output:
 | `CORRETTO_VERSION`           | corretto       | `openjdk X.Y.Z` (major.minor.patch from version) |
 | `DOTNET_SDK_VERSION`         | dotnet         | `X.Y.Z` (numeric prefix)                         |
 | `R_VERSION`                  | r              | `R version X.Y.Z` (first 3 components)           |
+
+For NVIDIA CUDA, there is no command test that prints the Dockerfile version directly. Instead, update the CUDA-related `fileExistenceTests` when the installed library path changes, especially if a CUDA major-version bump changes the expected soname path such as `/usr/local/cuda/lib64/libcudart.so.13`.
 
 ### Step 10: Commit and Create Pull Request
 
