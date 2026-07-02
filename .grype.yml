@@ -3,18 +3,18 @@ ignore:
   # These tools are already pinned to latest releases; upstream must rebuild with patched dependencies.
   - vulnerability: GHSA-v778-237x-gjrc
     reason: "cloud-platform bundles vulnerable golang.org/x/crypto transitively; latest cloud-platform-cli release is 1.50.9. exp:2026-07-31"
-  - vulnerability: GO-2024-3321-golang.org/x/crypto
+- vulnerability: GO-2024-3321
     reason: "cloud-platform bundles vulnerable golang.org/x/crypto transitively; latest cloud-platform-cli release is 1.50.9. exp:2026-07-31"
-  - vulnerability: GO-2026-5020-golang.org/x/crypto
+- vulnerability: GO-2026-5020
     reason: "Affects cloud-platform, git-lfs, and ollama binaries. All are pinned to latest upstream releases in this repo. exp:2026-07-31"
-  - vulnerability: GO-2026-5019-golang.org/x/crypto
+- vulnerability: GO-2026-5019
     reason: "Affects cloud-platform, git-lfs, and ollama binaries. All are pinned to latest upstream releases in this repo. exp:2026-07-31"
-  - vulnerability: GO-2026-5005-golang.org/x/crypto
+- vulnerability: GO-2026-5005
     reason: "Affects cloud-platform, git-lfs, and ollama binaries. All are pinned to latest upstream releases in this repo. exp:2026-07-31"
 
   # Go stdlib vulnerabilities inside third-party binaries.
   # Cannot be patched here until upstream projects rebuild and release.
-  - vulnerability: GO-2026-4337-stdlib
+- vulnerability: GO-2026-4337
     reason: "Detected in cloud-platform and git-lfs binaries; requires upstream rebuild with fixed Go toolchain. exp:2026-07-31"
   - vulnerability: CVE-2025-68121
     reason: "Detected in cloud-platform and git-lfs binaries; requires upstream rebuild with fixed Go toolchain. exp:2026-07-31"
@@ -153,81 +153,81 @@ ignore:
     reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
   - vulnerability: GHSA-xgmm-8j9v-c9wx
     reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
-  - vulnerability: GO-2024-2687-golang.org/x/net
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2024-3333-golang.org/x/net
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2025-3487-golang.org/x/crypto
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2025-3488-golang.org/x/oauth2
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2025-4006-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2025-4007-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2025-4009-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2025-4013-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2025-4116-golang.org/x/crypto
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2025-4155-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4341-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4599-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4601-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4866-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4870-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4918-golang.org/x/net
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4918-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4946-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4947-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4961-golang.org/x/image
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4971-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4977-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4981-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-4986-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5006-golang.org/x/crypto
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5013-golang.org/x/crypto
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5014-golang.org/x/crypto
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5015-golang.org/x/crypto
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5017-golang.org/x/crypto
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5018-golang.org/x/crypto
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5021-golang.org/x/crypto
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5023-golang.org/x/crypto
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5026-golang.org/x/net
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5032-golang.org/x/image
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5037-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5038-stdlib
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5061-golang.org/x/image
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5062-golang.org/x/image
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
-  - vulnerability: GO-2026-5066-golang.org/x/image
-    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2024-2687
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2024-3333
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-3487
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-3488
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-4006
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-4007
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-4009
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-4013
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-4116
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-4155
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4341
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4599
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4601
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4866
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4870
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4918
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4918
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4946
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4947
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4961
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4971
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4977
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4981
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4986
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5006
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5013
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5014
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5015
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5017
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5018
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5021
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5023
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5026
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5032
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5037
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5038
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5061
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5062
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5066
+      reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
