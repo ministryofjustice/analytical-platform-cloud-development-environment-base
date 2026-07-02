@@ -101,7 +101,7 @@ Compare each "Candidate" version with the Dockerfile. Update the relevant `ENV` 
 
 To do that, inspect the NVIDIA CUDA repository in addition to the apt candidates:
 
-- https://gitlab.com/nvidia/container-images/cuda/-/tree/master/dist
+- [NVIDIA CUDA repository](https://gitlab.com/nvidia/container-images/cuda/-/tree/master/dist)
 
 Compare the current `CUDA_VERSION` in the Dockerfile with the latest available CUDA release for Ubuntu 24.04. If a newer CUDA minor or major version is available, update the agent run accordingly:
 
