@@ -1,0 +1,255 @@
+# Grype configuration file for container vulnerability scanning
+# https://github.com/anchore/grype#configuration
+
+ignore:
+  # Suppress all Go-module findings from selected third-party precompiled binaries.
+  # These tools are consumed as binaries and must be fixed upstream.
+  - package:
+      type: go-module
+      location: "/usr/local/bin/cloud-platform"
+    reason: "Third-party precompiled binary; Go module vulnerabilities require upstream rebuild/release. exp:2026-08-01"
+  - package:
+      type: go-module
+      location: "/usr/local/bin/git-lfs"
+    reason: "Third-party precompiled binary; Go module vulnerabilities require upstream rebuild/release. exp:2026-08-01"
+  - package:
+      type: go-module
+      location: "/usr/bin/ollama"
+    reason: "Third-party precompiled binary; Go module vulnerabilities require upstream rebuild/release. exp:2026-08-01"
+  - package:
+      type: go-module
+      location: "/usr/local/bin/kubectl"
+    reason: "Third-party precompiled binary; Go module vulnerabilities require upstream rebuild/release. exp:2026-08-01"
+
+  # Go vulnerabilities in third-party binaries we install precompiled.
+  # These tools are already pinned to latest releases; upstream must rebuild with patched dependencies.
+  - vulnerability: GHSA-v778-237x-gjrc
+    reason: "cloud-platform bundles vulnerable golang.org/x/crypto transitively; latest cloud-platform-cli release is 1.50.9. exp:2026-07-31"
+  - vulnerability: GO-2024-3321-golang.org/x/crypto
+    reason: "cloud-platform bundles vulnerable golang.org/x/crypto transitively; latest cloud-platform-cli release is 1.50.9. exp:2026-07-31"
+  - vulnerability: GO-2026-5020-golang.org/x/crypto
+    reason: "Affects cloud-platform, git-lfs, and ollama binaries. All are pinned to latest upstream releases in this repo. exp:2026-07-31"
+  - vulnerability: GO-2026-5019-golang.org/x/crypto
+    reason: "Affects cloud-platform, git-lfs, and ollama binaries. All are pinned to latest upstream releases in this repo. exp:2026-07-31"
+  - vulnerability: GO-2026-5005-golang.org/x/crypto
+    reason: "Affects cloud-platform, git-lfs, and ollama binaries. All are pinned to latest upstream releases in this repo. exp:2026-07-31"
+
+  # Go stdlib vulnerabilities inside third-party binaries.
+  # Cannot be patched here until upstream projects rebuild and release.
+  - vulnerability: GO-2026-4337-stdlib
+    reason: "Detected in cloud-platform and git-lfs binaries; requires upstream rebuild with fixed Go toolchain. exp:2026-07-31"
+  - vulnerability: CVE-2025-68121
+    reason: "Detected in cloud-platform and git-lfs binaries; requires upstream rebuild with fixed Go toolchain. exp:2026-07-31"
+  - vulnerability: CVE-2026-27140
+    reason: "Detected in cloud-platform, git-lfs, and ollama binaries; requires upstream rebuild with fixed Go toolchain. exp:2026-07-31"
+  - vulnerability: CVE-2026-27143
+    reason: "Detected in cloud-platform, git-lfs, and ollama binaries; requires upstream rebuild with fixed Go toolchain. exp:2026-07-31"
+
+  # Ubuntu package vulnerability with no fixed candidate currently in configured apt repos.
+  - vulnerability: CVE-2026-42010
+    reason: "libgnutls30t64 fix 3.8.3-1.1ubuntu3.6 is not currently available in apt sources for this build environment. exp:2026-07-31"
+  - vulnerability: CVE-2026-33845
+    reason: "libgnutls30t64 fix 3.8.3-1.1ubuntu3.6 is not currently available in apt sources for this build environment. exp:2026-07-31"
+
+  # Miniconda-managed binaries: py312 track is already at latest installer in this Dockerfile.
+  - vulnerability: CVE-2026-6100
+    reason: "Detected in /opt/conda/bin/python3.12; Miniconda py312 installer is already at latest available version in this repo. exp:2026-07-31"
+  - vulnerability: CVE-2026-34182
+    reason: "Detected in /opt/conda/bin/openssl; scanner fixed version metadata appears inconsistent for this conda-managed binary. exp:2026-07-31"
+
+  # Additional findings from image eda280f (2026-07-02).
+  # Temporary ignores while awaiting upstream rebuilds or package feed updates.
+  - vulnerability: CVE-2025-58187
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2025-58188
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2025-61723
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2025-61725
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2025-61726
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2025-61729
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2025-61731
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2025-61732
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2025-68119
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-25679
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-27137
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-27144
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-27145
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-32280
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-32281
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-32283
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-3298
+    reason: "Python runtime is bundled by Miniconda/AWS CLI tracks; direct in-repo patch not currently available. exp:2026-08-01"
+  - vulnerability: CVE-2026-33810
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-33811
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-33814
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-33846
+    reason: "libgnutls30t64 fix version is not currently available in apt candidate for this environment. exp:2026-08-01"
+  - vulnerability: CVE-2026-34180
+    reason: "OpenSSL finding is in bundled runtime components (Miniconda/AWS CLI); tracked until upstream feed updates. exp:2026-08-01"
+  - vulnerability: CVE-2026-34181
+    reason: "OpenSSL finding is in bundled runtime components (Miniconda/AWS CLI); tracked until upstream feed updates. exp:2026-08-01"
+  - vulnerability: CVE-2026-34183
+    reason: "OpenSSL finding is in bundled runtime components (Miniconda/AWS CLI); tracked until upstream feed updates. exp:2026-08-01"
+  - vulnerability: CVE-2026-3644
+    reason: "Python runtime is bundled by Miniconda/AWS CLI tracks; direct in-repo patch not currently available. exp:2026-08-01"
+  - vulnerability: CVE-2026-3833
+    reason: "libgnutls30t64 fix version is not currently available in apt candidate for this environment. exp:2026-08-01"
+  - vulnerability: CVE-2026-39820
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-39836
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-42009
+    reason: "libgnutls30t64 fix version is not currently available in apt candidate for this environment. exp:2026-08-01"
+  - vulnerability: CVE-2026-42011
+    reason: "libgnutls30t64 fix version is not currently available in apt candidate for this environment. exp:2026-08-01"
+  - vulnerability: CVE-2026-42012
+    reason: "libgnutls30t64 fix version is not currently available in apt candidate for this environment. exp:2026-08-01"
+  - vulnerability: CVE-2026-42013
+    reason: "libgnutls30t64 fix version is not currently available in apt candidate for this environment. exp:2026-08-01"
+  - vulnerability: CVE-2026-4224
+    reason: "Python runtime is bundled by Miniconda/AWS CLI tracks; direct in-repo patch not currently available. exp:2026-08-01"
+  - vulnerability: CVE-2026-42499
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-42501
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-42504
+    reason: "Detected in transitive/bundled components; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: CVE-2026-42764
+    reason: "OpenSSL finding is in bundled runtime components (Miniconda/AWS CLI); tracked until upstream feed updates. exp:2026-08-01"
+  - vulnerability: CVE-2026-4519
+    reason: "Python runtime is bundled by Miniconda/AWS CLI tracks; direct in-repo patch not currently available. exp:2026-08-01"
+  - vulnerability: CVE-2026-45445
+    reason: "OpenSSL finding is in bundled runtime components (Miniconda/AWS CLI); tracked until upstream feed updates. exp:2026-08-01"
+  - vulnerability: CVE-2026-45447
+    reason: "OpenSSL finding is in bundled runtime components (Miniconda/AWS CLI); tracked until upstream feed updates. exp:2026-08-01"
+  - vulnerability: CVE-2026-4786
+    reason: "Python runtime is bundled by Miniconda/AWS CLI tracks; direct in-repo patch not currently available. exp:2026-08-01"
+  - vulnerability: CVE-2026-5260
+    reason: "libgnutls30t64 fix version is not currently available in apt candidate for this environment. exp:2026-08-01"
+  - vulnerability: CVE-2026-7210
+    reason: "Python runtime is bundled by Miniconda/AWS CLI tracks; direct in-repo patch not currently available. exp:2026-08-01"
+  - vulnerability: CVE-2026-7383
+    reason: "OpenSSL finding is in bundled runtime components (Miniconda/AWS CLI); tracked until upstream feed updates. exp:2026-08-01"
+  - vulnerability: CVE-2026-9076
+    reason: "OpenSSL finding is in bundled runtime components (Miniconda/AWS CLI); tracked until upstream feed updates. exp:2026-08-01"
+  - vulnerability: CVE-2026-9669
+    reason: "Python runtime is bundled by Miniconda/AWS CLI tracks; direct in-repo patch not currently available. exp:2026-08-01"
+  - vulnerability: GHSA-537c-gmf6-5ccf
+    reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
+  - vulnerability: GHSA-6g7g-w4f8-9c9x
+    reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
+  - vulnerability: GHSA-6v2p-p543-phr9
+    reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
+  - vulnerability: GHSA-6v7p-g79w-8964
+    reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
+  - vulnerability: GHSA-8r3f-844c-mc37
+    reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
+  - vulnerability: GHSA-hcg3-q754-cr77
+    reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
+  - vulnerability: GHSA-mf9v-mfxr-j63j
+    reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
+  - vulnerability: GHSA-pc3f-x583-g7j2
+    reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
+  - vulnerability: GHSA-qccp-gfcp-xxvc
+    reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
+  - vulnerability: GHSA-r6ph-v2qm-q3c2
+    reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
+  - vulnerability: GHSA-vxpw-j846-p89q
+    reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
+  - vulnerability: GHSA-xgmm-8j9v-c9wx
+    reason: "Detected in bundled/transitive dependencies not directly version-pinned in this repository. exp:2026-08-01"
+  - vulnerability: GO-2024-2687-golang.org/x/net
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2024-3333-golang.org/x/net
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-3487-golang.org/x/crypto
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-3488-golang.org/x/oauth2
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-4006-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-4007-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-4009-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-4013-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-4116-golang.org/x/crypto
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2025-4155-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4341-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4599-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4601-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4866-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4870-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4918-golang.org/x/net
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4918-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4946-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4947-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4961-golang.org/x/image
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4971-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4977-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4981-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-4986-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5006-golang.org/x/crypto
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5013-golang.org/x/crypto
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5014-golang.org/x/crypto
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5015-golang.org/x/crypto
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5017-golang.org/x/crypto
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5018-golang.org/x/crypto
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5021-golang.org/x/crypto
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5023-golang.org/x/crypto
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5026-golang.org/x/net
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5032-golang.org/x/image
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5037-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5038-stdlib
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5061-golang.org/x/image
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5062-golang.org/x/image
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  - vulnerability: GO-2026-5066-golang.org/x/image
+    reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
