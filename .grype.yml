@@ -1,4 +1,26 @@
+# Grype configuration file for container vulnerability scanning
+# https://github.com/anchore/grype#configuration
+
 ignore:
+  # Suppress all Go-module findings from selected third-party precompiled binaries.
+  # These tools are consumed as binaries and must be fixed upstream.
+  - package:
+      type: go-module
+      location: "/usr/local/bin/cloud-platform"
+    reason: "Third-party precompiled binary; Go module vulnerabilities require upstream rebuild/release. exp:2026-08-01"
+  - package:
+      type: go-module
+      location: "/usr/local/bin/git-lfs"
+    reason: "Third-party precompiled binary; Go module vulnerabilities require upstream rebuild/release. exp:2026-08-01"
+  - package:
+      type: go-module
+      location: "/usr/bin/ollama"
+    reason: "Third-party precompiled binary; Go module vulnerabilities require upstream rebuild/release. exp:2026-08-01"
+  - package:
+      type: go-module
+      location: "/usr/local/bin/kubectl"
+    reason: "Third-party precompiled binary; Go module vulnerabilities require upstream rebuild/release. exp:2026-08-01"
+
   # Go vulnerabilities in third-party binaries we install precompiled.
   # These tools are already pinned to latest releases; upstream must rebuild with patched dependencies.
   - vulnerability: GHSA-v778-237x-gjrc
