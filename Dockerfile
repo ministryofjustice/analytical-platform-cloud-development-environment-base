@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.35.14" \
+    AWS_CLI_VERSION="2.35.13" \
     AWS_SSO_CLI_VERSION="2.3.1" \
     CLOUD_PLATFORM_CLI_VERSION="1.50.9" \
     CONTAINER_GID="1000" \
