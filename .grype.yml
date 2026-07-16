@@ -253,3 +253,12 @@ ignore:
     reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
   - vulnerability: GO-2026-5066-golang.org/x/image
     reason: "Detected in upstream precompiled tooling or transitive Go modules; fix requires upstream releases. exp:2026-08-01"
+  # Additional findings from image 2e63095d7017b4ef9107d137787f7fed069b729c (2026-07-16).
+  - vulnerability: CVE-2026-15308
+    reason: "Detected in /opt/conda/bin/python3.12 and AWS CLI bundled libpython3.14; Miniconda/AWS CLI py tracks are already at latest available version in this repo. exp:2026-08-01"
+  - vulnerability: GHSA-wf93-45jw-7689
+    reason: "pip 26.0.1 bundled via Miniconda; fixed version (26.1.2) not yet available in pinned conda channel. exp:2026-08-01"
+  - vulnerability: CVE-2026-39822
+    reason: "Detected in aws-sso and gh precompiled binaries; Go stdlib vulnerability requires upstream rebuild with patched Go toolchain. exp:2026-08-01"
+  - vulnerability: GO-2026-4970-stdlib
+    reason: "Detected in aws-sso and gh precompiled binaries; Go stdlib vulnerability requires upstream rebuild with patched Go toolchain. exp:2026-08-01"
