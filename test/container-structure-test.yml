@@ -77,7 +77,7 @@ commandTests:
   - name: "dotnet"
     command: "dotnet"
     args: ["--version"]
-    expectedOutput: ["8.0.128"]
+    expectedOutput: ["8.0.129"]
 
   - name: "r"
     command: "R"
