@@ -262,3 +262,20 @@ ignore:
     reason: "Detected in aws-sso and gh precompiled binaries; Go stdlib vulnerability requires upstream rebuild with patched Go toolchain. exp:2026-08-01"
   - vulnerability: GO-2026-4970
     reason: "Detected in aws-sso and gh precompiled binaries; Go stdlib vulnerability requires upstream rebuild with patched Go toolchain. exp:2026-08-01"
+  # Additional findings from image 617b771fa3ef2df4cccabcd0a500928b6ea826be (2026-07-21).
+  # npm bundled packages: tar and brace-expansion are internal to npm and cannot be directly patched here.
+  # dotnet System.Security.Cryptography.Xml findings are in bundled SDK deps.json manifests; fix requires upstream SDK/package feed update.
+  - vulnerability: GHSA-23hp-3jrh-7fpw
+    reason: "npm bundled tar 7.5.15 inside Node.js install; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: GHSA-8x88-c5mf-7j5w
+    reason: "npm bundled tar 7.5.15 inside Node.js install; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: GHSA-3jxr-9vmj-r5cp
+    reason: "npm bundled brace-expansion 5.0.6 inside Node.js install; no direct patch path in this repository at scan time. exp:2026-08-01"
+  - vulnerability: GHSA-cvvh-rhrc-wg4q
+    reason: "dotnet SDK 8.0.129 bundles System.Security.Cryptography.Xml 8.0.4 in deps.json manifests; fix requires upstream Ubuntu dotnet package update. exp:2026-08-01"
+  - vulnerability: GHSA-23rf-6693-g89p
+    reason: "dotnet SDK 8.0.129 bundles System.Security.Cryptography.Xml 8.0.4 in deps.json manifests; fix requires upstream Ubuntu dotnet package update. exp:2026-08-01"
+  - vulnerability: GHSA-8q5v-6pqq-x66h
+    reason: "dotnet SDK 8.0.129 bundles System.Security.Cryptography.Xml 8.0.4 in deps.json manifests; fix requires upstream Ubuntu dotnet package update. exp:2026-08-01"
+  - vulnerability: GHSA-g8r8-53c2-pm3f
+    reason: "dotnet SDK 8.0.129 bundles System.Security.Cryptography.Xml 8.0.4 in deps.json manifests; fix requires upstream Ubuntu dotnet package update. exp:2026-08-01"
