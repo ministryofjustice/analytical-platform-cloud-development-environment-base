@@ -279,3 +279,9 @@ ignore:
     reason: "dotnet SDK 8.0.129 bundles System.Security.Cryptography.Xml 8.0.4 in deps.json manifests; fix requires upstream Ubuntu dotnet package update. exp:2026-08-01"
   - vulnerability: GHSA-g8r8-53c2-pm3f
     reason: "dotnet SDK 8.0.129 bundles System.Security.Cryptography.Xml 8.0.4 in deps.json manifests; fix requires upstream Ubuntu dotnet package update. exp:2026-08-01"
+  # Alert fix 20260722
+  - vulnerability: GHSA-hrxh-6v49-42gf
+    package:
+      type: go-module
+      location: "/usr/bin/gh"
+    reason: "Detected in upstream precompiled gh binary (v2.96.0). Repo cannot patch transitive grpc module until cli/cli publishes a release rebuilt with grpc >=1.82.1. exp:2026-08-31"
