@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.35.13"]
+    expectedOutput: ["aws-cli/2.36.8"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.11.26"]
+    expectedOutput: ["uv 0.11.32"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.11.26"]
+    expectedOutput: ["uvx 0.11.32"]
 
   - name: "git-lfs"
     command: "git-lfs"
