@@ -285,3 +285,14 @@ ignore:
       type: go-module
       location: "/usr/bin/gh"
     reason: "Detected in upstream precompiled gh binary (v2.96.0). Repo cannot patch transitive grpc module until cli/cli publishes a release rebuilt with grpc >=1.82.1. exp:2026-08-31"
+  # Additional findings from image 36f23cc3c21cb57df9e81db4bc3e52b78a7ed3d8 (2026-07-27).
+  - vulnerability: GO-2026-5970-golang.org/x/text
+    package:
+      type: go-module
+      location: "/usr/bin/gh"
+    reason: "Detected in upstream precompiled gh binary; fix requires cli/cli to release a build containing golang.org/x/text >= 0.39.0. exp:2026-08-31"
+  - vulnerability: GHSA-mh99-v99m-4gvg
+    package:
+      type: npm
+      location: "/usr/lib/node_modules/npm/node_modules/brace-expansion/package.json"
+    reason: "npm bundled brace-expansion 5.0.6 inside Node.js install; no direct patch path in this repository at scan time. exp:2026-08-31"
