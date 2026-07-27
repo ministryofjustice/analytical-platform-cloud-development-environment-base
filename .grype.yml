@@ -286,7 +286,7 @@ ignore:
       location: "/usr/bin/gh"
     reason: "Detected in upstream precompiled gh binary (v2.96.0). Repo cannot patch transitive grpc module until cli/cli publishes a release rebuilt with grpc >=1.82.1. exp:2026-08-31"
   # Additional findings from image 36f23cc3c21cb57df9e81db4bc3e52b78a7ed3d8 (2026-07-27).
-  - vulnerability: GO-2026-5970-golang.org/x/text
+  - vulnerability: GO-2026-5970
     package:
       type: go-module
       location: "/usr/bin/gh"
