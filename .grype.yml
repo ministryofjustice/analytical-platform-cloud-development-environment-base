@@ -319,4 +319,4 @@ ignore:
     package:
       type: binary
       location: "/usr/local/aws-cli/v2/2.36.8/dist/libpython3.14.so.1.0"
-    reason: "Detected in AWS CLI bundled Python runtime; fix requires newer AWS CLI release with patched embedded Python. exp:2026-08-31"  
+    reason: "Detected in AWS CLI bundled Python runtime; fix requires newer AWS CLI release with patched embedded Python. exp:2026-08-31"
