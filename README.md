@@ -251,6 +251,7 @@ apt-cache policy msodbcsql18
 
 apt-cache policy mssql-tools18
 ```
+
 <!-- jscpd:ignore-end -->
 
 ### nbstripout
