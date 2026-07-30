@@ -296,3 +296,27 @@ ignore:
       type: npm
       location: "/usr/lib/node_modules/npm/node_modules/brace-expansion/package.json"
     reason: "npm bundled brace-expansion 5.0.6 inside Node.js install; no direct patch path in this repository at scan time. exp:2026-08-31"
+  # Additional findings from image cd22b312b69c5a973a0b7fed726496f07ae740b8 (2026-07-30).
+  - vulnerability: CVE-2026-11940
+    package:
+      type: binary
+      location: "/opt/conda/bin/python3.12"
+    reason: "Detected in Miniconda-bundled Python 3.12.13; awaiting upstream patched runtime availability in pinned conda track. exp:2026-08-31"
+
+  - vulnerability: CVE-2026-11940
+    package:
+      type: binary
+      location: "/usr/local/aws-cli/v2/2.36.8/dist/libpython3.14.so.1.0"
+    reason: "Detected in AWS CLI bundled Python runtime; fix requires newer AWS CLI release with patched embedded Python. exp:2026-08-31"
+
+  - vulnerability: CVE-2026-11972
+    package:
+      type: binary
+      location: "/opt/conda/bin/python3.12"
+    reason: "Detected in Miniconda-bundled Python 3.12.13; awaiting upstream patched runtime availability in pinned conda track. exp:2026-08-31"
+
+  - vulnerability: CVE-2026-11972
+    package:
+      type: binary
+      location: "/usr/local/aws-cli/v2/2.36.8/dist/libpython3.14.so.1.0"
+    reason: "Detected in AWS CLI bundled Python runtime; fix requires newer AWS CLI release with patched embedded Python. exp:2026-08-31"

@@ -52,7 +52,7 @@ commandTests:
   - name: "conda"
     command: "conda"
     args: ["--version"]
-    expectedOutput: ["conda 26.3.2"]
+    expectedOutput: ["conda 26.5.3"]
 
   - name: "python (conda)"
     command: "python"
@@ -62,7 +62,7 @@ commandTests:
   - name: "pip (conda)"
     command: "pip"
     args: ["--version"]
-    expectedOutput: ["pip 26.0.1"]
+    expectedOutput: ["pip 26.1.2"]
 
   - name: "node"
     command: "node"
