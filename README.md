@@ -225,7 +225,7 @@ Releases for Cloud Platform CLI are maintained on [GitHub](https://github.com/mi
 ### Microsoft ODBC driver for SQL Server
 
 The latest version of Microsoft ODBC driver for SQL Server can be obtained by running:
-
+<!-- jscpd:ignore-start -->
 ```bash
 docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
@@ -249,7 +249,7 @@ apt-cache policy msodbcsql18
 
 apt-cache policy mssql-tools18
 ```
-
+<!-- jscpd:ignore-end -->
 ### nbstripout
 
 Releases for nbstripout are maintained on [GitHub](https://github.com/kynan/nbstripout/releases).
