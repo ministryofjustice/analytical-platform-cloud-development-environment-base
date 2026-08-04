@@ -320,3 +320,21 @@ ignore:
       type: binary
       location: "/usr/local/aws-cli/v2/2.36.8/dist/libpython3.14.so.1.0"
     reason: "Detected in AWS CLI bundled Python runtime; fix requires newer AWS CLI release with patched embedded Python. exp:2026-08-31"
+  # Additional findings from image 9e1ed1e0b0f0f28c3f859d877b74b09a7822eb3c (2026-08-04).
+  - vulnerability: GHSA-rgw5-rvv9-x895
+    package:
+      type: npm
+      location: "/usr/lib/node_modules/npm/node_modules/brace-expansion/package.json"
+    reason: "npm bundled brace-expansion 5.0.6 inside the Node.js/npm install; no direct patch path in this repository at scan time. exp:2026-09-03"
+
+  - vulnerability: GHSA-g6cj-pr64-35w5
+    package:
+      type: python
+      location: "/opt/conda/lib/python3.12/site-packages/cryptography-49.0.0.dist-info/METADATA"
+    reason: "cryptography 49.0.0 is bundled via the Miniconda-managed Python environment; no low-risk direct patch path in this repository at scan time. exp:2026-09-03"
+
+  - vulnerability: GHSA-mwp4-54f8-5fhr
+    package:
+      type: npm
+      location: "/usr/lib/node_modules/npm/node_modules/ip-address/package.json"
+    reason: "npm bundled ip-address 10.2.0 inside the Node.js/npm install; no direct patch path in this repository at scan time. exp:2026-09-03"
