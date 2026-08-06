@@ -87,39 +87,39 @@ Start a temporary container using the base image and add all third-party APT rep
 docker run --rm --platform linux/amd64 "$IMAGE" \
   bash -c "apt-get update --yes && \
   apt-get install --yes curl gpg && \
-  
+
   # Corretto
   curl -sL 'https://apt.corretto.aws/corretto.key' -o corretto.key && \
   cat corretto.key | gpg --dearmor -o corretto-keyring.gpg 2>/dev/null && \
   install -D -m 644 corretto-keyring.gpg /etc/apt/keyrings/corretto-keyring.gpg && \
   echo 'deb [signed-by=/etc/apt/keyrings/corretto-keyring.gpg] https://apt.corretto.aws stable main' > /etc/apt/sources.list.d/corretto.list && \
-  
+
   # R
   curl -sL 'https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc' -o marutter_pubkey.asc && \
   cat marutter_pubkey.asc | gpg --dearmor -o marutter_pubkey.gpg 2>/dev/null && \
   install -D -m 644 marutter_pubkey.gpg /etc/apt/keyrings/marutter_pubkey.gpg && \
   echo 'deb [signed-by=/etc/apt/keyrings/marutter_pubkey.gpg] https://cloud.r-project.org/bin/linux/ubuntu noble-cran40/' > /etc/apt/sources.list.d/cran.list && \
-  
+
   # NVIDIA CUDA
   curl -sL 'https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/3bf863cc.pub' -o 3bf863cc.pub && \
   cat 3bf863cc.pub | gpg --dearmor -o nvidia.gpg 2>/dev/null && \
   install -D -m 644 nvidia.gpg /etc/apt/keyrings/nvidia.gpg && \
   echo 'deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64 /' > /etc/apt/sources.list.d/cuda.list && \
-  
+
   # Microsoft
   curl -sL 'https://packages.microsoft.com/keys/microsoft.asc' -o microsoft.asc && \
   cat microsoft.asc | gpg --dearmor -o microsoft-prod.gpg 2>/dev/null && \
   install -D -m 644 microsoft-prod.gpg /usr/share/keyrings/microsoft-prod.gpg && \
   echo 'deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-prod.gpg] https://packages.microsoft.com/ubuntu/24.04/prod noble main' > /etc/apt/sources.list.d/mssql-release.list && \
-  
+
   # GitHub CLI
   curl -sL 'https://cli.github.com/packages/githubcli-archive-keyring.gpg' -o githubcli-archive-keyring.gpg && \
   install -D -m 644 githubcli-archive-keyring.gpg /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
   echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main' > /etc/apt/sources.list.d/github-cli.list && \
-  
+
   # Node.js
   curl -sL 'https://deb.nodesource.com/setup_24.x' -o node.sh && bash node.sh >/dev/null 2>&1 && \
-  
+
   apt-get update --yes && \
   apt-cache policy java-21-amazon-corretto-jdk r-base dotnet-sdk-8.0 cuda-cudart-13-3 cuda-compat-13-3 msodbcsql18 mssql-tools18 gh nodejs"
 ```
