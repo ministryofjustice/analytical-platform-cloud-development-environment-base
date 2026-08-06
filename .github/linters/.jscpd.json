@@ -1,8 +1,6 @@
 {
   "absolute": true,
-  "ignore": [
-    "**/.github/prompts/**"
-  ],
+  "ignore": ["**/.github/prompts/**"],
   "reporters": ["consoleFull"],
   "threshold": 0
 }
