@@ -1,0 +1,8 @@
+{
+  "absolute": true,
+  "ignore": [
+    "**/.github/prompts/**"
+  ],
+  "reporters": ["consoleFull"],
+  "threshold": 0
+}
