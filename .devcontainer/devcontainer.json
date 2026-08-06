@@ -17,5 +17,6 @@
         "GitHub.copilot"
       ]
     }
-  }
+  },
+  "postCreateCommand": "/bin/bash .devcontainer/post-create.sh"
 }

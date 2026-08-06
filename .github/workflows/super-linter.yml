@@ -20,5 +20,5 @@ jobs:
       # FILTER_REGEX_EXCLUDE excludes prompt files - they're for AI consumption, not human documentation
       super-linter-variables: |
         {
-          "FILTER_REGEX_EXCLUDE": ".github/prompts/.*",
+          "FILTER_REGEX_EXCLUDE": ".github/prompts/.*"
         }
