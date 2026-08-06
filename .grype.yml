@@ -339,7 +339,7 @@ ignore:
       location: "/usr/lib/node_modules/npm/node_modules/ip-address/package.json"
     reason: "npm bundled ip-address 10.2.0 inside the Node.js/npm install; no direct patch path in this repository at scan time. exp:2026-09-03"
 
-# Additional findings from image <fill in current image digest> (2026-08-06).
+  # Additional findings from image <fill in current image digest> (2026-08-06).
   - vulnerability: GHSA-fxhp-mv3v-67qp
     package:
       type: go-module
