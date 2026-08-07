@@ -16,10 +16,10 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
-    CORRETTO_VERSION="1:21.0.12.8-1" \
+    CORRETTO_VERSION="1:26.0.2.10-1" \
     CUDA_VERSION="13.3.0" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="8.0.129-0ubuntu1~24.04.1" \
+    DOTNET_SDK_VERSION="10.0.110-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
     GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08" \
     GITHUB_CLI_VERSION="2.97.0" \
@@ -35,7 +35,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MINICONDA_SHA256="37606f9f03ced8ef60f4ffc76b21dda01728eac8a632dcab316c891cea4fe2f5" \
     MINICONDA_VERSION="26.5.3-2" \
     NBSTRIPOUT_VERSION="0.9.1" \
-    NODE_LTS_VERSION="24.19.0" \
+    NODE_LTS_VERSION="26.0.0" \
     NVIDIA_CUDA_COMPAT_VERSION="610.57.04-1ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="13.3.29-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
@@ -187,8 +187,7 @@ EOF
 # Install Node.js LTS (https://nodejs.org/)
 RUN <<EOF
 curl --location --fail-with-body \
-  "https://deb.nodesource.com/setup_24.x" \
-  --output "node.sh"
+  "https://deb.nodesource.com/setup_26.x" \
 
 bash node.sh
 
@@ -214,7 +213,7 @@ echo "deb [signed-by=/etc/apt/keyrings/corretto-keyring.gpg] https://apt.corrett
 
 apt-get update --yes
 
-apt-get install --yes "java-21-amazon-corretto-jdk=${CORRETTO_VERSION}"
+apt-get install --yes "java-26-amazon-corretto-jdk=${CORRETTO_VERSION}"
 
 apt-get clean --yes
 
@@ -226,7 +225,7 @@ EOF
 RUN <<EOF
 apt-get update --yes
 
-apt-get install --yes "dotnet-sdk-8.0=${DOTNET_SDK_VERSION}"
+apt-get install --yes "dotnet-sdk-10.0=${DOTNET_SDK_VERSION}"
 
 apt-get clean --yes
 

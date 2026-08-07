@@ -67,17 +67,17 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v24.19.0"]
+    expectedOutput: ["v26.0.0"]
 
   - name: "corretto"
     command: "java"
     args: ["--version"]
-    expectedOutput: ["openjdk 21.0.12"]
+    expectedOutput: ["openjdk 26.0.2"]
 
   - name: "dotnet"
     command: "dotnet"
     args: ["--version"]
-    expectedOutput: ["8.0.129"]
+    expectedOutput: ["10.0.110"]
 
   - name: "r"
     command: "R"
