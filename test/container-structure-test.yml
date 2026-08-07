@@ -42,12 +42,12 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.36.8"]
+    expectedOutput: ["aws-cli/2.36.18"]
 
   - name: "aws-sso"
     command: "aws-sso"
     args: ["version"]
-    expectedOutput: ["AWS SSO CLI Version 2.3.1"]
+    expectedOutput: ["AWS SSO CLI Version 2.3.2"]
 
   - name: "conda"
     command: "conda"
@@ -67,12 +67,12 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v24.18.0"]
+    expectedOutput: ["v24.19.0"]
 
   - name: "corretto"
     command: "java"
     args: ["--version"]
-    expectedOutput: ["openjdk 21.0.11"]
+    expectedOutput: ["openjdk 21.0.12"]
 
   - name: "dotnet"
     command: "dotnet"
@@ -87,12 +87,12 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.31.1"]
+    expectedOutput: ["0.32.6"]
 
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.35.6"]
+    expectedOutput: ["Client Version: v1.35.7"]
 
   - name: "helm"
     command: "helm"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.11.32"]
+    expectedOutput: ["uv 0.12.2"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.11.32"]
+    expectedOutput: ["uvx 0.12.2"]
 
   - name: "git-lfs"
     command: "git-lfs"
@@ -142,7 +142,7 @@ commandTests:
   - name: "copilot"
     command: "copilot"
     args: ["--version"]
-    expectedOutput: ["GitHub Copilot CLI 1.0.67"]
+    expectedOutput: ["GitHub Copilot CLI 1.0.78"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
