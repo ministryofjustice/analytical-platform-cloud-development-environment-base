@@ -16,35 +16,26 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
-    CORRETTO_VERSION="1:21.0.11.10-1" \
     CUDA_VERSION="13.3.0" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="8.0.129-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
     GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08" \
-    GITHUB_CLI_VERSION="2.97.0" \
     GITHUB_COPILOT_CLI_VERSION="1.0.67" \
     HELM_VERSION="4.2.3" \
-    KUBECTL_VERSION="1.35.6" \
+    KUBECTL_VERSION="1.35.7" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64" \
-    MICROSOFT_SQL_ODBC_VERSION="18.6.2.1-1" \
-    MICROSOFT_SQL_TOOLS_VERSION="18.6.2.1-1" \
     MINICONDA_SHA256="ecb43ee4ae30a7a5af87737e9548ceb21f0a10ec55b8dc40d247aa925b80bfec" \
     MINICONDA_VERSION="26.5.3-1" \
     NBSTRIPOUT_VERSION="0.9.1" \
-    NODE_LTS_VERSION="24.18.0" \
-    NVIDIA_CUDA_COMPAT_VERSION="610.43.02-1ubuntu1" \
-    NVIDIA_CUDA_CUDART_VERSION="13.3.29-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.31.1" \
+    OLLAMA_VERSION="0.32.6" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.6.1-2.2404.0" \
     UV_VERSION="0.11.32"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
@@ -71,13 +62,14 @@ EOF
 RUN <<EOF
 apt-get update --yes
 
-apt-get install --yes \
+apt-get install --yes --no-install-recommends \
   "apt-transport-https" \
   "ca-certificates" \
   "curl" \
   "git" \
   "ffmpeg" \
   "gzip" \
+  "gnupg" \
   "jq" \
   "mandoc" \
   "less" \
@@ -154,9 +146,15 @@ curl --location --fail-with-body \
   "https://github.com/synfinatic/aws-sso-cli/releases/download/v${AWS_SSO_CLI_VERSION}/aws-sso-${AWS_SSO_CLI_VERSION}-linux-amd64" \
   --output "aws-sso"
 
+curl --location --fail-with-body \
+  "https://github.com/synfinatic/aws-sso-cli/releases/download/v${AWS_SSO_CLI_VERSION}/aws-sso-${AWS_SSO_CLI_VERSION}.sha256" \
+  --output "aws-sso.sha256"
+
+sha256sum --check --ignore-missing aws-sso.sha256
+
 install --owner nobody --group nogroup --mode 0755 aws-sso /usr/local/bin/aws-sso
 
-rm --force aws-sso
+rm --force aws-sso aws-sso.sha256
 EOF
 
 # Miniconda
@@ -170,13 +168,19 @@ echo "${MINICONDA_SHA256} miniconda.sh" | sha256sum --check
 
 bash miniconda.sh -b -p /opt/conda
 
+# the miniconda installer bundles a fixed Python and base-env packages that lag behind
+# upstream fixes - force the base env to the latest patch of its Python line and cryptography
+/opt/conda/bin/conda update --yes python cryptography
+
+/opt/conda/bin/conda clean --all --yes
+
 chown --recursive "${CONTAINER_USER}":"${CONTAINER_GROUP}" /opt/conda
 
 rm --force miniconda.sh
 EOF
 
-# nbstripout
-# Installs nbstripout (https://github.com/kynan/nbstripout)
+# nbstripout
+# Installs nbstripout (https://github.com/kynan/nbstripout)
 RUN <<EOF
 pip install --no-cache-dir "nbstripout==${NBSTRIPOUT_VERSION}"
 
@@ -192,11 +196,15 @@ curl --location --fail-with-body \
 
 bash node.sh
 
-apt-get install --yes "nodejs=${NODE_LTS_VERSION}-1nodesource1"
+apt-get install --yes --no-install-recommends "nodejs"
 
 apt-get clean --yes
 
 rm --force --recursive /var/lib/apt/lists/* node.sh
+
+# nodejs bundles its own npm, which lags behind npm's own release cadence -
+# force it to the latest release so its vendored deps (tar, undici, brace-expansion, etc.) are current
+npm install --global npm@latest
 EOF
 
 # Amazon Corretto
@@ -206,7 +214,7 @@ curl --location --fail-with-body \
   "https://apt.corretto.aws/corretto.key" \
   --output corretto.key
 
-cat corretto.key | gpg --dearmor --output corretto-keyring.gpg
+gpg --dearmor --output corretto-keyring.gpg corretto.key
 
 install -D --owner root --group root --mode 644 corretto-keyring.gpg /etc/apt/keyrings/corretto-keyring.gpg
 
@@ -214,7 +222,7 @@ echo "deb [signed-by=/etc/apt/keyrings/corretto-keyring.gpg] https://apt.corrett
 
 apt-get update --yes
 
-apt-get install --yes "java-21-amazon-corretto-jdk=${CORRETTO_VERSION}"
+apt-get install --yes --no-install-recommends "java-21-amazon-corretto-jdk"
 
 apt-get clean --yes
 
@@ -226,7 +234,7 @@ EOF
 RUN <<EOF
 apt-get update --yes
 
-apt-get install --yes "dotnet-sdk-8.0=${DOTNET_SDK_VERSION}"
+apt-get install --yes --no-install-recommends "dotnet-sdk-8.0"
 
 apt-get clean --yes
 
@@ -240,7 +248,7 @@ curl --location --fail-with-body \
   "https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc" \
   --output "marutter_pubkey.asc"
 
-cat marutter_pubkey.asc | gpg --dearmor --output marutter_pubkey.gpg
+gpg --dearmor --output marutter_pubkey.gpg marutter_pubkey.asc
 
 install -D --owner root --group root --mode 644 marutter_pubkey.gpg /etc/apt/keyrings/marutter_pubkey.gpg
 
@@ -248,7 +256,7 @@ echo "deb [signed-by=/etc/apt/keyrings/marutter_pubkey.gpg] https://cloud.r-proj
 
 apt-get update --yes
 
-apt-get install --yes "r-base=${R_VERSION}"
+apt-get install --yes --no-install-recommends "r-base"
 
 apt-get clean --yes
 
@@ -279,7 +287,7 @@ curl --location --fail-with-body \
   "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/3bf863cc.pub" \
   --output "3bf863cc.pub"
 
-cat 3bf863cc.pub | gpg --dearmor --output nvidia.gpg
+gpg --dearmor --output nvidia.gpg 3bf863cc.pub
 
 install -D --owner root --group root --mode 644 nvidia.gpg /etc/apt/keyrings/nvidia.gpg
 
@@ -287,9 +295,9 @@ echo "deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nv
 
 apt-get update --yes
 
-apt-get install --yes \
-  "cuda-cudart-13-3=${NVIDIA_CUDA_CUDART_VERSION}" \
-  "cuda-compat-13-3=${NVIDIA_CUDA_COMPAT_VERSION}"
+apt-get install --yes --no-install-recommends \
+  "cuda-cudart-13-3" \
+  "cuda-compat-13-3"
 
 echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf
 echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
@@ -305,9 +313,15 @@ curl --location --fail-with-body \
   "https://dl.k8s.io/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" \
   --output "kubectl"
 
+curl --location --fail-with-body \
+  "https://dl.k8s.io/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl.sha256" \
+  --output "kubectl.sha256"
+
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+
 install --owner nobody --group nogroup --mode 0755 kubectl /usr/local/bin/kubectl
 
-rm --force kubectl
+rm --force kubectl kubectl.sha256
 EOF
 
 # Helm
@@ -316,11 +330,17 @@ curl --location --fail-with-body \
   "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" \
   --output "helm.tar.gz"
 
+curl --location --fail-with-body \
+  "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz.sha256sum" \
+  --output "helm.tar.gz.sha256sum"
+
+sha256sum --check helm.tar.gz.sha256sum
+
 tar --extract --file "helm.tar.gz"
 
 install --owner nobody --group nogroup --mode 0755 linux-amd64/helm /usr/local/bin/helm
 
-rm --force --recursive linux-amd64 helm.tar.gz
+rm --force --recursive linux-amd64 helm.tar.gz helm.tar.gz.sha256sum
 EOF
 
 # Cloud Platform CLI
@@ -329,11 +349,17 @@ curl --location --fail-with-body \
   "https://github.com/ministryofjustice/cloud-platform-cli/releases/download/${CLOUD_PLATFORM_CLI_VERSION}/cloud-platform-cli_${CLOUD_PLATFORM_CLI_VERSION}_linux_amd64.tar.gz" \
   --output "cloud-platform-cli.tar.gz"
 
+curl --location --fail-with-body \
+  "https://github.com/ministryofjustice/cloud-platform-cli/releases/download/${CLOUD_PLATFORM_CLI_VERSION}/checksums.txt" \
+  --output "checksums.txt"
+
+sha256sum --check --ignore-missing checksums.txt
+
 tar --extract --file cloud-platform-cli.tar.gz
 
 install --owner nobody --group nogroup --mode 0755 cloud-platform /usr/local/bin/cloud-platform
 
-rm --force --recursive cloud-platform LICENSE README.md completions cloud-platform-cli.tar.gz
+rm --force --recursive cloud-platform LICENSE README.md completions cloud-platform-cli.tar.gz checksums.txt
 EOF
 
 # Microsoft SQL ODBC and Tools
@@ -342,7 +368,7 @@ curl --location --fail-with-body \
   "https://packages.microsoft.com/keys/microsoft.asc" \
   --output microsoft.asc
 
-cat microsoft.asc | gpg --dearmor --output microsoft-prod.gpg
+gpg --dearmor --output microsoft-prod.gpg microsoft.asc
 
 install -D --owner root --group root --mode 644 microsoft-prod.gpg /usr/share/keyrings/microsoft-prod.gpg
 
@@ -350,9 +376,9 @@ echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-prod.g
 
 apt-get update --yes
 
-ACCEPT_EULA=Y apt-get install --yes \
-  "msodbcsql18=${MICROSOFT_SQL_ODBC_VERSION}" \
-  "mssql-tools18=${MICROSOFT_SQL_TOOLS_VERSION}"
+ACCEPT_EULA=Y apt-get install --yes --no-install-recommends \
+  "msodbcsql18" \
+  "mssql-tools18"
 
 apt-get clean --yes
 
@@ -365,13 +391,19 @@ curl --location --fail-with-body \
   "https://github.com/astral-sh/uv/releases/download/${UV_VERSION}/uv-x86_64-unknown-linux-gnu.tar.gz" \
   --output uv.tar.gz
 
+curl --location --fail-with-body \
+  "https://github.com/astral-sh/uv/releases/download/${UV_VERSION}/uv-x86_64-unknown-linux-gnu.tar.gz.sha256" \
+  --output uv.tar.gz.sha256
+
+sha256sum --check uv.tar.gz.sha256
+
 tar --extract --file uv.tar.gz
 
 install --owner nobody --group nogroup --mode 0755 uv-x86_64-unknown-linux-gnu/uv /usr/local/bin/uv
 
 install --owner nobody --group nogroup --mode 0755 uv-x86_64-unknown-linux-gnu/uvx /usr/local/bin/uvx
 
-rm --force --recursive uv.tar.gz uv-x86_64-unknown-linux-gnu
+rm --force --recursive uv.tar.gz uv.tar.gz.sha256 uv-x86_64-unknown-linux-gnu
 EOF
 
 # Installs git-lfs (https://github.com/git-lfs)
@@ -405,7 +437,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubc
 
 apt-get update --yes
 
-apt-get install --yes "gh=${GITHUB_CLI_VERSION}"
+apt-get install --yes --no-install-recommends "gh"
 
 apt-get clean --yes
 
@@ -418,11 +450,17 @@ curl --location --fail-with-body \
   "https://github.com/github/copilot-cli/releases/download/v${GITHUB_COPILOT_CLI_VERSION}/copilot-linux-x64.tar.gz" \
   --output "copilot.tar.gz"
 
+curl --location --fail-with-body \
+  "https://github.com/github/copilot-cli/releases/download/v${GITHUB_COPILOT_CLI_VERSION}/checksums.txt" \
+  --output "checksums.txt"
+
+sha256sum --check --ignore-missing checksums.txt
+
 tar --extract --file copilot.tar.gz
 
 install --owner nobody --group nogroup --mode 0755 copilot /usr/local/bin/copilot
 
-rm --force --recursive copilot.tar.gz copilot
+rm --force --recursive copilot.tar.gz copilot checksums.txt
 EOF
 
 USER ${CONTAINER_USER}
