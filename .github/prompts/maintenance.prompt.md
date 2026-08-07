@@ -72,12 +72,45 @@ docker image inspect --format='{{ index .RepoDigests 0 }}' "$IMAGE"
 - Read the list of pinned packages from the first `apt-get install` block in `Dockerfile` (after "Base Configuration" comment). Use exactly that set of packages; do not add or remove any.
 - Start a temporary container using the same base image and check the candidate versions for those packages.
 
+**Python**: Use a two-stage checking process for python3.x packages:
+
 ```bash
-docker run --rm --platform linux/amd64 "$IMAGE" \
-  bash -c "apt-get update && apt-cache policy apt-transport-https ca-certificates curl git ffmpeg gzip jq mandoc less python3.12 python3-pip vim unixodbc unzip zstd"
+# Extract current Python minor version from Dockerfile (e.g., 3.12 from python3.12)
+CURRENT_PYTHON_VERSION="$(grep -oP 'python\K3\.\d+' Dockerfile | head -1)"
+
+docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
+apt-get update -y >/dev/null 2>&1
+
+# Check latest version for current Python minor version
+echo "=== Current Python version (${CURRENT_PYTHON_VERSION}) ==="
+PYTHON_CANDIDATE_CURRENT=\$(apt-cache policy python${CURRENT_PYTHON_VERSION} | grep Candidate | awk '{print \$2}')
+PIP_CANDIDATE_CURRENT=\$(apt-cache policy python3-pip | grep Candidate | awk '{print \$2}')
+echo "python${CURRENT_PYTHON_VERSION}: \$PYTHON_CANDIDATE_CURRENT"
+echo "python3-pip: \$PIP_CANDIDATE_CURRENT"
+
+# Check if newer Python minor version is available
+echo "=== Latest available Python (any minor version) ==="
+LATEST_PYTHON_PKG=\$(apt-cache search --names-only '^python3\.[0-9]+$' | grep -oP 'python\K3\.\d+' | sort -V | tail -1)
+
+if [ -n "\$LATEST_PYTHON_PKG" ] && [ "\$LATEST_PYTHON_PKG" != "${CURRENT_PYTHON_VERSION}" ]; then
+  PYTHON_CANDIDATE_LATEST=\$(apt-cache policy python\$LATEST_PYTHON_PKG | grep Candidate | awk '{print \$2}')
+  echo "Latest Python minor version: \$LATEST_PYTHON_PKG"
+  echo "python\$LATEST_PYTHON_PKG: \$PYTHON_CANDIDATE_LATEST"
+  echo "UPGRADE_TO_PYTHON=\$LATEST_PYTHON_PKG"
+fi
+ENDSCRIPT
 ```
 
-- Update each pinned version in `Dockerfile` to the reported candidate, preserving every package currently listed.
+For other base packages without major versions in package names:
+
+```bash
+docker run --rm --platform linux/amd64 "$IMAGE" \
+  bash -c "apt-get update && apt-cache policy apt-transport-https ca-certificates curl git ffmpeg gzip jq mandoc less vim unixodbc unzip zstd"
+```
+
+- Analyse the output and update packages:
+  - **For Python**: If a newer minor version is available (e.g., 3.13 when using 3.12), note this as a major version upgrade for the PR description. Only update if the new version is stable and tested.
+  - **For other packages**: Update each pinned version in `Dockerfile` to the reported candidate.
 
 ### 4. Update third-party APT package versions
 
@@ -121,25 +154,208 @@ docker run --rm --platform linux/amd64 "$IMAGE" \
   curl -sL 'https://deb.nodesource.com/setup_24.x' -o node.sh && bash node.sh >/dev/null 2>&1 && \
 
   apt-get update --yes && \
-  apt-cache policy java-21-amazon-corretto-jdk r-base dotnet-sdk-8.0 cuda-cudart-13-3 cuda-compat-13-3 msodbcsql18 mssql-tools18 gh nodejs"
+  apt-cache policy r-base gh"
 ```
 
 Update the relevant `ENV` variables and `apt-get install` version pins in `Dockerfile`:
 
-- `CORRETTO_VERSION` → `java-21-amazon-corretto-jdk` candidate
 - `R_VERSION` → `r-base` candidate
-- `DOTNET_SDK_VERSION` → `dotnet-sdk-8.0` candidate
-- `NVIDIA_CUDA_CUDART_VERSION` → `cuda-cudart-13-3` candidate
-- `NVIDIA_CUDA_COMPAT_VERSION` → `cuda-compat-13-3` candidate
-- `MICROSOFT_SQL_ODBC_VERSION` → `msodbcsql18` candidate
-- `MICROSOFT_SQL_TOOLS_VERSION` → `mssql-tools18` candidate
 - `GITHUB_CLI_VERSION` → `gh` candidate
-- `NODE_LTS_VERSION` → `nodejs` candidate (strip the `-1nodesource1` suffix)
 
-**Important**: For NVIDIA CUDA, also check if there is a newer CUDA minor or major version available by inspecting the [NVIDIA CUDA repository](https://gitlab.com/nvidia/container-images/cuda/-/tree/master/dist). If a newer CUDA version is available:
-1. Update `CUDA_VERSION`
-2. Update `NVIDIA_CUDA_CUDART_VERSION` and `NVIDIA_CUDA_COMPAT_VERSION` to match the new CUDA version
-3. Update package names if the CUDA apt package suffix changes (e.g., from `cuda-cudart-13-3` to `cuda-cudart-14-0`)
+**Java/Amazon Corretto**: Use a two-stage checking process:
+
+```bash
+# Extract current Java major version from Dockerfile (e.g., 21 from java-21-amazon-corretto-jdk)
+CURRENT_JAVA_VERSION="$(grep -oP 'java-\K\d+(?=-amazon-corretto)' Dockerfile | head -1)"
+
+docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
+apt-get update -y >/dev/null 2>&1
+apt-get install -y curl gpg >/dev/null 2>&1
+
+curl -sL 'https://apt.corretto.aws/corretto.key' -o corretto.key
+cat corretto.key | gpg --dearmor -o corretto-keyring.gpg 2>/dev/null
+install -D -m 644 corretto-keyring.gpg /etc/apt/keyrings/corretto-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/corretto-keyring.gpg] https://apt.corretto.aws stable main' > /etc/apt/sources.list.d/corretto.list
+
+apt-get update -y >/dev/null 2>&1
+
+# Check current Java version
+echo "=== Current Java version (${CURRENT_JAVA_VERSION}) ==="
+JAVA_CANDIDATE_CURRENT=\$(apt-cache policy java-${CURRENT_JAVA_VERSION}-amazon-corretto-jdk | grep Candidate | awk '{print \$2}')
+echo "java-${CURRENT_JAVA_VERSION}-amazon-corretto-jdk: \$JAVA_CANDIDATE_CURRENT"
+
+# Check for newer Java versions
+echo "=== Latest available Java (any version) ==="
+LATEST_JAVA_PKG=\$(apt-cache search --names-only '^java-[0-9]+-amazon-corretto-jdk$' | grep -oP 'java-\K\d+' | sort -n | tail -1)
+
+if [ -n "\$LATEST_JAVA_PKG" ] && [ "\$LATEST_JAVA_PKG" != "${CURRENT_JAVA_VERSION}" ]; then
+  JAVA_CANDIDATE_LATEST=\$(apt-cache policy java-\${LATEST_JAVA_PKG}-amazon-corretto-jdk | grep Candidate | awk '{print \$2}')
+  echo "Latest Java version: \$LATEST_JAVA_PKG"
+  echo "java-\${LATEST_JAVA_PKG}-amazon-corretto-jdk: \$JAVA_CANDIDATE_LATEST"
+  echo "UPGRADE_TO_JAVA=\$LATEST_JAVA_PKG"
+fi
+ENDSCRIPT
+```
+
+**.NET SDK**: Use a two-stage checking process:
+
+```bash
+# Extract current .NET major version from Dockerfile (e.g., 8.0 from dotnet-sdk-8.0)
+CURRENT_DOTNET_VERSION="$(grep -oP 'dotnet-sdk-\K\d+\.\d+' Dockerfile | head -1)"
+
+docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
+apt-get update -y >/dev/null 2>&1
+
+# Check current .NET version
+echo "=== Current .NET SDK version (${CURRENT_DOTNET_VERSION}) ==="
+DOTNET_CANDIDATE_CURRENT=\$(apt-cache policy dotnet-sdk-${CURRENT_DOTNET_VERSION} | grep Candidate | awk '{print \$2}')
+echo "dotnet-sdk-${CURRENT_DOTNET_VERSION}: \$DOTNET_CANDIDATE_CURRENT"
+
+# Check for newer .NET versions
+echo "=== Latest available .NET SDK (any version) ==="
+LATEST_DOTNET_PKG=\$(apt-cache search --names-only '^dotnet-sdk-[0-9]+\.[0-9]+$' | grep -oP 'dotnet-sdk-\K\d+\.\d+' | sort -V | tail -1)
+
+if [ -n "\$LATEST_DOTNET_PKG" ] && [ "\$LATEST_DOTNET_PKG" != "${CURRENT_DOTNET_VERSION}" ]; then
+  DOTNET_CANDIDATE_LATEST=\$(apt-cache policy dotnet-sdk-\$LATEST_DOTNET_PKG | grep Candidate | awk '{print \$2}')
+  echo "Latest .NET SDK version: \$LATEST_DOTNET_PKG"
+  echo "dotnet-sdk-\$LATEST_DOTNET_PKG: \$DOTNET_CANDIDATE_LATEST"
+  echo "UPGRADE_TO_DOTNET=\$LATEST_DOTNET_PKG"
+fi
+ENDSCRIPT
+```
+
+**Node.js**: Use a two-stage checking process:
+
+```bash
+# Extract current Node.js major version from Dockerfile (e.g., 24 from setup_24.x)
+CURRENT_NODE_MAJOR="$(grep -oP 'setup_\K\d+(?=\.x)' Dockerfile | head -1)"
+
+docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
+apt-get update -y >/dev/null 2>&1
+apt-get install -y curl >/dev/null 2>&1
+
+# Setup current Node.js repository
+curl -sL "https://deb.nodesource.com/setup_${CURRENT_NODE_MAJOR}.x" -o node.sh
+bash node.sh >/dev/null 2>&1
+apt-get update -y >/dev/null 2>&1
+
+echo "=== Current Node.js major version (${CURRENT_NODE_MAJOR}) ==="
+NODE_CANDIDATE_CURRENT=\$(apt-cache policy nodejs | grep Candidate | awk '{print \$2}')
+echo "nodejs (from ${CURRENT_NODE_MAJOR}.x): \$NODE_CANDIDATE_CURRENT"
+
+# Check for newer Node.js LTS versions
+echo "=== Latest Node.js LTS version ==="
+LATEST_NODE_MAJOR=\$(curl -sL https://nodejs.org/dist/index.json | grep -oP '"version":"v\K\d+' | head -1)
+echo "Latest Node.js major version: \$LATEST_NODE_MAJOR"
+
+if [ -n "\$LATEST_NODE_MAJOR" ] && [ "\$LATEST_NODE_MAJOR" != "${CURRENT_NODE_MAJOR}" ]; then
+  echo "UPGRADE_TO_NODE=\$LATEST_NODE_MAJOR"
+fi
+ENDSCRIPT
+```
+
+**NVIDIA CUDA**: Use a two-stage checking process:
+
+```bash
+# Extract current CUDA major.minor version from Dockerfile
+CURRENT_CUDA_MAJOR_MINOR="$(grep -oP 'cuda-cudart-\K\d+-\d+' Dockerfile | head -1)"
+
+docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
+apt-get update -y >/dev/null 2>&1
+apt-get install -y curl gpg >/dev/null 2>&1
+
+curl -sL 'https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/3bf863cc.pub' -o 3bf863cc.pub
+cat 3bf863cc.pub | gpg --dearmor -o nvidia.gpg 2>/dev/null
+install -D -m 644 nvidia.gpg /etc/apt/keyrings/nvidia.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64 /' > /etc/apt/sources.list.d/cuda.list
+
+apt-get update -y >/dev/null 2>&1
+
+echo "=== Current CUDA version (${CURRENT_CUDA_MAJOR_MINOR}) ==="
+CUDART_CANDIDATE_CURRENT=\$(apt-cache policy cuda-cudart-${CURRENT_CUDA_MAJOR_MINOR} | grep Candidate | awk '{print \$2}')
+COMPAT_CANDIDATE_CURRENT=\$(apt-cache policy cuda-compat-${CURRENT_CUDA_MAJOR_MINOR} | grep Candidate | awk '{print \$2}')
+echo "cuda-cudart-${CURRENT_CUDA_MAJOR_MINOR}: \$CUDART_CANDIDATE_CURRENT"
+echo "cuda-compat-${CURRENT_CUDA_MAJOR_MINOR}: \$COMPAT_CANDIDATE_CURRENT"
+
+# Check for newer CUDA versions
+echo "=== Latest available CUDA (any version) ==="
+LATEST_CUDA_PKG=\$(apt-cache search --names-only '^cuda-cudart-[0-9]+-[0-9]+$' | grep -oP 'cuda-cudart-\K\d+-\d+' | sort -V | tail -1)
+
+if [ -n "\$LATEST_CUDA_PKG" ] && [ "\$LATEST_CUDA_PKG" != "${CURRENT_CUDA_MAJOR_MINOR}" ]; then
+  CUDART_CANDIDATE_LATEST=\$(apt-cache policy cuda-cudart-\$LATEST_CUDA_PKG | grep Candidate | awk '{print \$2}')
+  COMPAT_CANDIDATE_LATEST=\$(apt-cache policy cuda-compat-\$LATEST_CUDA_PKG | grep Candidate | awk '{print \$2}')
+  echo "Latest CUDA version: \$LATEST_CUDA_PKG"
+  echo "cuda-cudart-\$LATEST_CUDA_PKG: \$CUDART_CANDIDATE_LATEST"
+  echo "cuda-compat-\$LATEST_CUDA_PKG: \$COMPAT_CANDIDATE_LATEST"
+  echo "UPGRADE_TO_CUDA=\$LATEST_CUDA_PKG"
+fi
+ENDSCRIPT
+```
+
+**Microsoft SQL ODBC and Tools**: Update these packages using a two-stage checking process:
+
+1. First, check for minor/patch updates within the current major version:
+
+```bash
+# Extract current major version from Dockerfile (e.g., 18 from msodbcsql18)
+CURRENT_MAJOR_VERSION="$(grep -oP 'msodbcsql\K\d+' Dockerfile | head -1)"
+CURRENT_ODBC_VERSION="$(grep -oP 'MICROSOFT_SQL_ODBC_VERSION="\K[^"]+' Dockerfile)"
+CURRENT_TOOLS_VERSION="$(grep -oP 'MICROSOFT_SQL_TOOLS_VERSION="\K[^"]+' Dockerfile)"
+
+docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
+apt-get update -y >/dev/null 2>&1
+apt-get install -y curl gpg lsb-release >/dev/null 2>&1
+curl -sL 'https://packages.microsoft.com/keys/microsoft.asc' | gpg --dearmor > /usr/share/keyrings/microsoft-prod.gpg 2>/dev/null
+source /etc/os-release
+CODENAME=\$(lsb_release -cs)
+echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-prod.gpg] https://packages.microsoft.com/ubuntu/\${VERSION_ID}/prod \${CODENAME} main" > /etc/apt/sources.list.d/mssql-release.list
+apt-get update -y >/dev/null 2>&1
+
+# Check latest version for current major version
+echo "=== Current major version (${CURRENT_MAJOR_VERSION}) ==="
+ODBC_CANDIDATE_CURRENT=\$(apt-cache policy msodbcsql${CURRENT_MAJOR_VERSION} | grep Candidate | awk '{print \$2}')
+TOOLS_CANDIDATE_CURRENT=\$(apt-cache policy mssql-tools${CURRENT_MAJOR_VERSION} | grep Candidate | awk '{print \$2}')
+echo "msodbcsql${CURRENT_MAJOR_VERSION}: \$ODBC_CANDIDATE_CURRENT"
+echo "mssql-tools${CURRENT_MAJOR_VERSION}: \$TOOLS_CANDIDATE_CURRENT"
+
+# Check if we're already on the latest for this major version
+if [ "\$ODBC_CANDIDATE_CURRENT" = "${CURRENT_ODBC_VERSION}" ] && [ "\$TOOLS_CANDIDATE_CURRENT" = "${CURRENT_TOOLS_VERSION}" ]; then
+  echo "Already on latest for major version ${CURRENT_MAJOR_VERSION}, checking for newer major versions..."
+
+  # Find the latest available package (any major version)
+  echo "=== Latest available (any version) ==="
+  LATEST_ODBC_PKG=\$(apt-cache search --names-only '^msodbcsql[0-9]+$' | sort -V | tail -1 | awk '{print \$1}')
+  LATEST_TOOLS_PKG=\$(apt-cache search --names-only '^mssql-tools[0-9]+$' | sort -V | tail -1 | awk '{print \$1}')
+
+  if [ -n "\$LATEST_ODBC_PKG" ]; then
+    LATEST_MAJOR=\$(echo \$LATEST_ODBC_PKG | grep -oP 'msodbcsql\K\d+')
+    ODBC_CANDIDATE_LATEST=\$(apt-cache policy \$LATEST_ODBC_PKG | grep Candidate | awk '{print \$2}')
+    TOOLS_CANDIDATE_LATEST=\$(apt-cache policy mssql-tools\${LATEST_MAJOR} | grep Candidate | awk '{print \$2}')
+
+    echo "Latest package: \$LATEST_ODBC_PKG (major version \$LATEST_MAJOR)"
+    echo "\$LATEST_ODBC_PKG: \$ODBC_CANDIDATE_LATEST"
+    echo "mssql-tools\${LATEST_MAJOR}: \$TOOLS_CANDIDATE_LATEST"
+    echo "UPGRADE_TO_MAJOR=\$LATEST_MAJOR"
+  fi
+fi
+ENDSCRIPT
+```
+
+2. Analyse the output and determine the upgrade path:
+   - **If the candidate versions for the current major version are newer than what's in the Dockerfile**: Update `MICROSOFT_SQL_ODBC_VERSION` and `MICROSOFT_SQL_TOOLS_VERSION` to those versions (patch/minor upgrade within same major version).
+   - **If already on the latest for the current major version, and a newer major version exists**:
+     - Update the Dockerfile to use the new major version package names (e.g., `msodbcsql18` → `msodbcsql19`)
+     - Update `MICROSOFT_SQL_ODBC_VERSION` and `MICROSOFT_SQL_TOOLS_VERSION` to the new versions
+     - Update the PATH environment variable (e.g., `/opt/mssql-tools18/bin` → `/opt/mssql-tools19/bin`)
+     - Note this is a major version upgrade for the PR description
+   - **If already on the absolute latest version**: No updates needed for Microsoft SQL packages.
+
+3. Analyse the output from all package checks and determine upgrade paths:
+   - **For Java/Corretto**: If a newer major version is available (e.g., Java 22 or 23 when using 21), update the package name in the Dockerfile and note this as a major version upgrade for the PR description.
+   - **For .NET SDK**: If a newer major version is available (e.g., 9.0 when using 8.0), update the package name in the Dockerfile and note this as a major version upgrade for the PR description.
+   - **For Node.js**: If a newer LTS major version is available (e.g., 26 when using 24), update the setup script URL and note this as a major version upgrade for the PR description.
+   - **For NVIDIA CUDA**: If a newer version is available, update `CUDA_VERSION`, `NVIDIA_CUDA_CUDART_VERSION`, `NVIDIA_CUDA_COMPAT_VERSION`, and package names, and note this as a major version upgrade for the PR description.
+   - **For Python**: If a newer minor version is available (e.g., 3.13 when using 3.12), this would be a significant upgrade. Note this in the PR but consider carefully whether to apply it (Python minor versions can have breaking changes).
 
 ### 5. Update GitHub-released binary versions
 
@@ -251,10 +467,12 @@ Key mappings between Dockerfile `ENV` variables and test expected outputs:
 | `CORRETTO_VERSION`           | corretto       | `openjdk X.Y.Z` (extract major.minor.patch from version)               |
 | `DOTNET_SDK_VERSION`         | dotnet         | `X.Y.Z` (numeric prefix before `-`)                                     |
 | `R_VERSION`                  | r              | `R version X.Y.Z` (first 3 components)                                  |
-| `MICROSOFT_SQL_ODBC_VERSION` | msodbcsql      | `/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-X.Y.so.Z.W` (file path) |
-| `MICROSOFT_SQL_TOOLS_VERSION`| sqlcmd         | Verify actual output format from `sqlcmd -?`                            |
+| `MICROSOFT_SQL_ODBC_VERSION` | msodbcsql      | `/opt/microsoft/msodbcsql{MAJOR}/lib64/libmsodbcsql-X.Y.so.Z.W` (file path) |
+| `MICROSOFT_SQL_TOOLS_VERSION`| sqlcmd         | `Version X.Y.ZZZZ.W Linux` (from `sqlcmd -?` output)                    |
 
 For NVIDIA CUDA `fileExistenceTests`, update paths if the CUDA major version changes (e.g., `/usr/local/cuda/lib64/libcudart.so.13` → `/usr/local/cuda/lib64/libcudart.so.14`).
+
+For Microsoft SQL ODBC `fileExistenceTests`, update the path if the major version was upgraded (e.g., `/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.6.so.2.1` → `/opt/microsoft/msodbcsql19/lib64/libmsodbcsql-19.0.so.1.0`). The path format is `/opt/microsoft/msodbcsql{MAJOR}/lib64/libmsodbcsql-{MAJOR}.{MINOR}.so.{PATCH}.{BUILD}`.
 
 ### 9. Confirm no package list changes
 
@@ -361,6 +579,91 @@ Include this section only when Miniconda or kubectl versions changed.
 If neither changed, omit the entire `### Other packages` section and add a single line in `## Summary`: `Miniconda and kubectl versions already up to date.`
 
 **kubectl note**: If a newer minor version is available but not updated (only patch updated), mention it here: `kubectl minor version X.Y is available but not updated (requires cluster alignment).`
+
+### ⚠️ Major Version Upgrades
+
+Include this section only when one or more packages were upgraded to a new major version. Add relevant subsections below:
+
+**Microsoft SQL ODBC and Tools** (if upgraded, e.g., from msodbcsql18 to msodbcsql19):
+
+```markdown
+⚠️ **Microsoft SQL ODBC and Tools** upgraded from version {OLD_MAJOR} to version {NEW_MAJOR}.
+
+This upgrade was applied because no further updates are available for version {OLD_MAJOR}.
+
+Major version upgrades may include breaking changes. The following changes were made:
+- Package names updated: `msodbcsql{OLD_MAJOR}` → `msodbcsql{NEW_MAJOR}`, `mssql-tools{OLD_MAJOR}` → `mssql-tools{NEW_MAJOR}`
+- PATH updated: `/opt/mssql-tools{OLD_MAJOR}/bin` → `/opt/mssql-tools{NEW_MAJOR}/bin`
+- Test expectations updated in `test/container-structure-test.yml`
+```
+
+**Java/Amazon Corretto** (if upgraded, e.g., from Java 21 to Java 23):
+
+```markdown
+⚠️ **Java/Amazon Corretto** upgraded from version {OLD_MAJOR} to version {NEW_MAJOR}.
+
+This upgrade was applied because no further updates are available for version {OLD_MAJOR}.
+
+Major version upgrades may include breaking changes. The following changes were made:
+- Package name updated: `java-{OLD_MAJOR}-amazon-corretto-jdk` → `java-{NEW_MAJOR}-amazon-corretto-jdk`
+- Test expectations updated in `test/container-structure-test.yml`
+```
+
+**.NET SDK** (if upgraded, e.g., from 8.0 to 9.0):
+
+```markdown
+⚠️ **.NET SDK** upgraded from version {OLD_MAJOR} to version {NEW_MAJOR}.
+
+This upgrade was applied because no further updates are available for version {OLD_MAJOR}.
+
+Major version upgrades may include breaking changes. The following changes were made:
+- Package name updated: `dotnet-sdk-{OLD_MAJOR}` → `dotnet-sdk-{NEW_MAJOR}`
+- Test expectations updated in `test/container-structure-test.yml`
+```
+
+**Node.js** (if upgraded, e.g., from 24 to 26):
+
+```markdown
+⚠️ **Node.js** upgraded from version {OLD_MAJOR} to version {NEW_MAJOR}.
+
+This upgrade was applied because a newer LTS version is available.
+
+Major version upgrades may include breaking changes. The following changes were made:
+- Repository setup script updated: `setup_{OLD_MAJOR}.x` → `setup_{NEW_MAJOR}.x`
+- Test expectations updated in `test/container-structure-test.yml`
+```
+
+**NVIDIA CUDA** (if upgraded, e.g., from 13.3 to 14.0):
+
+```markdown
+⚠️ **NVIDIA CUDA** upgraded from version {OLD_VERSION} to version {NEW_VERSION}.
+
+This upgrade was applied because a newer CUDA version is available.
+
+Major version upgrades may include breaking changes. The following changes were made:
+- `CUDA_VERSION` updated: `{OLD_VERSION}` → `{NEW_VERSION}`
+- Package names updated: `cuda-cudart-{OLD_SUFFIX}` → `cuda-cudart-{NEW_SUFFIX}`, `cuda-compat-{OLD_SUFFIX}` → `cuda-compat-{NEW_SUFFIX}`
+- Test file paths updated in `test/container-structure-test.yml`
+```
+
+**Python** (if upgraded, e.g., from 3.12 to 3.13):
+
+```markdown
+⚠️ **Python** upgrade available from version {OLD_VERSION} to version {NEW_VERSION}.
+
+**This upgrade was NOT applied automatically** as Python minor version upgrades can introduce breaking changes and require careful testing.
+
+To upgrade Python:
+1. Update package name: `python{OLD_VERSION}` → `python{NEW_VERSION}`
+2. Update test expectations in `test/container-structure-test.yml`
+3. Test all Python-dependent functionality thoroughly
+```
+
+End the section with:
+
+```markdown
+Please review and test carefully before merging.
+```
 
 ### Tests
 
