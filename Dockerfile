@@ -85,7 +85,7 @@ apt-get install --yes \
   "python3-pip" \
   "vim" \
   "unixodbc" \
-  "unzip \
+  "unzip" \
   "zstd"
 
 apt-get clean --yes
