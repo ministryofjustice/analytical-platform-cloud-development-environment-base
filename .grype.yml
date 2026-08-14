@@ -349,43 +349,7 @@ ignore:
   # Additional findings from image d4e7f018df92dee778e547e8349ca4423fd6cebf (2026-08-14).
   # Go stdlib high-severity findings in precompiled third-party binaries; fixed in 1.25.13 / 1.26.6 upstream.
   - vulnerability: GO-2026-5026-stdlib
-    package:
-      name: stdlib
-      type: go-module
-      location: "/usr/local/bin/aws-sso"
-    reason: "Precompiled aws-sso binary (go1.26.4); requires upstream rebuild with Go toolchain >= 1.25.13. exp:2026-09-15"
-
-  - vulnerability: GO-2026-5026-stdlib
-    package:
-      name: stdlib
-      type: go-module
-      location: "/usr/local/bin/helm"
-    reason: "Precompiled helm binary (go1.26.5); requires upstream rebuild with Go toolchain >= 1.25.13. exp:2026-09-15"
-
-  - vulnerability: GO-2026-5026-stdlib
-    package:
-      name: stdlib
-      type: go-module
-      location: "/usr/bin/gh"
-    reason: "Precompiled gh binary (go1.26.5); requires upstream rebuild with Go toolchain >= 1.25.13. exp:2026-09-15"
+    reason: "Precompiled third-party binaries (aws-sso, helm, gh); requires upstream rebuild with Go toolchain >= 1.25.13. exp:2026-09-15"
 
   - vulnerability: GO-2026-5942-stdlib
-    package:
-      name: stdlib
-      type: go-module
-      location: "/usr/local/bin/aws-sso"
-    reason: "Precompiled aws-sso binary (go1.26.4); requires upstream rebuild with Go toolchain >= 1.26.6. exp:2026-09-15"
-
-  - vulnerability: GO-2026-5942-stdlib
-    package:
-      name: stdlib
-      type: go-module
-      location: "/usr/local/bin/helm"
-    reason: "Precompiled helm binary (go1.26.5); requires upstream rebuild with Go toolchain >= 1.26.6. exp:2026-09-15"
-
-  - vulnerability: GO-2026-5942-stdlib
-    package:
-      name: stdlib
-      type: go-module
-      location: "/usr/bin/gh"
-    reason: "Precompiled gh binary (go1.26.5); requires upstream rebuild with Go toolchain >= 1.26.6. exp:2026-09-15"
+    reason: "Precompiled third-party binaries (aws-sso, helm, gh); requires upstream rebuild with Go toolchain >= 1.26.6. exp:2026-09-15"
