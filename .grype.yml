@@ -353,3 +353,10 @@ ignore:
 
   - vulnerability: GO-2026-5942-stdlib
     reason: "Precompiled third-party binaries (aws-sso, helm, gh); requires upstream rebuild with Go toolchain >= 1.26.6. exp:2026-09-15"
+
+  # Additional findings from image bba6d9c6a5398fe7408329d089108bd6b08d3f80 (stdlib Go toolchain, aws-sso/helm/gh)
+  - vulnerability: GO-2026-5026-stdlib
+    reason: "aws-sso, helm, and gh are precompiled Go binaries pinned to latest upstream releases; requires upstream rebuild with Go toolchain >=1.25.13. exp:2026-09-03"
+
+  - vulnerability: GO-2026-5942-stdlib
+    reason: "aws-sso, helm, and gh are precompiled Go binaries pinned to latest upstream releases; requires upstream rebuild with Go toolchain >=1.26.6. exp:2026-09-03"
