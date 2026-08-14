@@ -97,7 +97,7 @@ commandTests:
   - name: "helm"
     command: "helm"
     args: ["version"]
-    expectedOutput: ["4.2.3"]
+    expectedOutput: ["4.2.4"]
 
   - name: "cloud-platform"
     command: "cloud-platform"
