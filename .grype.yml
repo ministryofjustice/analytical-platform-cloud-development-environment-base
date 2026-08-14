@@ -359,7 +359,7 @@ ignore:
  #   package:
  #     type: go-module
  #     location: "/usr/local/bin/helm"
-    reason: "stdlib fixed in 1.25.13; helm 4.2.3 (released 2026-07-09) predates this fix. exp:2026-09-11"
+ #   reason: "stdlib fixed in 1.25.13; helm 4.2.3 (released 2026-07-09) predates this fix. exp:2026-09-11"
   - vulnerability: GO-2026-5026-stdlib
     package:
       type: go-module
