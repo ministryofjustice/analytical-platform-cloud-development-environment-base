@@ -346,37 +346,22 @@ ignore:
       location: "/usr/local/bin/helm"
     reason: "helm bundles oras.land/oras-go/v2 v2.6.1 transitively (path traversal via hardlink tar extraction, fixed upstream in oras-go v2.6.2); latest helm release is 4.2.3 and has not yet picked up the oras-go bump. Next helm patch (4.2.4) is scheduled ~2026-08-12 and is expected to include it via routine dependabot update. exp:2026-09-03"
 
-  # Additional findings from image <fill in current image digest> (2026-08-14).
-  # Go stdlib vulnerabilities in aws-sso-cli, helm, and gh — all three are precompiled binaries
-  # pinned to the latest available upstream release; the fixed Go toolchains postdate those
-  # releases, so there is nothing to bump to yet.
+  # Upstream precompiled binaries containing unpatched Go stdlib / transitive deps
   - vulnerability: GO-2026-5026-stdlib
     package:
+      name: stdlib
       type: go-module
-      location: "/usr/local/bin/aws-sso"
-    reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.1 is the latest upstream release and predates this fix. exp:2026-09-11"
-  - vulnerability: GO-2026-5026-stdlib
+    reason: "Precompiled binary requires upstream rebuild with Go toolchain >= 1.25.13. exp:2026-09-15"
+
+  - vulnerability: GO-2026-5942-stdlib
     package:
+      name: stdlib
+      type: go-module
+    reason: "Precompiled binary requires upstream rebuild with Go toolchain >= 1.26.6. exp:2026-09-15"
+
+  - vulnerability: GHSA-fxhp-mv3v-67qp
+    package:
+      name: oras.land/oras-go/v2
       type: go-module
       location: "/usr/local/bin/helm"
-    reason: "stdlib fixed in 1.25.13; helm 4.2.3 (released 2026-07-09) predates this fix. exp:2026-09-11"
-  - vulnerability: GO-2026-5026-stdlib
-    package:
-      type: go-module
-      location: "/usr/bin/gh"
-    reason: "stdlib fixed in 1.25.13; gh 2.97.0 is the latest upstream release and predates this fix. exp:2026-09-11"
-  - vulnerability: GO-2026-5942-stdlib
-    package:
-      type: go-module
-      location: "/usr/local/bin/aws-sso"
-    reason: "stdlib fixed in 1.26.6 (released 2026-08-13); no aws-sso-cli release has been rebuilt against it yet, latest is 2.3.1. exp:2026-09-11"
-  - vulnerability: GO-2026-5942-stdlib
-    package:
-      type: go-module
-      location: "/usr/local/bin/helm"
-    reason: "stdlib fixed in 1.26.6 (released 2026-08-13); helm 4.2.4 predates this fix. exp:2026-09-11"
-  - vulnerability: GO-2026-5942-stdlib
-    package:
-      type: go-module
-      location: "/usr/bin/gh"
-    reason: "stdlib fixed in 1.26.6 (released 2026-08-13); no gh release has been rebuilt against it yet, latest is 2.97.0. exp:2026-09-11"
+    reason: "Bundled transitively in Helm binary; awaiting upstream Helm release bump. exp:2026-09-15"
