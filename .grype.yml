@@ -444,12 +444,12 @@ ignore:
       type: go-module
       location: "/usr/local/bin/helm"
     reason: "stdlib fixed in 1.26.6 (released 2026-08-13); helm 4.2.4 predates it and next minor 4.3.0 isn't scheduled until 2026-09-09. exp:2026-09-14"
-  - vulnerability: GO-2026-6180-golang.org/x/mod
+  - vulnerability: GO-2026-6180
     package:
       type: go-module
       location: "/usr/bin/gh"
     reason: "golang.org/x/mod fixed in 0.40.0; detected in upstream precompiled gh binary (2.97.0), which has not yet picked up the dependency bump. exp:2026-10-01"
-  - vulnerability: GO-2026-6179-golang.org/x/mod
+  - vulnerability: GO-2026-6179
     package:
       type: go-module
       location: "/usr/bin/gh"
