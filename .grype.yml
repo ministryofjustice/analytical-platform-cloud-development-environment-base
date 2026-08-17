@@ -448,9 +448,25 @@ ignore:
     package:
       type: go-module
       location: "/usr/bin/gh"
-    reason: "golang.org/x/mod fixed in 0.40.0; detected in upstream precompiled gh binary (2.97.0), which has not yet picked up the dependency bump. exp:2026-09-14"
+    reason: "golang.org/x/mod fixed in 0.40.0; detected in upstream precompiled gh binary (2.97.0), which has not yet picked up the dependency bump. exp:2026-10-01"
   - vulnerability: GO-2026-6179-golang.org/x/mod
     package:
       type: go-module
       location: "/usr/bin/gh"
-    reason: "golang.org/x/mod fixed in 0.40.0; detected in upstream precompiled gh binary (2.97.0), which has not yet picked up the dependency bump. exp:2026-09-14"
+    reason: "golang.org/x/mod fixed in 0.40.0; detected in upstream precompiled gh binary (2.97.0), which has not yet picked up the dependency bump. exp:2026-10-01"
+  # Additional findings from image 8813e81c0951aa45321fa2997cff0b76a03f903b (2026-08-17).
+  - vulnerability: GO-2026-5972
+    package:
+      type: go-module
+      location: "/usr/local/bin/aws-sso"
+    reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.1 is the latest upstream release (built with Go 1.26.4) and predates this fix. exp:2026-09-14"
+  - vulnerability: GO-2026-5972
+    package:
+      type: go-module
+      location: "/usr/bin/gh"
+    reason: "stdlib fixed in 1.25.13; gh 2.97.0 is the latest upstream release and predates this fix. exp:2026-09-14"
+  - vulnerability: GO-2026-5972
+    package:
+      type: go-module
+      location: "/usr/local/bin/helm"
+    reason: "stdlib fixed in 1.25.13; helm 4.2.4 is the latest pinned release and predates this fix; next minor 4.3.0 isn't scheduled until 2026-09-09. exp:2026-09-14"
