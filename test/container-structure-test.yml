@@ -42,12 +42,12 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.36.8"]
+    expectedOutput: ["aws-cli/2.36.25"]
 
   - name: "aws-sso"
     command: "aws-sso"
     args: ["version"]
-    expectedOutput: ["AWS SSO CLI Version 2.3.1"]
+    expectedOutput: ["AWS SSO CLI Version 2.3.2"]
 
   - name: "conda"
     command: "conda"
@@ -67,17 +67,17 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v24.18.0"]
+    expectedOutput: ["v24.19.0"]
 
   - name: "corretto"
     command: "java"
     args: ["--version"]
-    expectedOutput: ["openjdk 21.0.11"]
+    expectedOutput: ["openjdk 21.0.12"]
 
   - name: "dotnet"
     command: "dotnet"
     args: ["--version"]
-    expectedOutput: ["8.0.129"]
+    expectedOutput: ["8.0.130"]
 
   - name: "r"
     command: "R"
@@ -87,12 +87,12 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.31.1"]
+    expectedOutput: ["0.32.14"]
 
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.35.6"]
+    expectedOutput: ["Client Version: v1.35.7"]
 
   - name: "helm"
     command: "helm"
@@ -102,7 +102,7 @@ commandTests:
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.50.9"]
+    expectedOutput: ["1.51.0"]
 
   - name: "vim"
     command: "vim"
@@ -122,12 +122,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.11.32"]
+    expectedOutput: ["uv 0.12.5"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.11.32"]
+    expectedOutput: ["uvx 0.12.5"]
 
   - name: "git-lfs"
     command: "git-lfs"
@@ -142,7 +142,7 @@ commandTests:
   - name: "copilot"
     command: "copilot"
     args: ["--version"]
-    expectedOutput: ["GitHub Copilot CLI 1.0.67"]
+    expectedOutput: ["GitHub Copilot CLI 1.0.80"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
