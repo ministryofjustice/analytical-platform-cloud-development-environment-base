@@ -470,3 +470,26 @@ ignore:
       type: go-module
       location: "/usr/local/bin/helm"
     reason: "stdlib fixed in 1.25.13; helm 4.2.4 is the latest pinned release and predates this fix; next minor 4.3.0 isn't scheduled until 2026-09-09. exp:2026-09-14"
+  # Additional findings from image a4655b1 (2026-08-19 maintenance update).
+  # Python vulnerabilities in AWS CLI bundled runtime.
+  - vulnerability: CVE-2026-11940
+    reason: "Python 3.14.6 bundled in AWS CLI 2.36.25; requires upstream AWS CLI rebuild with fixed Python version. exp:2026-09-19"
+  - vulnerability: CVE-2026-11972
+    reason: "Python 3.14.6 bundled in AWS CLI 2.36.25; requires upstream AWS CLI rebuild with fixed Python version. exp:2026-09-19"
+  # Go stdlib vulnerabilities in third-party binaries (aws-sso 2.3.2 with Go 1.26.4, gh 2.97.0 with Go 1.26.5, helm 4.2.4 with Go 1.26.5).
+  # All are at latest upstream releases; stdlib fixed in 1.25.13.
+  - vulnerability: CVE-2026-56853
+    reason: "Go stdlib vulnerability in aws-sso-cli 2.3.2, gh 2.97.0, and helm 4.2.4; all at latest releases, fix requires upstream rebuilds. exp:2026-09-19"
+  - vulnerability: CVE-2026-56859
+    reason: "Go stdlib vulnerability in aws-sso-cli 2.3.2, gh 2.97.0, and helm 4.2.4; all at latest releases, fix requires upstream rebuilds. exp:2026-09-19"
+  - vulnerability: CVE-2026-56862
+    reason: "Go stdlib vulnerability in aws-sso-cli 2.3.2, gh 2.97.0, and helm 4.2.4; all at latest releases, fix requires upstream rebuilds. exp:2026-09-19"
+  - vulnerability: CVE-2026-33818
+    reason: "Go stdlib vulnerability in aws-sso-cli 2.3.2, gh 2.97.0, and helm 4.2.4; all at latest releases, fix requires upstream rebuilds. exp:2026-09-19"
+  - vulnerability: CVE-2026-56864
+    reason: "Go stdlib vulnerability in aws-sso-cli 2.3.2, gh 2.97.0, and helm 4.2.4; all at latest releases, fix requires upstream rebuilds. exp:2026-09-19"
+  - vulnerability: CVE-2026-56865
+    reason: "Go stdlib vulnerability in aws-sso-cli 2.3.2, gh 2.97.0, and helm 4.2.4; all at latest releases, fix requires upstream rebuilds. exp:2026-09-19"
+  # OpenSSL vulnerability in Conda.
+  - vulnerability: CVE-2026-14456
+    reason: "OpenSSL 3.5.7 bundled in Miniconda; fixed version 3.5.8 not yet available in conda-forge packages. exp:2026-09-19"

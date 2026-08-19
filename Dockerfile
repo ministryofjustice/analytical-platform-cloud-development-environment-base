@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:561618e2c15bf2397621dd04f96926663a3b5616c189cf7e38db7e82f5c538ea
+FROM docker.io/library/ubuntu:24.04@sha256:d78ab76437b1afc5f01e223d6bf0172763f404bb166441328845adbef44518cb
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,43 +9,43 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.36.8" \
-    AWS_SSO_CLI_VERSION="2.3.1" \
-    CLOUD_PLATFORM_CLI_VERSION="1.50.9" \
+    AWS_CLI_VERSION="2.36.25" \
+    AWS_SSO_CLI_VERSION="2.3.2" \
+    CLOUD_PLATFORM_CLI_VERSION="1.51.0" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
-    CORRETTO_VERSION="1:21.0.11.10-1" \
+    CORRETTO_VERSION="1:21.0.12.9-1" \
     CUDA_VERSION="13.3.0" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="8.0.129-0ubuntu1~24.04.1" \
+    DOTNET_SDK_VERSION="8.0.130-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
     GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08" \
     GITHUB_CLI_VERSION="2.97.0" \
-    GITHUB_COPILOT_CLI_VERSION="1.0.67" \
+    GITHUB_COPILOT_CLI_VERSION="1.0.80" \
     HELM_VERSION="4.2.4" \
-    KUBECTL_VERSION="1.35.6" \
+    KUBECTL_VERSION="1.35.7" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64" \
     MICROSOFT_SQL_ODBC_VERSION="18.6.2.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.6.2.1-1" \
-    MINICONDA_SHA256="ecb43ee4ae30a7a5af87737e9548ceb21f0a10ec55b8dc40d247aa925b80bfec" \
-    MINICONDA_VERSION="26.5.3-1" \
+    MINICONDA_SHA256="37606f9f03ced8ef60f4ffc76b21dda01728eac8a632dcab316c891cea4fe2f5" \
+    MINICONDA_VERSION="26.5.3-2" \
     NBSTRIPOUT_VERSION="0.9.1" \
-    NODE_LTS_VERSION="24.18.0" \
-    NVIDIA_CUDA_COMPAT_VERSION="610.43.02-1ubuntu1" \
+    NODE_LTS_VERSION="24.19.0" \
+    NVIDIA_CUDA_COMPAT_VERSION="610.57.04-1ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="13.3.29-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.31.1" \
+    OLLAMA_VERSION="0.32.14" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.6.1-4.2404.0" \
-    UV_VERSION="0.11.32"
+    R_VERSION="4.6.1-5.2404.0" \
+    UV_VERSION="0.12.5"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
