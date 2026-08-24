@@ -493,3 +493,9 @@ ignore:
   # OpenSSL vulnerability in Conda.
   - vulnerability: CVE-2026-14456
     reason: "OpenSSL 3.5.7 bundled in Miniconda; fixed version 3.5.8 not yet available in conda-forge packages. exp:2026-09-19"
+  # npm bundled tar vulnerability in Node.js install
+  - vulnerability: GHSA-r292-9mhp-454m
+    package:
+      type: npm
+      location: "/usr/lib/node_modules/npm/node_modules/tar/package.json"
+    reason: "npm bundled tar 7.5.16 inside Node.js/npm install; no direct patch path in this repository at scan time. exp:2026-09-30"
