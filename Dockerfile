@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:d78ab76437b1afc5f01e223d6bf0172763f404bb166441328845adbef44518cb
+FROM docker.io/library/ubuntu:24.04@sha256:33ceb71981b602c1a7443a53469e4dba065f7503eab3078a2d7a57a2ab987517
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.36.25" \
+    AWS_CLI_VERSION="2.36.30" \
     AWS_SSO_CLI_VERSION="2.3.2" \
     CLOUD_PLATFORM_CLI_VERSION="1.51.0" \
     CONTAINER_GID="1000" \
@@ -22,10 +22,10 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DOTNET_SDK_VERSION="8.0.130-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.7.1" \
     GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08" \
-    GITHUB_CLI_VERSION="2.97.0" \
+    GITHUB_CLI_VERSION="2.98.0" \
     GITHUB_COPILOT_CLI_VERSION="1.0.80" \
     HELM_VERSION="4.2.4" \
-    KUBECTL_VERSION="1.35.7" \
+    KUBECTL_VERSION="1.35.8" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
@@ -41,10 +41,10 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.32.14" \
+    OLLAMA_VERSION="0.32.15" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.6.1-5.2404.0" \
+    R_VERSION="4.6.1-6.2404.0" \
     UV_VERSION="0.12.5"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
@@ -74,7 +74,7 @@ apt-get update --yes
 apt-get install --yes \
   "apt-transport-https=2.8.3" \
   "ca-certificates=20260601~24.04.1" \
-  "curl=8.5.0-2ubuntu10.11" \
+  "curl=8.5.0-2ubuntu10.13" \
   "git=1:2.43.0-1ubuntu7.3" \
   "ffmpeg=7:6.1.1-3ubuntu5" \
   "gzip=1.12-1ubuntu3.2" \
@@ -83,7 +83,7 @@ apt-get install --yes \
   "less=590-2ubuntu2.1" \
   "python3.12=3.12.3-1ubuntu0.15" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
-  "vim=2:9.1.0016-1ubuntu7.18" \
+  "vim=2:9.1.0016-1ubuntu7.19" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
   "unzip=6.0-28ubuntu4.1" \
   "zstd=1.5.5+dfsg2-2build1.1"
