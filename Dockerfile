@@ -71,7 +71,7 @@ EOF
 RUN <<EOF
 apt-get update --yes
 
-apt-get install --yes \
+apt-get install --yes --no-install-recommends \
   "apt-transport-https" \
   "ca-certificates" \
   "curl" \
