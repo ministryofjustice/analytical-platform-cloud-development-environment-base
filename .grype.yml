@@ -501,11 +501,11 @@ ignore:
     reason: "npm bundled tar 7.5.16 inside Node.js/npm install; no direct patch path in this repository at scan time. exp:2026-09-30"
   - vulnerability: GO-2026-6303-golang.org/x/crypto
     package:
-        type: go-module
-        location: "/usr/local/bin/aws-sso"
+      type: go-module
+      location: "/usr/local/bin/aws-sso"
     reason: "aws-sso-cli 2.3.2 is the latest upstream precompiled release and embeds golang.org/x/crypto v0.54.0; fix requires upstream release rebuilt with v0.55.0 or later. exp:2026-10-01"
   - vulnerability: CVE-2026-18798
-    reason:  "A newer Miniconda installer, `26.7.1-1`, still bundles OpenSSL `3.5.7`, so merely bumping `MINICONDA_VERSION` is not sufficient."
+    reason: "A newer Miniconda installer, `26.7.1-1`, still bundles OpenSSL `3.5.7`, so merely bumping `MINICONDA_VERSION` is not sufficient."
   - vulnerability: CVE-2026-63076
     reason: "A newer Miniconda installer, `26.7.1-1`, still bundles OpenSSL `3.5.7`, so merely bumping `MINICONDA_VERSION` is not sufficient."
   - vulnerability: CVE-2026-14457
