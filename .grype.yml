@@ -504,6 +504,11 @@ ignore:
       type: go-module
       location: "/usr/local/bin/aws-sso"
     reason: "aws-sso-cli 2.3.2 is the latest upstream precompiled release and embeds golang.org/x/crypto v0.54.0; fix requires upstream release rebuilt with v0.55.0 or later. exp:2026-10-01"
+  - vulnerability: GO-2026-6303-golang.org/x/crypto
+    package:
+      type: go-module
+      location: "/usr/local/bin/helm"
+    reason: "helm 4.2.4 is the latest upstream precompiled release and embeds golang.org/x/crypto v0.54.0; fix requires upstream release rebuilt with v0.55.0 or later. exp:2026-10-01"
   - vulnerability: CVE-2026-18798
     reason: "A newer Miniconda installer, `26.7.1-1`, still bundles OpenSSL `3.5.7`, so merely bumping `MINICONDA_VERSION` is not sufficient."
   - vulnerability: CVE-2026-63076
