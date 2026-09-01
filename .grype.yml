@@ -499,3 +499,32 @@ ignore:
       type: npm
       location: "/usr/lib/node_modules/npm/node_modules/tar/package.json"
     reason: "npm bundled tar 7.5.16 inside Node.js/npm install; no direct patch path in this repository at scan time. exp:2026-09-30"
+
+  # Additional findings from image <fill in current image digest> (2026-09-01).
+  # OpenSSL 3.5.8 (released 2026-08-25) fixes these; bundled via Miniconda, not yet
+  # available as an updated conda-forge package for this pinned track.
+  - vulnerability: CVE-2026-18798
+    reason: "OpenSSL 3.5.7 bundled in Miniconda; fixed version 3.5.8 not yet available in conda-forge packages. exp:2026-10-01"
+  - vulnerability: CVE-2026-63072
+    reason: "OpenSSL 3.5.7 bundled in Miniconda; fixed version 3.5.8 not yet available in conda-forge packages. exp:2026-10-01"
+  - vulnerability: CVE-2026-63075
+    reason: "OpenSSL 3.5.7 bundled in Miniconda; fixed version 3.5.8 not yet available in conda-forge packages. exp:2026-10-01"
+  - vulnerability: CVE-2026-63076
+    reason: "OpenSSL 3.5.7 bundled in Miniconda; fixed version 3.5.8 not yet available in conda-forge packages. exp:2026-10-01"
+  - vulnerability: CVE-2026-14457
+    reason: "OpenSSL 3.5.7 bundled in Miniconda; fixed version 3.5.8 not yet available in conda-forge packages. exp:2026-10-01"
+  - vulnerability: CVE-2026-54874
+    reason: "OpenSSL 3.5.7 bundled in Miniconda; fixed version 3.5.8 not yet available in conda-forge packages. exp:2026-10-01"
+
+  # golang.org/x/crypto GO-2026-6303: fixed upstream in x/crypto v0.55.0. Both binaries
+  # are precompiled and statically linked; fix requires an upstream rebuild/release.
+  - vulnerability: GO-2026-6303
+    package:
+      type: go-module
+      location: "/usr/local/bin/helm"
+    reason: "golang.org/x/crypto fixed in v0.55.0; helm 4.2.4 is the latest release and only bundles v0.54.0. Next minor (4.3.0) is scheduled 2026-09-09 and may pick up the bump via dependabot. exp:2026-10-01"
+  - vulnerability: GO-2026-6303
+    package:
+      type: go-module
+      location: "/usr/local/bin/aws-sso"
+    reason: "golang.org/x/crypto fixed in v0.55.0; aws-sso-cli 2.3.2 is the latest pinned release and predates this fix. exp:2026-10-01"
