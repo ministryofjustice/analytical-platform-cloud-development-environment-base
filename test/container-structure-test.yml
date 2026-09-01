@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.36.25"]
+    expectedOutput: ["aws-cli/2.36.36"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -52,7 +52,7 @@ commandTests:
   - name: "conda"
     command: "conda"
     args: ["--version"]
-    expectedOutput: ["conda 26.5.3"]
+    expectedOutput: ["conda 26.7.1"]
 
   - name: "python (conda)"
     command: "python"
@@ -67,17 +67,17 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v24.19.0"]
+    expectedOutput: ["v24.20.0"]
 
   - name: "corretto"
     command: "java"
     args: ["--version"]
-    expectedOutput: ["openjdk 21.0.12"]
+    expectedOutput: ["openjdk 27.0.0"]
 
   - name: "dotnet"
     command: "dotnet"
     args: ["--version"]
-    expectedOutput: ["8.0.130"]
+    expectedOutput: ["10.0.111"]
 
   - name: "r"
     command: "R"
@@ -87,12 +87,12 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.32.14"]
+    expectedOutput: ["0.33.2"]
 
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.35.7"]
+    expectedOutput: ["Client Version: v1.35.8"]
 
   - name: "helm"
     command: "helm"
@@ -122,27 +122,27 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.12.5"]
+    expectedOutput: ["uv 0.12.8"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.12.5"]
+    expectedOutput: ["uvx 0.12.8"]
 
   - name: "git-lfs"
     command: "git-lfs"
     args: ["--version"]
-    expectedOutput: ["git-lfs/3.7.1"]
+    expectedOutput: ["git-lfs/3.8.0"]
 
   - name: "gh"
     command: "gh"
     args: ["--version"]
-    expectedOutput: ["gh version 2.97.0"]
+    expectedOutput: ["gh version 2.98.0"]
 
   - name: "copilot"
     command: "copilot"
     args: ["--version"]
-    expectedOutput: ["GitHub Copilot CLI 1.0.80"]
+    expectedOutput: ["GitHub Copilot CLI 1.0.82"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"

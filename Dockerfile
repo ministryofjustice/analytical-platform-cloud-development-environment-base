@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:d78ab76437b1afc5f01e223d6bf0172763f404bb166441328845adbef44518cb
+FROM docker.io/library/ubuntu:24.04@sha256:33ceb71981b602c1a7443a53469e4dba065f7503eab3078a2d7a57a2ab987517
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,43 +9,43 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.36.25" \
+    AWS_CLI_VERSION="2.36.36" \
     AWS_SSO_CLI_VERSION="2.3.2" \
     CLOUD_PLATFORM_CLI_VERSION="1.51.0" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
-    CORRETTO_VERSION="1:21.0.12.9-1" \
+    CORRETTO_VERSION="1:27.0.0.34-1" \
     CUDA_VERSION="13.3.0" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="8.0.130-0ubuntu1~24.04.1" \
-    GIT_LFS_VERSION="3.7.1" \
-    GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08" \
-    GITHUB_CLI_VERSION="2.97.0" \
-    GITHUB_COPILOT_CLI_VERSION="1.0.80" \
+    DOTNET_SDK_VERSION="10.0.111-0ubuntu1~24.04.1" \
+    GIT_LFS_VERSION="3.8.0" \
+    GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
+    GITHUB_CLI_VERSION="2.98.0" \
+    GITHUB_COPILOT_CLI_VERSION="1.0.82" \
     HELM_VERSION="4.2.4" \
-    KUBECTL_VERSION="1.35.7" \
+    KUBECTL_VERSION="1.35.8" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64" \
     MICROSOFT_SQL_ODBC_VERSION="18.6.2.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.6.2.1-1" \
-    MINICONDA_SHA256="37606f9f03ced8ef60f4ffc76b21dda01728eac8a632dcab316c891cea4fe2f5" \
-    MINICONDA_VERSION="26.5.3-2" \
+    MINICONDA_SHA256="b27f60ab63e77eeab50a5417c989120f767e863df32400190d4c7262369f8695" \
+    MINICONDA_VERSION="26.7.1-1" \
     NBSTRIPOUT_VERSION="0.9.1" \
-    NODE_LTS_VERSION="24.19.0" \
+    NODE_LTS_VERSION="24.20.0" \
     NVIDIA_CUDA_COMPAT_VERSION="610.57.04-1ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="13.3.29-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.32.14" \
+    OLLAMA_VERSION="0.33.2" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.6.1-5.2404.0" \
-    UV_VERSION="0.12.5"
+    R_VERSION="4.6.1-6.2404.0" \
+    UV_VERSION="0.12.8"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -74,16 +74,16 @@ apt-get update --yes
 apt-get install --yes \
   "apt-transport-https=2.8.3" \
   "ca-certificates=20260601~24.04.1" \
-  "curl=8.5.0-2ubuntu10.11" \
+  "curl=8.5.0-2ubuntu10.13" \
   "git=1:2.43.0-1ubuntu7.3" \
   "ffmpeg=7:6.1.1-3ubuntu5" \
   "gzip=1.12-1ubuntu3.2" \
   "jq=1.7.1-3ubuntu0.24.04.2" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
-  "python3.12=3.12.3-1ubuntu0.15" \
+  "python3.12=3.12.3-1ubuntu0.16" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
-  "vim=2:9.1.0016-1ubuntu7.18" \
+  "vim=2:9.1.0016-1ubuntu7.20" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
   "unzip=6.0-28ubuntu4.1" \
   "zstd=1.5.5+dfsg2-2build1.1"
@@ -214,7 +214,7 @@ echo "deb [signed-by=/etc/apt/keyrings/corretto-keyring.gpg] https://apt.corrett
 
 apt-get update --yes
 
-apt-get install --yes "java-21-amazon-corretto-jdk=${CORRETTO_VERSION}"
+apt-get install --yes "java-27-amazon-corretto-jdk=${CORRETTO_VERSION}"
 
 apt-get clean --yes
 
@@ -226,7 +226,7 @@ EOF
 RUN <<EOF
 apt-get update --yes
 
-apt-get install --yes "dotnet-sdk-8.0=${DOTNET_SDK_VERSION}"
+apt-get install --yes "dotnet-sdk-10.0=${DOTNET_SDK_VERSION}"
 
 apt-get clean --yes
 
