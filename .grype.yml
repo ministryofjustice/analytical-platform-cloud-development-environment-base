@@ -522,4 +522,5 @@ ignore:
   - vulnerability: CVE-2026-63075
     reason: "A newer Miniconda installer, `26.7.1-1`, still bundles OpenSSL `3.5.7`, so merely bumping `MINICONDA_VERSION` is not sufficient."
   - vulnerability: GO-2026-6303-golang.org/x/crypto
-    reason: "helm 4.2.4 is the latest upstream precompiled release and embeds golang.org/x/crypto v0.54.0; fix requires upstream release rebuilt with v0.55.0 or later. exp:2026-10-01
+    reason: "helm 4.2.4 is the latest upstream precompiled release and embeds golang.org/x/crypto v0.54.0; fix requires upstream release rebuilt with v0.55.0 or later. exp:2026-10-01"
+
