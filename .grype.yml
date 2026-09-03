@@ -51,6 +51,10 @@ ignore:
   - vulnerability: CVE-2026-33845
     reason: "libgnutls30t64 fix 3.8.3-1.1ubuntu3.6 is not currently available in apt sources for this build environment. exp:2026-07-31"
 
+  # Additional findings from image 5598c35c2983ac97b17148651904a7c8d5938c76 (2026-09-03).
+  - vulnerability: CVE-2026-54371
+    reason: "libattr1 1:2.5.2-1build1.1 is a transitive dependency baked into the Ubuntu 24.04 base image, not explicitly installed by this Dockerfile; fix 1:2.5.2-1ubuntu0.1 requires an upstream base image refresh to pick up. exp:2026-10-03"
+
   # Miniconda-managed binaries: py312 track is already at latest installer in this Dockerfile.
   - vulnerability: CVE-2026-6100
     reason: "Detected in /opt/conda/bin/python3.12; Miniconda py312 installer is already at latest available version in this repo. exp:2026-07-31"

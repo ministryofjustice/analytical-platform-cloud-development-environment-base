@@ -9,21 +9,21 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.36.30" \
+    AWS_CLI_VERSION="2.36.38" \
     AWS_SSO_CLI_VERSION="2.3.2" \
     CLOUD_PLATFORM_CLI_VERSION="1.51.0" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
-    CORRETTO_VERSION="1:21.0.12.9-1" \
+    CORRETTO_VERSION="1:25.0.4.8-1" \
     CUDA_VERSION="13.3.0" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="8.0.130-0ubuntu1~24.04.1" \
-    GIT_LFS_VERSION="3.7.1" \
-    GIT_LFS_VERSION_SHA="1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08" \
+    DOTNET_SDK_VERSION="10.0.111-0ubuntu1~24.04.1" \
+    GIT_LFS_VERSION="3.8.0" \
+    GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
     GITHUB_CLI_VERSION="2.99.0" \
-    GITHUB_COPILOT_CLI_VERSION="1.0.80" \
+    GITHUB_COPILOT_CLI_VERSION="1.0.82" \
     HELM_VERSION="4.2.4" \
     KUBECTL_VERSION="1.35.8" \
     LANG="C.UTF-8" \
@@ -32,20 +32,20 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64" \
     MICROSOFT_SQL_ODBC_VERSION="18.6.2.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.6.2.1-1" \
-    MINICONDA_SHA256="37606f9f03ced8ef60f4ffc76b21dda01728eac8a632dcab316c891cea4fe2f5" \
-    MINICONDA_VERSION="26.5.3-2" \
+    MINICONDA_SHA256="b27f60ab63e77eeab50a5417c989120f767e863df32400190d4c7262369f8695" \
+    MINICONDA_VERSION="26.7.1-1" \
     NBSTRIPOUT_VERSION="0.9.1" \
-    NODE_LTS_VERSION="24.19.0" \
+    NODE_LTS_VERSION="24.20.0" \
     NVIDIA_CUDA_COMPAT_VERSION="610.57.04-1ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="13.3.29-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.32.15" \
+    OLLAMA_VERSION="0.33.2" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.6.1-6.2404.0" \
-    UV_VERSION="0.12.5"
+    UV_VERSION="0.12.9"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -214,7 +214,7 @@ echo "deb [signed-by=/etc/apt/keyrings/corretto-keyring.gpg] https://apt.corrett
 
 apt-get update --yes
 
-apt-get install --yes "java-21-amazon-corretto-jdk=${CORRETTO_VERSION}"
+apt-get install --yes "java-25-amazon-corretto-jdk=${CORRETTO_VERSION}"
 
 apt-get clean --yes
 
@@ -226,7 +226,7 @@ EOF
 RUN <<EOF
 apt-get update --yes
 
-apt-get install --yes "dotnet-sdk-8.0=${DOTNET_SDK_VERSION}"
+apt-get install --yes "dotnet-sdk-10.0=${DOTNET_SDK_VERSION}"
 
 apt-get clean --yes
 
