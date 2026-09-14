@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.36.38" \
+    AWS_CLI_VERSION="2.36.43" \
     AWS_SSO_CLI_VERSION="2.3.2" \
     CLOUD_PLATFORM_CLI_VERSION="1.51.0" \
     CONTAINER_GID="1000" \
@@ -23,29 +23,29 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     GIT_LFS_VERSION="3.8.0" \
     GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
     GITHUB_CLI_VERSION="2.100.0" \
-    GITHUB_COPILOT_CLI_VERSION="1.0.82" \
-    HELM_VERSION="4.2.4" \
+    GITHUB_COPILOT_CLI_VERSION="1.0.83" \
+    HELM_VERSION="4.3.0" \
     KUBECTL_VERSION="1.35.8" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64" \
-    MICROSOFT_SQL_ODBC_VERSION="18.6.2.1-1" \
-    MICROSOFT_SQL_TOOLS_VERSION="18.6.2.1-1" \
+    MICROSOFT_SQL_ODBC_VERSION="18.7.1.1-1" \
+    MICROSOFT_SQL_TOOLS_VERSION="18.7.1.1-1" \
     MINICONDA_SHA256="b27f60ab63e77eeab50a5417c989120f767e863df32400190d4c7262369f8695" \
     MINICONDA_VERSION="26.7.1-1" \
     NBSTRIPOUT_VERSION="0.9.1" \
-    NODE_LTS_VERSION="24.20.0" \
+    NODE_LTS_VERSION="24.21.0" \
     NVIDIA_CUDA_COMPAT_VERSION="610.57.04-1ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="13.3.29-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.33.2" \
+    OLLAMA_VERSION="0.34.0" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.6.1-6.2404.0" \
-    UV_VERSION="0.12.9"
+    UV_VERSION="0.12.13"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -81,7 +81,7 @@ apt-get install --yes \
   "jq=1.7.1-3ubuntu0.24.04.2" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
-  "python3.12=3.12.3-1ubuntu0.16" \
+  "python3.12=3.12.3-1ubuntu0.17" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
   "vim=2:9.1.0016-1ubuntu7.20" \
   "unixodbc=2.3.12-1ubuntu0.24.04.1" \
