@@ -248,7 +248,8 @@ echo "deb [signed-by=/etc/apt/keyrings/marutter_pubkey.gpg] https://cloud.r-proj
 
 apt-get update --yes
 
-# System packages required to build common R packages (e.g. arrow, curl, systemfonts, ragg, gert, igraph, V8, openssl, clipr, xml2, knitr/rmarkdown)
+# System packages required to build common R packages (e.g. arrow, curl, systemfonts, ragg, gert, igraph, openssl, clipr, xml2, knitr/rmarkdown)
+# libnode-dev (for the V8 R package) is intentionally omitted as it pulls Ubuntu's nodejs, which conflicts with the NodeSource nodejs installed above; V8 downloads a static libv8 at install time instead
 apt-get install --yes \
   "r-base=${R_VERSION}" \
   "cmake=3.28.3-1build7" \
@@ -257,7 +258,6 @@ apt-get install --yes \
   "libfreetype-dev=2.13.2+dfsg-1ubuntu0.1" \
   "libgit2-dev=1.7.2+ds-1ubuntu3.1" \
   "libglpk-dev=5.0-1build2" \
-  "libnode-dev=18.19.1+dfsg-6ubuntu5" \
   "libssl-dev=3.0.13-0ubuntu3.15" \
   "libx11-dev=2:1.8.7-1build1" \
   "libxml2-dev=2.9.14+dfsg-1.3ubuntu3.8" \
