@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:224a1869083a311ef3f13648a154ba79832fbef6364d31493642ca03082da254
+FROM docker.io/library/ubuntu:24.04@sha256:69cecf4bbf72d2d44a9eef1b71fb98c7fb973d78af11399deccef19beb008ad9
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,21 +9,21 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.36.43" \
+    AWS_CLI_VERSION="2.36.46" \
     AWS_SSO_CLI_VERSION="2.3.2" \
     CLOUD_PLATFORM_CLI_VERSION="1.51.0" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
-    CORRETTO_VERSION="1:25.0.4.8-1" \
-    CUDA_VERSION="13.3.0" \
+    CORRETTO_VERSION="1:27.0.0.35-1" \
+    CUDA_VERSION="13.4.0" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_SDK_VERSION="10.0.112-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.8.0" \
     GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
-    GITHUB_CLI_VERSION="2.100.0" \
-    GITHUB_COPILOT_CLI_VERSION="1.0.83" \
+    GITHUB_CLI_VERSION="2.101.0" \
+    GITHUB_COPILOT_CLI_VERSION="1.0.85" \
     HELM_VERSION="4.3.0" \
     KUBECTL_VERSION="1.35.8" \
     LANG="C.UTF-8" \
@@ -36,16 +36,16 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MINICONDA_VERSION="26.7.1-1" \
     NBSTRIPOUT_VERSION="0.9.1" \
     NODE_LTS_VERSION="24.21.0" \
-    NVIDIA_CUDA_COMPAT_VERSION="610.57.04-1ubuntu1" \
-    NVIDIA_CUDA_CUDART_VERSION="13.3.29-1" \
+    NVIDIA_CUDA_COMPAT_VERSION="615.71.09-2ubuntu1" \
+    NVIDIA_CUDA_CUDART_VERSION="13.4.49-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.34.0" \
+    OLLAMA_VERSION="0.34.1" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.6.1-6.2404.0" \
-    UV_VERSION="0.12.13"
+    UV_VERSION="0.12.15"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -214,7 +214,7 @@ echo "deb [signed-by=/etc/apt/keyrings/corretto-keyring.gpg] https://apt.corrett
 
 apt-get update --yes
 
-apt-get install --yes "java-25-amazon-corretto-jdk=${CORRETTO_VERSION}"
+apt-get install --yes "java-27-amazon-corretto-jdk=${CORRETTO_VERSION}"
 
 apt-get clean --yes
 
@@ -301,8 +301,8 @@ echo "deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nv
 apt-get update --yes
 
 apt-get install --yes \
-  "cuda-cudart-13-3=${NVIDIA_CUDA_CUDART_VERSION}" \
-  "cuda-compat-13-3=${NVIDIA_CUDA_COMPAT_VERSION}"
+  "cuda-cudart-13-4=${NVIDIA_CUDA_CUDART_VERSION}" \
+  "cuda-compat-13-4=${NVIDIA_CUDA_COMPAT_VERSION}"
 
 echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf
 echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
