@@ -268,6 +268,25 @@ apt-get clean --yes
 rm --force --recursive /var/lib/apt/lists/* marutter_pubkey.asc marutter_pubkey.gpg
 EOF
 
+# reticulate OpenSSL alignment
+# R uses system OpenSSL (3.0.x), while Miniconda's Python uses OpenSSL 3.5.x. When reticulate embeds Python,
+# system libcrypto loads first and Conda's _ssl fails. Prepend Conda's libssl/libcrypto via Renviron.site and
+# pin the system CA trust store. This is scoped to R sessions; other tooling is unaffected.
+# See https://github.com/ministryofjustice/data-platform-support/issues/1717
+RUN <<EOF
+install --directory --owner root --group root --mode 0755 "${ANALYTICAL_PLATFORM_DIRECTORY}/r-openssl"
+
+ln --symbolic /opt/conda/lib/libssl.so.3 "${ANALYTICAL_PLATFORM_DIRECTORY}/r-openssl/libssl.so.3"
+
+ln --symbolic /opt/conda/lib/libcrypto.so.3 "${ANALYTICAL_PLATFORM_DIRECTORY}/r-openssl/libcrypto.so.3"
+
+cat >> /usr/lib/R/etc/Renviron.site <<'RENVIRON'
+LD_LIBRARY_PATH=/opt/analytical-platform/r-openssl:${LD_LIBRARY_PATH}
+SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+SSL_CERT_DIR=/etc/ssl/certs
+RENVIRON
+EOF
+
 # Ollama
 RUN <<EOF
 curl --location --fail-with-body \
