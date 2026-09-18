@@ -84,6 +84,11 @@ commandTests:
     args: ["--version"]
     expectedOutput: ["R version 4.6.1"]
 
+  - name: "r reticulate openssl alignment"
+    command: "Rscript"
+    args: ["-e", "cat(Sys.getenv('LD_LIBRARY_PATH'))"]
+    expectedOutput: ["/opt/analytical-platform/r-openssl"]
+
   - name: "cmake"
     command: "cmake"
     args: ["--version"]
