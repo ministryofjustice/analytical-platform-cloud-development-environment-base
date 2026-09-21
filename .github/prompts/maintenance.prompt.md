@@ -69,44 +69,82 @@ docker image inspect --format='{{ index .RepoDigests 0 }}' "$IMAGE"
 
 ### 3. Update the pinned base APT package versions
 
-- Read the list of pinned packages from the first `apt-get install` block in `Dockerfile` (after "Base Configuration" comment). Use exactly that set of packages; do not add or remove any.
-- Start a temporary container using the same base image and check the candidate versions for those packages.
+**Use one APT probe container for all package checks in Steps 3 and 4.** Do not run separate `docker run --rm --platform linux/amd64 "$IMAGE"` commands for Python, base packages, Corretto, .NET, Node.js, CUDA, Microsoft SQL, R, or GitHub CLI. Start the container once, add every required repository once, run the package metadata refresh once after all repositories are configured, and collect all candidates and available major/minor versions from that same shell session. This is especially important when the host architecture is not `linux/amd64` because each separate container invocation incurs emulation startup and repository download overhead.
 
-**Python**: Use a two-stage checking process for python3.x packages:
+Use this consolidated probe as the only container invocation for APT package discovery:
 
 ```bash
-# Extract current Python minor version from Dockerfile (e.g., 3.12 from python3.12)
 CURRENT_PYTHON_VERSION="$(grep -oP 'python\K3\.\d+' Dockerfile | head -1)"
+CURRENT_JAVA_VERSION="$(grep -oP 'java-\K\d+(?=-amazon-corretto)' Dockerfile | head -1)"
+CURRENT_DOTNET_VERSION="$(grep -oP 'dotnet-sdk-\K\d+\.\d+' Dockerfile | head -1)"
+CURRENT_NODE_MAJOR="$(grep -oP 'setup_\K\d+(?=\.x)' Dockerfile | head -1)"
+CURRENT_CUDA_MAJOR_MINOR="$(grep -oP 'cuda-cudart-\K\d+-\d+' Dockerfile | head -1)"
+CURRENT_SQL_MAJOR="$(grep -oP 'msodbcsql\K\d+' Dockerfile | head -1)"
+CURRENT_ODBC_VERSION="$(grep -oP 'MICROSOFT_SQL_ODBC_VERSION="\K[^"]+' Dockerfile)"
+CURRENT_TOOLS_VERSION="$(grep -oP 'MICROSOFT_SQL_TOOLS_VERSION="\K[^"]+' Dockerfile)"
 
-docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
-apt-get update -y >/dev/null 2>&1
+docker run --rm --platform linux/amd64 "$IMAGE" bash <<ENDSCRIPT
+set -e
+export DEBIAN_FRONTEND=noninteractive
 
-# Check latest version for current Python minor version
-echo "=== Current Python version (${CURRENT_PYTHON_VERSION}) ==="
-PYTHON_CANDIDATE_CURRENT=\$(apt-cache policy python${CURRENT_PYTHON_VERSION} | grep Candidate | awk '{print \$2}')
-PIP_CANDIDATE_CURRENT=\$(apt-cache policy python3-pip | grep Candidate | awk '{print \$2}')
-echo "python${CURRENT_PYTHON_VERSION}: \$PYTHON_CANDIDATE_CURRENT"
-echo "python3-pip: \$PIP_CANDIDATE_CURRENT"
+apt-get update --yes >/dev/null 2>&1
+apt-get install --yes curl gpg lsb-release >/dev/null 2>&1
 
-# Check if newer Python minor version is available
-echo "=== Latest available Python (any minor version) ==="
-LATEST_PYTHON_PKG=\$(apt-cache search --names-only '^python3\.[0-9]+$' | grep -oP 'python\K3\.\d+' | sort -V | tail -1)
+# Configure every third-party repository in this one container.
+curl -sL 'https://apt.corretto.aws/corretto.key' | gpg --dearmor > /etc/apt/keyrings/corretto.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/corretto.gpg] https://apt.corretto.aws stable main' > /etc/apt/sources.list.d/corretto.list
 
-if [ -n "\$LATEST_PYTHON_PKG" ] && [ "\$LATEST_PYTHON_PKG" != "${CURRENT_PYTHON_VERSION}" ]; then
-  PYTHON_CANDIDATE_LATEST=\$(apt-cache policy python\$LATEST_PYTHON_PKG | grep Candidate | awk '{print \$2}')
-  echo "Latest Python minor version: \$LATEST_PYTHON_PKG"
-  echo "python\$LATEST_PYTHON_PKG: \$PYTHON_CANDIDATE_LATEST"
-  echo "UPGRADE_TO_PYTHON=\$LATEST_PYTHON_PKG"
-fi
+curl -sL 'https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc' | gpg --dearmor > /etc/apt/keyrings/cran.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/cran.gpg] https://cloud.r-project.org/bin/linux/ubuntu noble-cran40/' > /etc/apt/sources.list.d/cran.list
+
+curl -sL 'https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/3bf863cc.pub' | gpg --dearmor > /etc/apt/keyrings/nvidia.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64 /' > /etc/apt/sources.list.d/cuda.list
+
+curl -sL 'https://packages.microsoft.com/keys/microsoft.asc' | gpg --dearmor > /etc/apt/keyrings/microsoft.gpg
+echo 'deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/ubuntu/24.04/prod noble main' > /etc/apt/sources.list.d/microsoft.list
+
+curl -sL 'https://cli.github.com/packages/githubcli-archive-keyring.gpg' -o /etc/apt/keyrings/githubcli.gpg
+echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/githubcli.gpg] https://cli.github.com/packages stable main' > /etc/apt/sources.list.d/github-cli.list
+
+curl -sL "https://deb.nodesource.com/setup_${CURRENT_NODE_MAJOR}.x" -o /tmp/node.sh
+bash /tmp/node.sh >/dev/null 2>&1
+
+# Refresh once after all repositories have been configured.
+apt-get update --yes >/dev/null 2>&1
+
+echo '=== Base package candidates ==='
+apt-cache policy apt-transport-https ca-certificates curl git ffmpeg gzip jq mandoc less python3.${CURRENT_PYTHON_VERSION#3.} python3-pip vim unixodbc unzip zstd
+
+echo "=== Python ${CURRENT_PYTHON_VERSION} and available Python minors ==="
+apt-cache policy python${CURRENT_PYTHON_VERSION} python3-pip
+apt-cache search --names-only '^python3\\.[0-9]+$' | sort -V
+
+echo "=== Java ${CURRENT_JAVA_VERSION} and available Java majors ==="
+apt-cache policy java-${CURRENT_JAVA_VERSION}-amazon-corretto-jdk
+apt-cache search --names-only '^java-[0-9]+-amazon-corretto-jdk$' | sort -V
+
+echo "=== .NET ${CURRENT_DOTNET_VERSION} and available SDK versions ==="
+apt-cache policy dotnet-sdk-${CURRENT_DOTNET_VERSION}
+apt-cache search --names-only '^dotnet-sdk-[0-9]+\\.[0-9]+$' | sort -V
+
+echo "=== Node.js ${CURRENT_NODE_MAJOR}.x ==="
+apt-cache policy nodejs
+
+echo "=== R, GitHub CLI, Corretto, Microsoft SQL, and CUDA candidates ==="
+apt-cache policy r-base gh java-${CURRENT_JAVA_VERSION}-amazon-corretto-jdk msodbcsql${CURRENT_SQL_MAJOR} mssql-tools${CURRENT_SQL_MAJOR} cuda-cudart-${CURRENT_CUDA_MAJOR_MINOR} cuda-compat-${CURRENT_CUDA_MAJOR_MINOR}
+echo "=== Available CUDA packages ==="
+apt-cache search --names-only '^cuda-cudart-[0-9]+-[0-9]+$' | sort -V
+echo "=== Available Microsoft SQL packages ==="
+apt-cache search --names-only '^msodbcsql[0-9]+$|^mssql-tools[0-9]+$' | sort -V
 ENDSCRIPT
 ```
 
-For other base packages without major versions in package names:
+Use the output from this single probe for every package decision below. The individual commands that follow describe what to inspect and how to interpret it; they must not be executed as additional `docker run` invocations.
 
-```bash
-docker run --rm --platform linux/amd64 "$IMAGE" \
-  bash -c "apt-get update && apt-cache policy apt-transport-https ca-certificates curl git ffmpeg gzip jq mandoc less vim unixodbc unzip zstd"
-```
+- Read the list of pinned packages from the first `apt-get install` block in `Dockerfile` (after "Base Configuration" comment). Use exactly that set of packages; do not add or remove any.
+- Check the `=== Base package candidates ===` output for the candidate versions.
+
+**Python**: Use a two-stage checking process for python3.x packages:
 
 - Analyse the output and update packages:
   - **For Python**: If a newer minor version is available (e.g., 3.13 when using 3.12), note this as a major version upgrade for the PR description. Only update if the new version is stable and tested.
@@ -114,61 +152,20 @@ docker run --rm --platform linux/amd64 "$IMAGE" \
 
 ### 4. Update third-party APT package versions
 
-Start a temporary container using the base image and add all third-party APT repositories, then check candidate versions:
-
-```bash
-docker run --rm --platform linux/amd64 "$IMAGE" \
-  bash -c "apt-get update --yes && \
-  apt-get install --yes curl gpg && \
-
-  # Corretto
-  curl -sL 'https://apt.corretto.aws/corretto.key' -o corretto.key && \
-  cat corretto.key | gpg --dearmor -o corretto-keyring.gpg 2>/dev/null && \
-  install -D -m 644 corretto-keyring.gpg /etc/apt/keyrings/corretto-keyring.gpg && \
-  echo 'deb [signed-by=/etc/apt/keyrings/corretto-keyring.gpg] https://apt.corretto.aws stable main' > /etc/apt/sources.list.d/corretto.list && \
-
-  # R
-  curl -sL 'https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc' -o marutter_pubkey.asc && \
-  cat marutter_pubkey.asc | gpg --dearmor -o marutter_pubkey.gpg 2>/dev/null && \
-  install -D -m 644 marutter_pubkey.gpg /etc/apt/keyrings/marutter_pubkey.gpg && \
-  echo 'deb [signed-by=/etc/apt/keyrings/marutter_pubkey.gpg] https://cloud.r-project.org/bin/linux/ubuntu noble-cran40/' > /etc/apt/sources.list.d/cran.list && \
-
-  # NVIDIA CUDA
-  curl -sL 'https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/3bf863cc.pub' -o 3bf863cc.pub && \
-  cat 3bf863cc.pub | gpg --dearmor -o nvidia.gpg 2>/dev/null && \
-  install -D -m 644 nvidia.gpg /etc/apt/keyrings/nvidia.gpg && \
-  echo 'deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64 /' > /etc/apt/sources.list.d/cuda.list && \
-
-  # Microsoft
-  curl -sL 'https://packages.microsoft.com/keys/microsoft.asc' -o microsoft.asc && \
-  cat microsoft.asc | gpg --dearmor -o microsoft-prod.gpg 2>/dev/null && \
-  install -D -m 644 microsoft-prod.gpg /usr/share/keyrings/microsoft-prod.gpg && \
-  echo 'deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-prod.gpg] https://packages.microsoft.com/ubuntu/24.04/prod noble main' > /etc/apt/sources.list.d/mssql-release.list && \
-
-  # GitHub CLI
-  curl -sL 'https://cli.github.com/packages/githubcli-archive-keyring.gpg' -o githubcli-archive-keyring.gpg && \
-  install -D -m 644 githubcli-archive-keyring.gpg /etc/apt/keyrings/githubcli-archive-keyring.gpg && \
-  echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main' > /etc/apt/sources.list.d/github-cli.list && \
-
-  # Node.js
-  curl -sL 'https://deb.nodesource.com/setup_24.x' -o node.sh && bash node.sh >/dev/null 2>&1 && \
-
-  apt-get update --yes && \
-  apt-cache policy r-base gh"
-```
+Use the candidate output from the single consolidated probe in Step 3. Do not start another container or repeat repository setup here. The probe already adds all third-party APT repositories and reports the R and GitHub CLI candidates.
 
 Update the relevant `ENV` variables and `apt-get install` version pins in `Dockerfile`:
 
 - `R_VERSION` → `r-base` candidate
 - `GITHUB_CLI_VERSION` → `gh` candidate
 
-**Java/Amazon Corretto**: Use a two-stage checking process:
+**Java/Amazon Corretto**: Use the Java candidate and available-major output from the single consolidated probe. Do not execute the legacy separate-container example below.
 
 ```bash
 # Extract current Java major version from Dockerfile (e.g., 21 from java-21-amazon-corretto-jdk)
 CURRENT_JAVA_VERSION="$(grep -oP 'java-\K\d+(?=-amazon-corretto)' Dockerfile | head -1)"
 
-docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
+# Legacy separate probe removed; use the consolidated probe above.
 apt-get update -y >/dev/null 2>&1
 apt-get install -y curl gpg >/dev/null 2>&1
 
@@ -197,13 +194,13 @@ fi
 ENDSCRIPT
 ```
 
-**.NET SDK**: Use a two-stage checking process:
+**.NET SDK**: Use the .NET candidate and available-version output from the single consolidated probe. Do not execute the legacy separate-container example below.
 
 ```bash
 # Extract current .NET major version from Dockerfile (e.g., 8.0 from dotnet-sdk-8.0)
 CURRENT_DOTNET_VERSION="$(grep -oP 'dotnet-sdk-\K\d+\.\d+' Dockerfile | head -1)"
 
-docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
+# Legacy separate probe removed; use the consolidated probe above.
 apt-get update -y >/dev/null 2>&1
 
 # Check current .NET version
@@ -224,13 +221,13 @@ fi
 ENDSCRIPT
 ```
 
-**Node.js**: Use a two-stage checking process:
+**Node.js**: Use the Node.js candidate output from the single consolidated probe and the live Node.js release API for LTS-major comparison. Do not execute the legacy separate-container example below.
 
 ```bash
 # Extract current Node.js major version from Dockerfile (e.g., 24 from setup_24.x)
 CURRENT_NODE_MAJOR="$(grep -oP 'setup_\K\d+(?=\.x)' Dockerfile | head -1)"
 
-docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
+# Legacy separate probe removed; use the consolidated probe above.
 apt-get update -y >/dev/null 2>&1
 apt-get install -y curl >/dev/null 2>&1
 
@@ -254,13 +251,13 @@ fi
 ENDSCRIPT
 ```
 
-**NVIDIA CUDA**: Use a two-stage checking process:
+**NVIDIA CUDA**: Use the CUDA candidate and available-version output from the single consolidated probe. Do not execute the legacy separate-container example below.
 
 ```bash
 # Extract current CUDA major.minor version from Dockerfile
 CURRENT_CUDA_MAJOR_MINOR="$(grep -oP 'cuda-cudart-\K\d+-\d+' Dockerfile | head -1)"
 
-docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
+# Legacy separate probe removed; use the consolidated probe above.
 apt-get update -y >/dev/null 2>&1
 apt-get install -y curl gpg >/dev/null 2>&1
 
@@ -294,7 +291,7 @@ ENDSCRIPT
 
 **Microsoft SQL ODBC and Tools**: Update these packages using a two-stage checking process:
 
-1. First, check for minor/patch updates within the current major version:
+1. First, use the Microsoft SQL candidate and available-major output from the single consolidated probe to check for minor/patch updates within the current major version. Do not execute the legacy separate-container example below:
 
 ```bash
 # Extract current major version from Dockerfile (e.g., 18 from msodbcsql18)
@@ -302,7 +299,7 @@ CURRENT_MAJOR_VERSION="$(grep -oP 'msodbcsql\K\d+' Dockerfile | head -1)"
 CURRENT_ODBC_VERSION="$(grep -oP 'MICROSOFT_SQL_ODBC_VERSION="\K[^"]+' Dockerfile)"
 CURRENT_TOOLS_VERSION="$(grep -oP 'MICROSOFT_SQL_TOOLS_VERSION="\K[^"]+' Dockerfile)"
 
-docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
+# Legacy separate probe removed; use the consolidated probe above.
 apt-get update -y >/dev/null 2>&1
 apt-get install -y curl gpg lsb-release >/dev/null 2>&1
 curl -sL 'https://packages.microsoft.com/keys/microsoft.asc' | gpg --dearmor > /usr/share/keyrings/microsoft-prod.gpg 2>/dev/null
