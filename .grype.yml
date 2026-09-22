@@ -547,4 +547,3 @@ ignore:
     reason: "Dependency pulled by miniconda. No update yet"
   - vulnerability: CVE-2026-82049
     reason: "Python version pulled by miniconda. No update yet"
-    
