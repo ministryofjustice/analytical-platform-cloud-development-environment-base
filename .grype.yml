@@ -543,3 +543,7 @@ ignore:
       type: go-module
       location: "/usr/local/bin/helm"
     reason: "helm 4.2.4 is the latest upstream release and embeds golang.org/x/crypto v0.54.0; fix requires upstream release rebuilt with v0.56.0 or later. exp:2026-10-01"
+  - vulnerability: GHSA-82r6-8w77-94w6
+    reason: "Dependency pulled by miniconda. No update yet"
+  - vulnerability: CVE-2026-82049
+    reason: "Python version pulled by miniconda. No update yet"

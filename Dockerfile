@@ -260,7 +260,7 @@ apt-get install --yes \
   "libglpk-dev=5.0-1build2" \
   "libssl-dev=3.0.13-0ubuntu3.15" \
   "libx11-dev=2:1.8.7-1build1" \
-  "libxml2-dev=2.9.14+dfsg-1.3ubuntu3.8" \
+  "libxml2-dev=2.9.14+dfsg-1.3ubuntu3.9" \
   "pandoc=3.1.3+ds-2"
 
 apt-get clean --yes
