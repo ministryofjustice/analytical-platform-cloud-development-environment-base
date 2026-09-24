@@ -1,5 +1,5 @@
 lockfile_version: '1'
-generated_at: '2026-08-19T20:47:53.022513+00:00'
+generated_at: '2026-09-11T11:08:57.227780+00:00'
 apm_version: 0.28.0
 dependencies:
 - repo_url: ministryofjustice/ai-toolkit
@@ -40,7 +40,7 @@ deployments:
 - kind: uri
   target: mcp
   value: github
-  runtime: vscode
+  runtime: copilot
   scope: project
   owners:
   - .
@@ -55,7 +55,7 @@ mcp_configs:
     registry: false
     url: https://api.githubcopilot.com/mcp/
 mcp_target_servers:
-  vscode:
+  copilot:
   - github
 mcp_config_provenance:
   github: universal
