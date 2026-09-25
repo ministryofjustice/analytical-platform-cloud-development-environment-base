@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.36.46"]
+    expectedOutput: ["aws-cli/2.37.3"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -102,12 +102,12 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.34.1"]
+    expectedOutput: ["0.34.4"]
 
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.35.8"]
+    expectedOutput: ["Client Version: v1.35.9"]
 
   - name: "helm"
     command: "helm"
@@ -137,12 +137,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.12.15"]
+    expectedOutput: ["uv 0.12.19"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.12.15"]
+    expectedOutput: ["uvx 0.12.19"]
 
   - name: "git-lfs"
     command: "git-lfs"
@@ -157,7 +157,7 @@ commandTests:
   - name: "copilot"
     command: "copilot"
     args: ["--version"]
-    expectedOutput: ["GitHub Copilot CLI 1.0.85"]
+    expectedOutput: ["GitHub Copilot CLI 1.0.88"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
