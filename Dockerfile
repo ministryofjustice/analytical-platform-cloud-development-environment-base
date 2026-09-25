@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
+FROM docker.io/library/ubuntu:24.04@sha256:69cecf4bbf72d2d44a9eef1b71fb98c7fb973d78af11399deccef19beb008ad9
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,23 +9,23 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.37.3" \
+    AWS_CLI_VERSION="2.36.46" \
     AWS_SSO_CLI_VERSION="2.3.2" \
     CLOUD_PLATFORM_CLI_VERSION="1.51.0" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
-    CORRETTO_VERSION="1:21.0.12.9-1" \
+    CORRETTO_VERSION="1:27.0.0.35-1" \
     CUDA_VERSION="13.4.0" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="8.0.131-0ubuntu1~24.04.1" \
+    DOTNET_SDK_VERSION="10.0.112-0ubuntu1~24.04.1" \
     GIT_LFS_VERSION="3.8.0" \
     GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
     GITHUB_CLI_VERSION="2.101.0" \
-    GITHUB_COPILOT_CLI_VERSION="1.0.88" \
+    GITHUB_COPILOT_CLI_VERSION="1.0.85" \
     HELM_VERSION="4.3.0" \
-    KUBECTL_VERSION="1.35.9" \
+    KUBECTL_VERSION="1.35.8" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
@@ -37,15 +37,15 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     NBSTRIPOUT_VERSION="0.9.1" \
     NODE_LTS_VERSION="24.21.0" \
     NVIDIA_CUDA_COMPAT_VERSION="615.71.09-2ubuntu1" \
-    NVIDIA_CUDA_CUDART_VERSION="13.4.92-1" \
+    NVIDIA_CUDA_CUDART_VERSION="13.4.49-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.34.4" \
+    OLLAMA_VERSION="0.34.1" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.6.1-5.2404.0" \
-    UV_VERSION="0.12.19"
+    R_VERSION="4.6.1-6.2404.0" \
+    UV_VERSION="0.12.15"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -74,7 +74,7 @@ apt-get update --yes
 apt-get install --yes \
   "apt-transport-https=2.8.3" \
   "ca-certificates=20260601~24.04.1" \
-  "curl=8.5.0-2ubuntu10.15" \
+  "curl=8.5.0-2ubuntu10.13" \
   "git=1:2.43.0-1ubuntu7.3" \
   "ffmpeg=7:6.1.1-3ubuntu5" \
   "gzip=1.12-1ubuntu3.2" \
@@ -214,7 +214,7 @@ echo "deb [signed-by=/etc/apt/keyrings/corretto-keyring.gpg] https://apt.corrett
 
 apt-get update --yes
 
-apt-get install --yes "java-21-amazon-corretto-jdk=${CORRETTO_VERSION}"
+apt-get install --yes "java-27-amazon-corretto-jdk=${CORRETTO_VERSION}"
 
 apt-get clean --yes
 
@@ -226,7 +226,7 @@ EOF
 RUN <<EOF
 apt-get update --yes
 
-apt-get install --yes "dotnet-sdk-8.0=${DOTNET_SDK_VERSION}"
+apt-get install --yes "dotnet-sdk-10.0=${DOTNET_SDK_VERSION}"
 
 apt-get clean --yes
 
@@ -248,11 +248,43 @@ echo "deb [signed-by=/etc/apt/keyrings/marutter_pubkey.gpg] https://cloud.r-proj
 
 apt-get update --yes
 
-apt-get install --yes "r-base=${R_VERSION}"
+# System packages required to build common R packages (e.g. arrow, curl, systemfonts, ragg, gert, igraph, openssl, clipr, xml2, knitr/rmarkdown)
+# libnode-dev (for the V8 R package) is intentionally omitted as it pulls Ubuntu's nodejs, which conflicts with the NodeSource nodejs installed above; V8 downloads a static libv8 at install time instead
+apt-get install --yes \
+  "r-base=${R_VERSION}" \
+  "cmake=3.28.3-1build7" \
+  "libcurl4-openssl-dev=8.5.0-2ubuntu10.13" \
+  "libfontconfig1-dev=2.15.0-1.1ubuntu2" \
+  "libfreetype-dev=2.13.2+dfsg-1ubuntu0.1" \
+  "libgit2-dev=1.7.2+ds-1ubuntu3.1" \
+  "libglpk-dev=5.0-1build2" \
+  "libssl-dev=3.0.13-0ubuntu3.15" \
+  "libx11-dev=2:1.8.7-1build1" \
+  "libxml2-dev=2.9.14+dfsg-1.3ubuntu3.9" \
+  "pandoc=3.1.3+ds-2"
 
 apt-get clean --yes
 
 rm --force --recursive /var/lib/apt/lists/* marutter_pubkey.asc marutter_pubkey.gpg
+EOF
+
+# reticulate OpenSSL alignment
+# R uses system OpenSSL (3.0.x), while Miniconda's Python uses OpenSSL 3.5.x. When reticulate embeds Python,
+# system libcrypto loads first and Conda's _ssl fails. Prepend Conda's libssl/libcrypto via Renviron.site and
+# pin the system CA trust store. This is scoped to R sessions; other tooling is unaffected.
+# See https://github.com/ministryofjustice/data-platform-support/issues/1717
+RUN <<EOF
+install --directory --owner root --group root --mode 0755 "${ANALYTICAL_PLATFORM_DIRECTORY}/r-openssl"
+
+ln --symbolic /opt/conda/lib/libssl.so.3 "${ANALYTICAL_PLATFORM_DIRECTORY}/r-openssl/libssl.so.3"
+
+ln --symbolic /opt/conda/lib/libcrypto.so.3 "${ANALYTICAL_PLATFORM_DIRECTORY}/r-openssl/libcrypto.so.3"
+
+cat >> /usr/lib/R/etc/Renviron.site <<'RENVIRON'
+LD_LIBRARY_PATH=/opt/analytical-platform/r-openssl:${LD_LIBRARY_PATH}
+SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+SSL_CERT_DIR=/etc/ssl/certs
+RENVIRON
 EOF
 
 # Ollama
