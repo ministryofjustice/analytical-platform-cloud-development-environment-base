@@ -253,10 +253,10 @@ apt-get update --yes
 apt-get install --yes \
   "r-base=${R_VERSION}" \
   "cmake=3.28.3-1build7" \
-  "libcurl4-openssl-dev=8.5.0-2ubuntu10.13" \
+  "libcurl4-openssl-dev=8.5.0-2ubuntu10.15" \
   "libfontconfig1-dev=2.15.0-1.1ubuntu2" \
   "libfreetype-dev=2.13.2+dfsg-1ubuntu0.1" \
-  "libgit2-dev=1.7.2+ds-1ubuntu3.1" \
+  "libgit2-dev=1.7.2+ds-1ubuntu3.2" \
   "libglpk-dev=5.0-1build2" \
   "libssl-dev=3.0.13-0ubuntu3.15" \
   "libx11-dev=2:1.8.7-1build1" \
