@@ -81,6 +81,9 @@ apt-get install --yes \
   "jq=1.7.1-3ubuntu0.24.04.2" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
+  "libcurl4t64=8.5.0-2ubuntu10.15" \
+  "libcurl3t64-gnutls=8.5.0-2ubuntu10.15" \
+  "libcurl4-openssl-dev=8.5.0-2ubuntu10.15" \
   "python3.12=3.12.3-1ubuntu0.17" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
   "vim=2:9.1.0016-1ubuntu7.20" \
@@ -261,6 +264,10 @@ apt-get install --yes \
   "libssl-dev=3.0.13-0ubuntu3.15" \
   "libx11-dev=2:1.8.7-1build1" \
   "libxml2-dev=2.9.14+dfsg-1.3ubuntu3.9" \
+  "libgit2-1.7=1.7.2+ds-1ubuntu3.2" \
+  "libgit2-dev=1.7.2+ds-1ubuntu3.2" \
+  "libexpat1=2.6.1-2ubuntu0.6" \
+  "libexpat1-dev=2.6.1-2ubuntu0.6" \
   "pandoc=3.1.3+ds-2"
 
 apt-get clean --yes
