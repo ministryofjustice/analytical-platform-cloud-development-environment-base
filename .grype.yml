@@ -61,6 +61,27 @@ ignore:
   - vulnerability: CVE-2026-34182
     reason: "Detected in /opt/conda/bin/openssl; scanner fixed version metadata appears inconsistent for this conda-managed binary. exp:2026-07-31"
 
+  # Temporary exceptions for image 9ecd7e52ce2fb6d0ff2cc0ceecebe0cfa157f5b8 while the bundled runtime packages are updated.
+  # Fixed versions: PyJWT 2.14.0, undici 6.28.1, and brace-expansion 5.0.11.
+  - vulnerability: GHSA-ffc3-869f-jxw9
+    reason: "Reported for bundled PyJWT 2.13.0; fixed in 2.14.0. exp:2026-10-30"
+  - vulnerability: GHSA-9v7f-9g4p-ffgj
+    reason: "Reported for bundled PyJWT 2.13.0; fixed in 2.14.0. exp:2026-10-30"
+  - vulnerability: GHSA-r6x4-923q-g947
+    reason: "Reported for bundled PyJWT 2.13.0; fixed in 2.14.0. exp:2026-10-30"
+  - vulnerability: GHSA-9j54-fg26-wv3r
+    reason: "Reported for bundled PyJWT 2.13.0; fixed in 2.14.0. exp:2026-10-30"
+  - vulnerability: GHSA-w2cx-738m-mc7w
+    reason: "Reported for bundled PyJWT 2.13.0; fixed in 2.14.0. exp:2026-10-30"
+  - vulnerability: GHSA-p4g4-x82p-q773
+    reason: "Reported for bundled PyJWT 2.13.0; fixed in 2.14.0. exp:2026-10-30"
+  - vulnerability: GHSA-rfgv-xxqx-mfg5
+    reason: "Reported for npm-bundled undici 6.27.0; fixed in 6.28.1. exp:2026-10-30"
+  - vulnerability: GHSA-6j4f-fj2g-mc7p
+    reason: "Reported for npm-bundled brace-expansion 5.0.7; fixed in 5.0.10. exp:2026-10-30"
+  - vulnerability: GHSA-qhr7-859c-m2p7
+    reason: "Reported for npm-bundled brace-expansion 5.0.7; fixed in 5.0.11. exp:2026-10-30"
+
   # Additional findings from image eda280f (2026-07-02).
   # Temporary ignores while awaiting upstream rebuilds or package feed updates.
   - vulnerability: CVE-2025-58187
