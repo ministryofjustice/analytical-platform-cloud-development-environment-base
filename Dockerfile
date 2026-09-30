@@ -261,7 +261,7 @@ apt-get install --yes \
   "libfreetype-dev=2.13.2+dfsg-1ubuntu0.1" \
   "libgit2-dev=1.7.2+ds-1ubuntu3.2" \
   "libglpk-dev=5.0-1build2" \
-  "libssl-dev=3.0.13-0ubuntu3.15" \
+  "libssl-dev=3.0.13-0ubuntu3.16" \
   "libx11-dev=2:1.8.7-1build1" \
   "libxml2-dev=2.9.14+dfsg-1.3ubuntu3.9" \
   "libgit2-1.7=1.7.2+ds-1ubuntu3.2" \
