@@ -32,13 +32,13 @@ ignore:
   # Go stdlib/crypto vulnerabilities in aws-sso-cli (2.3.2) and helm (4.3.0), which are
   # not covered by the blanket go-module ignores above. Both are the latest upstream
   # releases; fixes require an upstream rebuild with a patched Go toolchain/dependency.
-  - vulnerability: GO-2026-5026-stdlib
+  - vulnerability: GO-2026-5026
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
   - vulnerability: CVE-2026-46600
     reason: "stdlib fixed in 1.26.6; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
-  - vulnerability: GO-2026-4970-stdlib
+  - vulnerability: GO-2026-4970
     reason: "stdlib fixed in 1.25.12; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
-  - vulnerability: GO-2026-5942-stdlib
+  - vulnerability: GO-2026-5942
     reason: "stdlib fixed in 1.26.6; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
   - vulnerability: CVE-2026-39822
     reason: "stdlib fixed in 1.25.12; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
@@ -54,19 +54,19 @@ ignore:
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
   - vulnerability: CVE-2026-56865
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
-  - vulnerability: GO-2026-5972-stdlib
+  - vulnerability: GO-2026-5972
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
-  - vulnerability: GO-2026-6088-stdlib
+  - vulnerability: GO-2026-6088
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
-  - vulnerability: GO-2026-6089-stdlib
+  - vulnerability: GO-2026-6089
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
-  - vulnerability: GO-2026-6090-stdlib
+  - vulnerability: GO-2026-6090
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
-  - vulnerability: GO-2026-6303-golang.org/x/crypto
+  - vulnerability: GO-2026-6303
     reason: "golang.org/x/crypto fixed in 0.55.0; aws-sso-cli 2.3.2 embeds v0.54.0 and predates this fix. exp:2026-11-01"
-  - vulnerability: GO-2026-6354-golang.org/x/crypto
+  - vulnerability: GO-2026-6354
     reason: "golang.org/x/crypto fixed in 0.56.0; aws-sso-cli 2.3.2 (v0.54.0) and helm 4.3.0 (v0.55.0) predate this fix. exp:2026-11-01"
-  - vulnerability: GO-2026-6355-golang.org/x/crypto
+  - vulnerability: GO-2026-6355
     reason: "golang.org/x/crypto fixed in 0.56.0; aws-sso-cli 2.3.2 (v0.54.0) and helm 4.3.0 (v0.55.0) predate this fix. exp:2026-11-01"
 
   # OpenSSL 3.5.7 is bundled by the pinned Miniconda installer (26.7.1-1); no fixed
