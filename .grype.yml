@@ -38,6 +38,8 @@ ignore:
     reason: "stdlib fixed in 1.26.6; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
   - vulnerability: GO-2026-4970-stdlib
     reason: "stdlib fixed in 1.25.12; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
+  - vulnerability: GO-2026-5942-stdlib
+    reason: "stdlib fixed in 1.26.6; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
   - vulnerability: CVE-2026-39822
     reason: "stdlib fixed in 1.25.12; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
   - vulnerability: CVE-2026-33818
