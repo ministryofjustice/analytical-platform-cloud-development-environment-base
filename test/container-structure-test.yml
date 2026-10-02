@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.37.6"]
+    expectedOutput: ["aws-cli/2.37.8"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -137,12 +137,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.12.21"]
+    expectedOutput: ["uv 0.12.22"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.12.21"]
+    expectedOutput: ["uvx 0.12.22"]
 
   - name: "git-lfs"
     command: "git-lfs"
@@ -157,7 +157,7 @@ commandTests:
   - name: "copilot"
     command: "copilot"
     args: ["--version"]
-    expectedOutput: ["GitHub Copilot CLI 1.0.89"]
+    expectedOutput: ["GitHub Copilot CLI 1.0.91"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
