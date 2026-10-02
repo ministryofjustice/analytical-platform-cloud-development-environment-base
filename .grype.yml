@@ -568,3 +568,7 @@ ignore:
     reason: "Dependency pulled by miniconda. No update yet"
   - vulnerability: CVE-2026-82049
     reason: "Python version pulled by miniconda. No update yet"
+  - vulnerability: GHSA-vxq7-64xx-v4gw
+    reason: "Urllib3 dependency with miniconda. No update yet"
+  - vulnerability: GHSA-8988-9cw3-xx77
+    reason: "Urllib3 dependency with miniconda. No update yet"
