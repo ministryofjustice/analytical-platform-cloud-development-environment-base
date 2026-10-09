@@ -262,9 +262,9 @@ apt-get install --yes \
   "libglpk-dev=5.0-1build2" \
   "libssl-dev=3.0.13-0ubuntu3.16" \
   "libx11-dev=2:1.8.7-1build1" \
-  "libxml2-dev=2.9.14+dfsg-1.3ubuntu3.9" \
-  "libgit2-1.7=1.7.2+ds-1ubuntu3.2" \
-  "libgit2-dev=1.7.2+ds-1ubuntu3.2" \
+  "libxml2-dev=2.9.14+dfsg-1.3ubuntu3.10" \
+  "libgit2-1.7=1.7.2+ds-1ubuntu3.3" \
+  "libgit2-dev=1.7.2+ds-1ubuntu3.3" \
   "libexpat1=2.6.1-2ubuntu0.6" \
   "libexpat1-dev=2.6.1-2ubuntu0.6" \
   "pandoc=3.1.3+ds-2"
