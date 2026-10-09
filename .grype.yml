@@ -100,6 +100,10 @@ ignore:
     reason: "Python 3.14.6 bundled in AWS CLI 2.37.8; requires upstream AWS CLI rebuild with fixed Python version. exp:2026-11-01"
   - vulnerability: CVE-2026-82049
     reason: "Python 3.12.14 bundled by Miniconda 26.7.1-1; fixed in 3.12.15, not yet in conda-forge. exp:2026-11-01"
+  - vulnerability: CVE-2026-19445
+    reason: "Python 3.12.14 bundled by Miniconda 26.7.1-1 and 3.14.6 bundled in AWS CLI 2.37.8; both are latest available releases of this repo and grype's reported fix (3.10.22) is an older branch not reflected in either bundled runtime. exp:2026-11-01"
+  - vulnerability: CVE-2026-19553
+    reason: "Python 3.12.14 bundled by Miniconda 26.7.1-1 and 3.14.6 bundled in AWS CLI 2.37.8; both are latest available releases of this repo and grype's reported fix (3.10.22) is an older branch not reflected in either bundled runtime. exp:2026-11-01"
 
   # Python packages bundled via the Miniconda-managed environment; no direct, low-risk
   # patch path in this repository at scan time.
