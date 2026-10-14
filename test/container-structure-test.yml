@@ -111,7 +111,7 @@ commandTests:
 
   - name: "cuda runtime package"
     command: "dpkg-query"
-    args: ["-W", "-f=${Version}", "cuda-cudart-13-4"]
+    args: ["-W", "cuda-cudart-13-4"]
     expectedOutput: ["13.4.92-1"]
 
   - name: "kubectl"
