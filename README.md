@@ -72,7 +72,9 @@ make run
 
 This repository includes a Copilot prompt for maintenance in [`.github/prompts/`](.github/prompts/). To run it, open Copilot Chat in Visual Studio Code and type `/maintenance`. The prompt updates the base image digest, pinned APT packages, tool versions, Miniconda, kubectl, and corresponding test expectations, then prepares a single pull request.
 
-APT can exit successfully even when repository indexes fail to download. Candidate checks must use `-o APT::Update::Error-Mode=any` and only trust `apt-cache policy` after every configured repository updated successfully. If a disposable container cannot reach a repository, retry with available Docker host networking or configured proxy settings and, if necessary, a reachable official mirror. Keep mirror changes inside the disposable container. If metadata still cannot be retrieved, stop rather than using stale installed versions or guessing.
+APT can exit successfully even when repository indices fail to download. Run candidate checks with `-o APT::Update::Error-Mode=any`, and trust `apt-cache policy` only after every configured repository updates successfully.
+
+If a disposable container cannot reach a repository, retry with available Docker host networking or configured proxy settings. If needed, try a reachable official mirror, changing sources only inside the disposable container. If metadata still cannot be retrieved, stop rather than using stale package versions or guessing.
 
 ### Ubuntu
 
@@ -195,7 +197,7 @@ docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
 apt-get -o APT::Update::Error-Mode=any update
 
-apt-get install --yes curl gpg
+apt-get install --yes ca-certificates curl gpg
 
 curl --location --fail-with-body \
   "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/3bf863cc.pub" \
