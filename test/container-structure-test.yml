@@ -67,7 +67,7 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v24.21.0"]
+    expectedOutput: ["v24.22.0"]
 
   - name: "corretto"
     command: "java"
@@ -103,6 +103,16 @@ commandTests:
     command: "ollama"
     args: ["--version"]
     expectedOutput: ["0.40.4"]
+
+  - name: "cuda version"
+    command: "printenv"
+    args: ["CUDA_VERSION"]
+    expectedOutput: ["13.4.3"]
+
+  - name: "cuda runtime package"
+    command: "dpkg-query"
+    args: ["-W", "-f=${Version}", "cuda-cudart-13-4"]
+    expectedOutput: ["13.4.92-1"]
 
   - name: "kubectl"
     command: "kubectl"
