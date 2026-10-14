@@ -70,7 +70,9 @@ make run
 
 ## Managing Software Versions
 
-This repository includes a Copilot prompt for maintenance in [`.github/prompts/`](.github/prompts/). To run it, open Copilot Chat in Visual Studio Code and type `/maintenance`. The prompt updates the Ubuntu base image digest and the pinned APT package versions in the [Dockerfile](./Dockerfile) and prepares a single pull request.
+This repository includes a Copilot prompt for maintenance in [`.github/prompts/`](.github/prompts/). To run it, open Copilot Chat in Visual Studio Code and type `/maintenance`. The prompt updates the base image digest, pinned APT packages, tool versions, Miniconda, kubectl, and corresponding test expectations, then prepares a single pull request.
+
+APT can exit successfully even when repository indexes fail to download. Candidate checks must use `-o APT::Update::Error-Mode=any` and only trust `apt-cache policy` after every configured repository updated successfully. If a disposable container cannot reach a repository, retry with available Docker host networking or configured proxy settings and, if necessary, a reachable official mirror. Keep mirror changes inside the disposable container. If metadata still cannot be retrieved, stop rather than using stale installed versions or guessing.
 
 ### Ubuntu
 
@@ -92,7 +94,7 @@ If you need to manually get latest versions of the APT packages, they can be obt
 ```bash
 docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
-apt-get update
+apt-get -o APT::Update::Error-Mode=any update
 
 apt-cache policy ${PACKAGE} # for example curl, git or gpg
 ```
@@ -120,7 +122,7 @@ The last version of Amazon Corretto can be obtained by running:
 ```bash
 docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
-apt-get update
+apt-get -o APT::Update::Error-Mode=any update
 
 apt-get install --yes curl gpg
 
@@ -134,7 +136,7 @@ install -D --owner root --group root --mode 644 corretto-keyring.gpg /etc/apt/ke
 
 echo "deb [signed-by=/etc/apt/keyrings/corretto-keyring.gpg] https://apt.corretto.aws stable main" > /etc/apt/sources.list.d/corretto.list
 
-apt-get update --yes
+apt-get -o APT::Update::Error-Mode=any update --yes
 
 apt-cache policy java-21-amazon-corretto-jdk
 ```
@@ -146,7 +148,7 @@ The latest version of .NET SDK can be obtained by running:
 ```bash
 docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
-apt-get update --yes
+apt-get -o APT::Update::Error-Mode=any update --yes
 
 apt-cache policy dotnet-sdk-8.0
 ```
@@ -158,7 +160,7 @@ The latest version of R can be obtained by running:
 ```bash
 docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
-apt-get update --yes
+apt-get -o APT::Update::Error-Mode=any update --yes
 
 apt-get install --yes curl gpg
 
@@ -172,7 +174,7 @@ install -D --owner root --group root --mode 644 marutter_pubkey.gpg /etc/apt/key
 
 echo "deb [signed-by=/etc/apt/keyrings/marutter_pubkey.gpg] https://cloud.r-project.org/bin/linux/ubuntu noble-cran40/" > /etc/apt/sources.list.d/cran.list
 
-apt-get update --yes
+apt-get -o APT::Update::Error-Mode=any update --yes
 
 apt-cache policy r-base
 ```
@@ -191,7 +193,7 @@ The latest version of NVIDIA can be obtained by running:
 ```bash
 docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
-apt-get update
+apt-get -o APT::Update::Error-Mode=any update
 
 apt-get install --yes curl gpg
 
@@ -205,7 +207,7 @@ install -D --owner root --group root --mode 644 nvidia.gpg /etc/apt/keyrings/nvi
 
 echo "deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64 /" > /etc/apt/sources.list.d/cuda.list
 
-apt-get update --yes
+apt-get -o APT::Update::Error-Mode=any update --yes
 
 apt-cache policy cuda-cudart-13-1
 
@@ -233,7 +235,7 @@ The latest version of Microsoft ODBC driver for SQL Server can be obtained by ru
 ```bash
 docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
 
-apt-get update --yes
+apt-get -o APT::Update::Error-Mode=any update --yes
 
 apt-get install --yes curl gpg
 
@@ -247,7 +249,7 @@ install -D --owner root --group root --mode 644 microsoft-prod.gpg /usr/share/ke
 
 echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-prod.gpg] https://packages.microsoft.com/ubuntu/24.04/prod noble main" > /etc/apt/sources.list.d/mssql-release.list
 
-apt-get update --yes
+apt-get -o APT::Update::Error-Mode=any update --yes
 
 apt-cache policy msodbcsql18
 
@@ -281,7 +283,7 @@ install -D --owner root --group root --mode 644 githubcli-archive-keyring.gpg /e
 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" > /etc/apt/sources.list.d/github-cli.list
 
-apt-get update --yes
+apt-get -o APT::Update::Error-Mode=any update --yes
 
 apt-cache policy gh
 ```

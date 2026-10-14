@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.37.8"]
+    expectedOutput: ["aws-cli/2.38.0"]
 
   - name: "aws-sso"
     command: "aws-sso"
@@ -67,7 +67,7 @@ commandTests:
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v24.21.0"]
+    expectedOutput: ["v24.22.0"]
 
   - name: "corretto"
     command: "java"
@@ -102,7 +102,7 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.35.0"]
+    expectedOutput: ["0.40.4"]
 
   - name: "kubectl"
     command: "kubectl"
@@ -137,12 +137,12 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.12.22"]
+    expectedOutput: ["uv 0.13.1"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.12.22"]
+    expectedOutput: ["uvx 0.13.1"]
 
   - name: "git-lfs"
     command: "git-lfs"
@@ -157,7 +157,7 @@ commandTests:
   - name: "copilot"
     command: "copilot"
     args: ["--version"]
-    expectedOutput: ["GitHub Copilot CLI 1.0.91"]
+    expectedOutput: ["GitHub Copilot CLI 1.0.97"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
