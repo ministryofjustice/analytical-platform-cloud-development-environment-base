@@ -19,7 +19,11 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CORRETTO_VERSION="1:27.0.0.35-1" \
     CUDA_VERSION="13.4.1" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="10.0.112-0ubuntu1~24.04.1" \
+    DOTNET_ICU_PACKAGE="libicu74" \
+    DOTNET_ICU_VERSION="74.2-1ubuntu3.1" \
+    DOTNET_ROOT="/usr/lib/dotnet" \
+    DOTNET_SDK_SHA512="1904a98dda2db34ba78ba3c4fb1b224455329af91c341d83547843c1839e112b04ae699ee92fa2449a8f62249196a938723078c0c60b9f65c88539d5687729c2" \
+    DOTNET_SDK_VERSION="10.0.402" \
     GIT_LFS_VERSION="3.8.0" \
     GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
     GITHUB_CLI_VERSION="2.102.0" \
@@ -227,13 +231,27 @@ EOF
 # .NET SDK
 # Install .NET SDK (https://dotnet.microsoft.com/)
 RUN <<EOF
-apt-get update --yes
+apt-get -o APT::Update::Error-Mode=any update --yes
 
-apt-get install --yes "dotnet-sdk-10.0=${DOTNET_SDK_VERSION}"
+apt-get install --yes "${DOTNET_ICU_PACKAGE}=${DOTNET_ICU_VERSION}"
 
 apt-get clean --yes
 
 rm --force --recursive /var/lib/apt/lists/*
+
+curl --location --fail-with-body \
+  "https://builds.dotnet.microsoft.com/dotnet/Sdk/${DOTNET_SDK_VERSION}/dotnet-sdk-${DOTNET_SDK_VERSION}-linux-x64.tar.gz" \
+  --output dotnet-sdk.tar.gz
+
+echo "${DOTNET_SDK_SHA512} dotnet-sdk.tar.gz" | sha512sum --check
+
+install --directory --owner root --group root --mode 0755 "${DOTNET_ROOT}"
+
+tar --extract --file dotnet-sdk.tar.gz --directory "${DOTNET_ROOT}"
+
+ln --symbolic "${DOTNET_ROOT}/dotnet" /usr/local/bin/dotnet
+
+rm --force dotnet-sdk.tar.gz
 EOF
 
 # R

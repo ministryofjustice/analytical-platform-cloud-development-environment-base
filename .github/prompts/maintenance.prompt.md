@@ -214,33 +214,18 @@ fi
 ENDSCRIPT
 ```
 
-**.NET SDK**: Use a two-stage checking process:
+**.NET SDK**: Use the official .NET release metadata for the current SDK channel. The Ubuntu apt package may lag behind the upstream security-fixed SDK, so do not use its candidate as the source of truth.
 
 ```bash
-# Extract current .NET major version from Dockerfile (e.g., 8.0 from dotnet-sdk-8.0)
-CURRENT_DOTNET_VERSION="$(grep -oP 'dotnet-sdk-\K\d+\.\d+' Dockerfile | head -1)"
+CURRENT_DOTNET_CHANNEL="$(grep -oP 'DOTNET_SDK_VERSION="\K\d+\.\d+' Dockerfile | head -1)"
 
-docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
-set -euo pipefail
-apt-get -o APT::Update::Error-Mode=any update -y
-
-# Check current .NET version
-echo "=== Current .NET SDK version (${CURRENT_DOTNET_VERSION}) ==="
-DOTNET_CANDIDATE_CURRENT=\$(apt-cache policy dotnet-sdk-${CURRENT_DOTNET_VERSION} | grep Candidate | awk '{print \$2}')
-echo "dotnet-sdk-${CURRENT_DOTNET_VERSION}: \$DOTNET_CANDIDATE_CURRENT"
-
-# Check for newer .NET versions
-echo "=== Latest available .NET SDK (any version) ==="
-LATEST_DOTNET_PKG=\$(apt-cache search --names-only '^dotnet-sdk-[0-9]+\.[0-9]+$' | grep -oP 'dotnet-sdk-\K\d+\.\d+' | sort -V | tail -1)
-
-if [ -n "\$LATEST_DOTNET_PKG" ] && [ "\$LATEST_DOTNET_PKG" != "${CURRENT_DOTNET_VERSION}" ]; then
-  DOTNET_CANDIDATE_LATEST=\$(apt-cache policy dotnet-sdk-\$LATEST_DOTNET_PKG | grep Candidate | awk '{print \$2}')
-  echo "Latest .NET SDK version: \$LATEST_DOTNET_PKG"
-  echo "dotnet-sdk-\$LATEST_DOTNET_PKG: \$DOTNET_CANDIDATE_LATEST"
-  echo "UPGRADE_TO_DOTNET=\$LATEST_DOTNET_PKG"
-fi
-ENDSCRIPT
+curl -fsSL "https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/${CURRENT_DOTNET_CHANNEL}/releases.json" |
+  jq -r '.releases[0] as $release | $release.sdk.files[] | select(.rid == "linux-x64" and .name == "dotnet-sdk-linux-x64.tar.gz") | [$release.sdk.version, .url, .hash] | @tsv'
 ```
+
+Update `DOTNET_SDK_VERSION` to the SDK version in the release metadata and `DOTNET_SDK_SHA512` to that Linux x64 archive's `hash`. The Dockerfile must verify the downloaded archive with `sha512sum --check` before extraction. Update the `dotnet` test expectation to the selected SDK version. Confirm the selected release includes the fixed runtime/library patch before updating.
+
+The SDK archive also requires an ICU runtime package. Read `DOTNET_ICU_PACKAGE` and `DOTNET_ICU_VERSION` from the Dockerfile, then check the candidate for that exact package in the base image using the strict APT metadata preflight above. Update `DOTNET_ICU_VERSION` to the verified candidate without changing `DOTNET_ICU_PACKAGE` unless the base image's ICU ABI requires a different package.
 
 **Node.js**: Use a two-stage checking process:
 
@@ -580,7 +565,8 @@ Include this section only when one or more third-party APT package versions chan
 | -------------------------- | ------- | ------- |
 | Amazon Corretto (JDK 21)   | `<old>` | `<new>` |
 | R                          | `<old>` | `<new>` |
-| .NET SDK 8.0               | `<old>` | `<new>` |
+| .NET SDK                   | `<old>` | `<new>` |
+| .NET ICU runtime           | `<old>` | `<new>` |
 | NVIDIA CUDA                | `<old>` | `<new>` |
 | NVIDIA CUDA cudart         | `<old>` | `<new>` |
 | NVIDIA CUDA compat         | `<old>` | `<new>` |
@@ -659,7 +645,8 @@ Major version upgrades may include breaking changes. The following changes were 
 This upgrade was applied because no further updates are available for version {OLD_MAJOR}.
 
 Major version upgrades may include breaking changes. The following changes were made:
-- Package name updated: `dotnet-sdk-{OLD_MAJOR}` → `dotnet-sdk-{NEW_MAJOR}`
+- Official SDK archive version and SHA512 updated
+- ICU runtime package/version pin updated if required
 - Test expectations updated in `test/container-structure-test.yml`
 ```
 

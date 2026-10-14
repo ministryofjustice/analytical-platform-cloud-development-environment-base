@@ -145,15 +145,11 @@ apt-cache policy java-21-amazon-corretto-jdk
 
 ### .NET SDK
 
-The latest version of .NET SDK can be obtained by running:
+The .NET SDK version and Linux x64 archive SHA512 are published in the official release metadata for its channel. For example, .NET 10 release metadata is available at:
 
-```bash
-docker run -it --rm --platform linux/amd64 docker.io/library/ubuntu:24.04
+<https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/10.0/releases.json>
 
-apt-get -o APT::Update::Error-Mode=any update --yes
-
-apt-cache policy dotnet-sdk-8.0
-```
+Use the `linux-x64` SDK archive URL and verify its published SHA512 before extraction. Ubuntu's `dotnet-sdk-10.0` package can lag behind upstream security fixes. The image also pins the ICU runtime package required by the SDK archive.
 
 ### R
 
