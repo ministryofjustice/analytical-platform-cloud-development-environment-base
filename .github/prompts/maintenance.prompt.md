@@ -251,7 +251,7 @@ CURRENT_NODE_MAJOR="$(grep -oP 'setup_\K\d+(?=\.x)' Dockerfile | head -1)"
 docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
 set -euo pipefail
 apt-get -o APT::Update::Error-Mode=any update -y
-apt-get install -y curl
+apt-get install -y curl jq
 
 # Setup current Node.js repository
 curl -sL "https://deb.nodesource.com/setup_${CURRENT_NODE_MAJOR}.x" -o node.sh
@@ -261,17 +261,36 @@ apt-get -o APT::Update::Error-Mode=any update -y
 echo "=== Current Node.js major version (${CURRENT_NODE_MAJOR}) ==="
 NODE_CANDIDATE_CURRENT=\$(apt-cache policy nodejs | grep Candidate | awk '{print \$2}')
 echo "nodejs (from ${CURRENT_NODE_MAJOR}.x): \$NODE_CANDIDATE_CURRENT"
+if [ -z "\$NODE_CANDIDATE_CURRENT" ] || [ "\$NODE_CANDIDATE_CURRENT" = "(none)" ]; then
+  echo "ERROR: NodeSource has no installable nodejs candidate for ${CURRENT_NODE_MAJOR}.x" >&2
+  exit 1
+fi
+NODE_VERSION_CURRENT=\${NODE_CANDIDATE_CURRENT%%-*}
+echo "NODE_LTS_VERSION_CANDIDATE=\$NODE_VERSION_CURRENT"
 
-# Check for newer Node.js LTS versions
-echo "=== Latest Node.js LTS version ==="
-LATEST_NODE_MAJOR=\$(curl -sL https://nodejs.org/dist/index.json | grep -oP '"version":"v\K\d+' | head -1)
-echo "Latest Node.js major version: \$LATEST_NODE_MAJOR"
+# Compare with the latest upstream LTS major, but only use a version actually
+# published in that major's NodeSource apt repository.
+LATEST_NODE_VERSION=\$(curl -fsSL https://nodejs.org/dist/index.json | jq -r '[.[] | select(.lts != false)][0].version | ltrimstr("v")')
+LATEST_NODE_MAJOR=\${LATEST_NODE_VERSION%%.*}
+echo "Latest upstream Node.js LTS: \$LATEST_NODE_VERSION"
 
 if [ -n "\$LATEST_NODE_MAJOR" ] && [ "\$LATEST_NODE_MAJOR" != "${CURRENT_NODE_MAJOR}" ]; then
-  echo "UPGRADE_TO_NODE=\$LATEST_NODE_MAJOR"
+  curl -fsSL "https://deb.nodesource.com/setup_\${LATEST_NODE_MAJOR}.x" -o node.sh
+  bash node.sh >/dev/null 2>&1
+  apt-get -o APT::Update::Error-Mode=any update -y
+  NODE_CANDIDATE_LATEST=\$(apt-cache policy nodejs | grep Candidate | awk '{print \$2}')
+  if [ -z "\$NODE_CANDIDATE_LATEST" ] || [ "\$NODE_CANDIDATE_LATEST" = "(none)" ]; then
+    echo "ERROR: NodeSource has no installable nodejs candidate for \$LATEST_NODE_MAJOR.x" >&2
+    exit 1
+  fi
+  NODE_VERSION_LATEST=\${NODE_CANDIDATE_LATEST%%-*}
+  echo "Latest NodeSource candidate: \$NODE_CANDIDATE_LATEST"
+  echo "UPGRADE_TO_NODE=\$NODE_VERSION_LATEST"
 fi
 ENDSCRIPT
 ```
+
+Set `NODE_LTS_VERSION` to the numeric version prefix of the selected NodeSource candidate (for example, candidate `24.21.0-1nodesource1` means `NODE_LTS_VERSION="24.21.0"`). Do not pin a newer version reported by nodejs.org until that version is available as a concrete candidate from the configured NodeSource repository. Update the `node` test expectation to match the installed candidate.
 
 **NVIDIA CUDA**: Use a two-stage checking process:
 
