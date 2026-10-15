@@ -87,7 +87,7 @@ apt-get install --yes \
   "less=590-2ubuntu2.1" \
   "libcurl4t64=8.5.0-2ubuntu10.15" \
   "libcurl3t64-gnutls=8.5.0-2ubuntu10.15" \
-  "libcurl4-openssl-dev=8.5.0-2ubuntu10.15" \
+  "libcurl4-openssl-dev=8.5.0-2ubuntu10.16" \
   "python3.12=3.12.3-1ubuntu0.17" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
   "vim=2:9.1.0016-1ubuntu7.20" \
