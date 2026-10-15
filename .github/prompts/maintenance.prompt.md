@@ -43,6 +43,16 @@ Do not assume a specific Ubuntu version or package set. Always read the current 
 
 ## Execution Steps
 
+### APT metadata preflight and failure handling
+
+Complete this preflight before editing `Dockerfile` or the test file. APT can return exit code 0 while reporting that one or more indexes failed to download, which leaves `apt-cache policy` showing only installed versions. Do not treat that output as a successful candidate check.
+
+- Run every `apt-get update` in these instructions with `-o APT::Update::Error-Mode=any` and do not redirect its output. Treat any fetch, signature, or index warning as a failed check, even if the command exits successfully.
+- Run `apt-cache policy` only after a successful update and confirm each required package has a real candidate, not `(none)` or an installed version from stale local metadata.
+- If a disposable container cannot reach a repository, retry once with Docker host networking where supported and pass through any configured `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY` environment variables. If needed, try a reachable official mirror by changing sources only inside the disposable container; never alter the Dockerfile's configured repositories just to make the probe work.
+- Derive the Ubuntu version and codename from `/etc/os-release` in the exact base image. Third-party repository URLs used for candidate checks must match that image; do not use hard-coded Ubuntu codenames or versions from the examples below.
+- If base or third-party APT metadata still cannot be retrieved and validated, stop before changing files, committing, pushing, or opening a pull request. Report which repositories failed and the network error. Do not infer versions from installed packages, stale indexes, unrelated mirrors, or memory.
+
 ### 1. Create a maintenance branch
 
 ```bash
@@ -79,7 +89,8 @@ docker image inspect --format='{{ index .RepoDigests 0 }}' "$IMAGE"
 CURRENT_PYTHON_VERSION="$(grep -oP 'python\K3\.\d+' Dockerfile | head -1)"
 
 docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
-apt-get update -y >/dev/null 2>&1
+set -euo pipefail
+apt-get -o APT::Update::Error-Mode=any update -y
 
 # Check latest version for current Python minor version
 echo "=== Current Python version (${CURRENT_PYTHON_VERSION}) ==="
@@ -105,7 +116,7 @@ For other base packages without major versions in package names:
 
 ```bash
 docker run --rm --platform linux/amd64 "$IMAGE" \
-  bash -c "apt-get update && apt-cache policy apt-transport-https ca-certificates curl git ffmpeg gzip jq mandoc less vim unixodbc unzip zstd"
+  bash -c "apt-get -o APT::Update::Error-Mode=any update && apt-cache policy apt-transport-https ca-certificates curl git ffmpeg gzip jq mandoc less vim unixodbc unzip zstd libcurl4t64 libcurl3t64-gnutls libcurl4-openssl-dev python${CURRENT_PYTHON_VERSION} python3-pip"
 ```
 
 - Analyse the output and update packages:
@@ -117,8 +128,13 @@ docker run --rm --platform linux/amd64 "$IMAGE" \
 Start a temporary container using the base image and add all third-party APT repositories, then check candidate versions:
 
 ```bash
+UBUNTU_VERSION="$(docker run --rm --platform linux/amd64 "$IMAGE" bash -c '. /etc/os-release && printf "%s" "$VERSION_ID"')"
+UBUNTU_CODENAME="$(docker run --rm --platform linux/amd64 "$IMAGE" bash -c '. /etc/os-release && printf "%s" "$VERSION_CODENAME"')"
+CUDA_REPO_VERSION="$(printf '%s' "$UBUNTU_VERSION" | tr -d '.')"
+CURRENT_NODE_MAJOR="$(grep -oP 'setup_\K\d+(?=\.x)' Dockerfile | head -1)"
+
 docker run --rm --platform linux/amd64 "$IMAGE" \
-  bash -c "apt-get update --yes && \
+  bash -c "apt-get -o APT::Update::Error-Mode=any update --yes && \
   apt-get install --yes curl gpg && \
 
   # Corretto
@@ -131,19 +147,19 @@ docker run --rm --platform linux/amd64 "$IMAGE" \
   curl -sL 'https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc' -o marutter_pubkey.asc && \
   cat marutter_pubkey.asc | gpg --dearmor -o marutter_pubkey.gpg 2>/dev/null && \
   install -D -m 644 marutter_pubkey.gpg /etc/apt/keyrings/marutter_pubkey.gpg && \
-  echo 'deb [signed-by=/etc/apt/keyrings/marutter_pubkey.gpg] https://cloud.r-project.org/bin/linux/ubuntu noble-cran40/' > /etc/apt/sources.list.d/cran.list && \
+  echo 'deb [signed-by=/etc/apt/keyrings/marutter_pubkey.gpg] https://cloud.r-project.org/bin/linux/ubuntu ${UBUNTU_CODENAME}-cran40/' > /etc/apt/sources.list.d/cran.list && \
 
   # NVIDIA CUDA
-  curl -sL 'https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/3bf863cc.pub' -o 3bf863cc.pub && \
+  curl -sL 'https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${CUDA_REPO_VERSION}/x86_64/3bf863cc.pub' -o 3bf863cc.pub && \
   cat 3bf863cc.pub | gpg --dearmor -o nvidia.gpg 2>/dev/null && \
   install -D -m 644 nvidia.gpg /etc/apt/keyrings/nvidia.gpg && \
-  echo 'deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64 /' > /etc/apt/sources.list.d/cuda.list && \
+  echo 'deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${CUDA_REPO_VERSION}/x86_64 /' > /etc/apt/sources.list.d/cuda.list && \
 
   # Microsoft
   curl -sL 'https://packages.microsoft.com/keys/microsoft.asc' -o microsoft.asc && \
   cat microsoft.asc | gpg --dearmor -o microsoft-prod.gpg 2>/dev/null && \
   install -D -m 644 microsoft-prod.gpg /usr/share/keyrings/microsoft-prod.gpg && \
-  echo 'deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-prod.gpg] https://packages.microsoft.com/ubuntu/24.04/prod noble main' > /etc/apt/sources.list.d/mssql-release.list && \
+  echo 'deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-prod.gpg] https://packages.microsoft.com/ubuntu/${UBUNTU_VERSION}/prod ${UBUNTU_CODENAME} main' > /etc/apt/sources.list.d/mssql-release.list && \
 
   # GitHub CLI
   curl -sL 'https://cli.github.com/packages/githubcli-archive-keyring.gpg' -o githubcli-archive-keyring.gpg && \
@@ -151,9 +167,9 @@ docker run --rm --platform linux/amd64 "$IMAGE" \
   echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main' > /etc/apt/sources.list.d/github-cli.list && \
 
   # Node.js
-  curl -sL 'https://deb.nodesource.com/setup_24.x' -o node.sh && bash node.sh >/dev/null 2>&1 && \
+  curl -sL 'https://deb.nodesource.com/setup_${CURRENT_NODE_MAJOR}.x' -o node.sh && bash node.sh >/dev/null 2>&1 && \
 
-  apt-get update --yes && \
+  apt-get -o APT::Update::Error-Mode=any update --yes && \
   apt-cache policy r-base gh"
 ```
 
@@ -169,15 +185,16 @@ Update the relevant `ENV` variables and `apt-get install` version pins in `Docke
 CURRENT_JAVA_VERSION="$(grep -oP 'java-\K\d+(?=-amazon-corretto)' Dockerfile | head -1)"
 
 docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
-apt-get update -y >/dev/null 2>&1
-apt-get install -y curl gpg >/dev/null 2>&1
+set -euo pipefail
+apt-get -o APT::Update::Error-Mode=any update -y
+apt-get install -y curl gpg
 
 curl -sL 'https://apt.corretto.aws/corretto.key' -o corretto.key
 cat corretto.key | gpg --dearmor -o corretto-keyring.gpg 2>/dev/null
 install -D -m 644 corretto-keyring.gpg /etc/apt/keyrings/corretto-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/corretto-keyring.gpg] https://apt.corretto.aws stable main' > /etc/apt/sources.list.d/corretto.list
 
-apt-get update -y >/dev/null 2>&1
+apt-get -o APT::Update::Error-Mode=any update -y
 
 # Check current Java version
 echo "=== Current Java version (${CURRENT_JAVA_VERSION}) ==="
@@ -197,79 +214,88 @@ fi
 ENDSCRIPT
 ```
 
-**.NET SDK**: Use a two-stage checking process:
+**.NET SDK**: Use the official .NET release metadata for the current SDK channel. The Ubuntu apt package may lag behind the upstream security-fixed SDK, so do not use its candidate as the source of truth.
 
 ```bash
-# Extract current .NET major version from Dockerfile (e.g., 8.0 from dotnet-sdk-8.0)
-CURRENT_DOTNET_VERSION="$(grep -oP 'dotnet-sdk-\K\d+\.\d+' Dockerfile | head -1)"
+CURRENT_DOTNET_CHANNEL="$(grep -oP 'DOTNET_SDK_VERSION="\K\d+\.\d+' Dockerfile | head -1)"
 
-docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
-apt-get update -y >/dev/null 2>&1
-
-# Check current .NET version
-echo "=== Current .NET SDK version (${CURRENT_DOTNET_VERSION}) ==="
-DOTNET_CANDIDATE_CURRENT=\$(apt-cache policy dotnet-sdk-${CURRENT_DOTNET_VERSION} | grep Candidate | awk '{print \$2}')
-echo "dotnet-sdk-${CURRENT_DOTNET_VERSION}: \$DOTNET_CANDIDATE_CURRENT"
-
-# Check for newer .NET versions
-echo "=== Latest available .NET SDK (any version) ==="
-LATEST_DOTNET_PKG=\$(apt-cache search --names-only '^dotnet-sdk-[0-9]+\.[0-9]+$' | grep -oP 'dotnet-sdk-\K\d+\.\d+' | sort -V | tail -1)
-
-if [ -n "\$LATEST_DOTNET_PKG" ] && [ "\$LATEST_DOTNET_PKG" != "${CURRENT_DOTNET_VERSION}" ]; then
-  DOTNET_CANDIDATE_LATEST=\$(apt-cache policy dotnet-sdk-\$LATEST_DOTNET_PKG | grep Candidate | awk '{print \$2}')
-  echo "Latest .NET SDK version: \$LATEST_DOTNET_PKG"
-  echo "dotnet-sdk-\$LATEST_DOTNET_PKG: \$DOTNET_CANDIDATE_LATEST"
-  echo "UPGRADE_TO_DOTNET=\$LATEST_DOTNET_PKG"
-fi
-ENDSCRIPT
+curl -fsSL "https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/${CURRENT_DOTNET_CHANNEL}/releases.json" |
+  jq -r '.releases[0] as $release | $release.sdk.files[] | select(.rid == "linux-x64" and .name == "dotnet-sdk-linux-x64.tar.gz") | [$release.sdk.version, .url, .hash] | @tsv'
 ```
+
+Update `DOTNET_SDK_VERSION` to the SDK version in the release metadata and `DOTNET_SDK_SHA512` to that Linux x64 archive's `hash`. The Dockerfile must verify the downloaded archive with `sha512sum --check` before extraction. Update the `dotnet` test expectation to the selected SDK version. Confirm the selected release includes the fixed runtime/library patch before updating.
+
+The SDK archive also requires an ICU runtime package. Read `DOTNET_ICU_PACKAGE` and `DOTNET_ICU_VERSION` from the Dockerfile, then check the candidate for that exact package in the base image using the strict APT metadata preflight above. Update `DOTNET_ICU_VERSION` to the verified candidate without changing `DOTNET_ICU_PACKAGE` unless the base image's ICU ABI requires a different package.
 
 **Node.js**: Use a two-stage checking process:
 
 ```bash
-# Extract current Node.js major version from Dockerfile (e.g., 24 from setup_24.x)
+# Extract current Node.js major version from Dockerfile (e.g., 24 from its NodeSource setup URL)
 CURRENT_NODE_MAJOR="$(grep -oP 'setup_\K\d+(?=\.x)' Dockerfile | head -1)"
 
 docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
-apt-get update -y >/dev/null 2>&1
-apt-get install -y curl >/dev/null 2>&1
+set -euo pipefail
+apt-get -o APT::Update::Error-Mode=any update -y
+apt-get install -y curl jq
 
 # Setup current Node.js repository
 curl -sL "https://deb.nodesource.com/setup_${CURRENT_NODE_MAJOR}.x" -o node.sh
 bash node.sh >/dev/null 2>&1
-apt-get update -y >/dev/null 2>&1
+apt-get -o APT::Update::Error-Mode=any update -y
 
 echo "=== Current Node.js major version (${CURRENT_NODE_MAJOR}) ==="
 NODE_CANDIDATE_CURRENT=\$(apt-cache policy nodejs | grep Candidate | awk '{print \$2}')
 echo "nodejs (from ${CURRENT_NODE_MAJOR}.x): \$NODE_CANDIDATE_CURRENT"
+if [ -z "\$NODE_CANDIDATE_CURRENT" ] || [ "\$NODE_CANDIDATE_CURRENT" = "(none)" ]; then
+  echo "ERROR: NodeSource has no installable nodejs candidate for ${CURRENT_NODE_MAJOR}.x" >&2
+  exit 1
+fi
+NODE_VERSION_CURRENT=\${NODE_CANDIDATE_CURRENT%%-*}
+echo "NODE_LTS_VERSION_CANDIDATE=\$NODE_VERSION_CURRENT"
 
-# Check for newer Node.js LTS versions
-echo "=== Latest Node.js LTS version ==="
-LATEST_NODE_MAJOR=\$(curl -sL https://nodejs.org/dist/index.json | grep -oP '"version":"v\K\d+' | head -1)
-echo "Latest Node.js major version: \$LATEST_NODE_MAJOR"
+# Compare with the latest upstream LTS major, but only use a version actually
+# published in that major's NodeSource apt repository.
+LATEST_NODE_VERSION=\$(curl -fsSL https://nodejs.org/dist/index.json | jq -r '[.[] | select(.lts != false)][0].version | ltrimstr("v")')
+LATEST_NODE_MAJOR=\${LATEST_NODE_VERSION%%.*}
+echo "Latest upstream Node.js LTS: \$LATEST_NODE_VERSION"
 
 if [ -n "\$LATEST_NODE_MAJOR" ] && [ "\$LATEST_NODE_MAJOR" != "${CURRENT_NODE_MAJOR}" ]; then
-  echo "UPGRADE_TO_NODE=\$LATEST_NODE_MAJOR"
+  curl -fsSL "https://deb.nodesource.com/setup_\${LATEST_NODE_MAJOR}.x" -o node.sh
+  bash node.sh >/dev/null 2>&1
+  apt-get -o APT::Update::Error-Mode=any update -y
+  NODE_CANDIDATE_LATEST=\$(apt-cache policy nodejs | grep Candidate | awk '{print \$2}')
+  if [ -z "\$NODE_CANDIDATE_LATEST" ] || [ "\$NODE_CANDIDATE_LATEST" = "(none)" ]; then
+    echo "ERROR: NodeSource has no installable nodejs candidate for \$LATEST_NODE_MAJOR.x" >&2
+    exit 1
+  fi
+  NODE_VERSION_LATEST=\${NODE_CANDIDATE_LATEST%%-*}
+  echo "Latest NodeSource candidate: \$NODE_CANDIDATE_LATEST"
+  echo "UPGRADE_TO_NODE=\$NODE_VERSION_LATEST"
 fi
 ENDSCRIPT
 ```
+
+Set `NODE_LTS_VERSION` to the numeric version prefix of the selected NodeSource candidate (for example, candidate `24.21.0-1nodesource1` means `NODE_LTS_VERSION="24.21.0"`). Do not pin a newer version reported by nodejs.org until that version is available as a concrete candidate from the configured NodeSource repository. Update the `node` test expectation to match the installed candidate.
 
 **NVIDIA CUDA**: Use a two-stage checking process:
 
 ```bash
 # Extract current CUDA major.minor version from Dockerfile
 CURRENT_CUDA_MAJOR_MINOR="$(grep -oP 'cuda-cudart-\K\d+-\d+' Dockerfile | head -1)"
+UBUNTU_VERSION="$(docker run --rm --platform linux/amd64 "$IMAGE" bash -c '. /etc/os-release && printf "%s" "$VERSION_ID"')"
+CUDA_REPO_VERSION="$(printf '%s' "$UBUNTU_VERSION" | tr -d '.')"
 
 docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
-apt-get update -y >/dev/null 2>&1
-apt-get install -y curl gpg >/dev/null 2>&1
+set -euo pipefail
+apt-get -o APT::Update::Error-Mode=any update -y
+apt-get install -y curl gpg
 
-curl -sL 'https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/3bf863cc.pub' -o 3bf863cc.pub
+curl -sL 'https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${CUDA_REPO_VERSION}/x86_64/3bf863cc.pub' -o 3bf863cc.pub
 cat 3bf863cc.pub | gpg --dearmor -o nvidia.gpg 2>/dev/null
 install -D -m 644 nvidia.gpg /etc/apt/keyrings/nvidia.gpg
-echo 'deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64 /' > /etc/apt/sources.list.d/cuda.list
+echo 'deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${CUDA_REPO_VERSION}/x86_64 /' > /etc/apt/sources.list.d/cuda.list
 
-apt-get update -y >/dev/null 2>&1
+apt-get -o APT::Update::Error-Mode=any update -y
 
 echo "=== Current CUDA version (${CURRENT_CUDA_MAJOR_MINOR}) ==="
 CUDART_CANDIDATE_CURRENT=\$(apt-cache policy cuda-cudart-${CURRENT_CUDA_MAJOR_MINOR} | grep Candidate | awk '{print \$2}')
@@ -303,13 +329,14 @@ CURRENT_ODBC_VERSION="$(grep -oP 'MICROSOFT_SQL_ODBC_VERSION="\K[^"]+' Dockerfil
 CURRENT_TOOLS_VERSION="$(grep -oP 'MICROSOFT_SQL_TOOLS_VERSION="\K[^"]+' Dockerfile)"
 
 docker run --rm --platform linux/amd64 "$IMAGE" bash<<ENDSCRIPT
-apt-get update -y >/dev/null 2>&1
-apt-get install -y curl gpg lsb-release >/dev/null 2>&1
+set -euo pipefail
+apt-get -o APT::Update::Error-Mode=any update -y
+apt-get install -y curl gpg lsb-release
 curl -sL 'https://packages.microsoft.com/keys/microsoft.asc' | gpg --dearmor > /usr/share/keyrings/microsoft-prod.gpg 2>/dev/null
 source /etc/os-release
 CODENAME=\$(lsb_release -cs)
 echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-prod.gpg] https://packages.microsoft.com/ubuntu/\${VERSION_ID}/prod \${CODENAME} main" > /etc/apt/sources.list.d/mssql-release.list
-apt-get update -y >/dev/null 2>&1
+apt-get -o APT::Update::Error-Mode=any update -y
 
 # Check latest version for current major version
 echo "=== Current major version (${CURRENT_MAJOR_VERSION}) ==="
@@ -538,7 +565,8 @@ Include this section only when one or more third-party APT package versions chan
 | -------------------------- | ------- | ------- |
 | Amazon Corretto (JDK 21)   | `<old>` | `<new>` |
 | R                          | `<old>` | `<new>` |
-| .NET SDK 8.0               | `<old>` | `<new>` |
+| .NET SDK                   | `<old>` | `<new>` |
+| .NET ICU runtime           | `<old>` | `<new>` |
 | NVIDIA CUDA                | `<old>` | `<new>` |
 | NVIDIA CUDA cudart         | `<old>` | `<new>` |
 | NVIDIA CUDA compat         | `<old>` | `<new>` |
@@ -617,7 +645,8 @@ Major version upgrades may include breaking changes. The following changes were 
 This upgrade was applied because no further updates are available for version {OLD_MAJOR}.
 
 Major version upgrades may include breaking changes. The following changes were made:
-- Package name updated: `dotnet-sdk-{OLD_MAJOR}` → `dotnet-sdk-{NEW_MAJOR}`
+- Official SDK archive version and SHA512 updated
+- ICU runtime package/version pin updated if required
 - Test expectations updated in `test/container-structure-test.yml`
 ```
 
