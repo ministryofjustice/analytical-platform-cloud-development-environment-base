@@ -78,15 +78,15 @@ apt-get update --yes
 apt-get install --yes \
   "apt-transport-https=2.8.3" \
   "ca-certificates=20260601~24.04.1" \
-  "curl=8.5.0-2ubuntu10.15" \
+  "curl=8.5.0-2ubuntu10.16" \
   "git=1:2.43.0-1ubuntu7.3" \
   "ffmpeg=7:6.1.1-3ubuntu5" \
   "gzip=1.12-1ubuntu3.2" \
   "jq=1.7.1-3ubuntu0.24.04.2" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
-  "libcurl4t64=8.5.0-2ubuntu10.15" \
-  "libcurl3t64-gnutls=8.5.0-2ubuntu10.15" \
+  "libcurl4t64=8.5.0-2ubuntu10.16" \
+  "libcurl3t64-gnutls=8.5.0-2ubuntu10.16" \
   "libcurl4-openssl-dev=8.5.0-2ubuntu10.16" \
   "python3.12=3.12.3-1ubuntu0.17" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
@@ -276,7 +276,7 @@ apt-get install --yes \
   "r-base-core=${R_VERSION}" \
   "r-recommended=${R_VERSION}" \
   "cmake=3.28.3-1build7" \
-  "libcurl4-openssl-dev=8.5.0-2ubuntu10.15" \
+  "libcurl4-openssl-dev=8.5.0-2ubuntu10.16" \
   "libfontconfig1-dev=2.15.0-1.1ubuntu2" \
   "libfreetype-dev=2.13.2+dfsg-1ubuntu0.2" \
   "libglpk-dev=5.0-1build2" \
