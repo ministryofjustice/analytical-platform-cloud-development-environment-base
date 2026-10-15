@@ -273,6 +273,8 @@ apt-get update --yes
 # libnode-dev (for the V8 R package) is intentionally omitted as it pulls Ubuntu's nodejs, which conflicts with the NodeSource nodejs installed above; V8 downloads a static libv8 at install time instead
 apt-get install --yes \
   "r-base=${R_VERSION}" \
+  "r-base-core=${R_VERSION}" \
+  "r-recommended=${R_VERSION}" \
   "cmake=3.28.3-1build7" \
   "libcurl4-openssl-dev=8.5.0-2ubuntu10.15" \
   "libfontconfig1-dev=2.15.0-1.1ubuntu2" \
