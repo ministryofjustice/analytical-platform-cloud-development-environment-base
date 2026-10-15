@@ -87,6 +87,8 @@ docker image inspect --format='{{ index .RepoDigests 0 }}' docker.io/library/ubu
 The latest versions of the APT packages are managed by [Renovate](https://docs.renovatebot.com/) via the [Renovate `deb` data source](https://docs.renovatebot.com/modules/datasource/deb/) which matches packages through `regex` (regular expression) matching the `# renovate` comments in the [Dockerfile](./Dockerfile).
 The [Renovate config](./.github/renovate.json) also disables organisation-level settings for Renovate, so it can compliment rather than conflict with Dependabot.
 
+Keep the `curl`, `libcurl4t64`, `libcurl3t64-gnutls` and `libcurl4-openssl-dev` version pins aligned, including the repeated development package pin in the R installation block. These packages require matching versions; mismatched pins can cause APT to fail with unmet dependencies.
+
 If you need to manually get latest versions of the APT packages, they can be obtained by running the following
 
 ```bash

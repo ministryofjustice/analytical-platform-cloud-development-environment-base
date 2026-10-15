@@ -449,26 +449,26 @@ Update `test/container-structure-test.yml` to reflect the new versions. Each too
 
 Key mappings between Dockerfile `ENV` variables and test expected outputs:
 
-| Dockerfile ENV               | Test name      | Expected output format                                                  |
-| ---------------------------- | -------------- | ----------------------------------------------------------------------- |
-| `AWS_CLI_VERSION`            | aws            | `aws-cli/X.Y.Z`                                                         |
-| `AWS_SSO_CLI_VERSION`        | aws-sso        | `AWS SSO CLI Version X.Y.Z`                                             |
-| `OLLAMA_VERSION`             | ollama         | `X.Y.Z`                                                                 |
-| `KUBECTL_VERSION`            | kubectl        | `Client Version: vX.Y.Z`                                                |
-| `HELM_VERSION`               | helm           | `X.Y.Z`                                                                 |
-| `CLOUD_PLATFORM_CLI_VERSION` | cloud-platform | `X.Y.Z`                                                                 |
-| `NBSTRIPOUT_VERSION`         | nbstripout     | `X.Y.Z`                                                                 |
-| `UV_VERSION`                 | uv             | `uv X.Y.Z`                                                              |
-| `UV_VERSION`                 | uvx            | `uvx X.Y.Z`                                                             |
-| `GIT_LFS_VERSION`            | git-lfs        | `git-lfs/X.Y.Z`                                                         |
-| `GITHUB_CLI_VERSION`         | gh             | `gh version X.Y.Z`                                                      |
-| `GITHUB_COPILOT_CLI_VERSION` | copilot        | `GitHub Copilot CLI X.Y.Z`                                              |
-| `NODE_LTS_VERSION`           | node           | `vX.Y.Z`                                                                |
-| `CORRETTO_VERSION`           | corretto       | `openjdk X.Y.Z` (extract major.minor.patch from version)               |
-| `DOTNET_SDK_VERSION`         | dotnet         | `X.Y.Z` (numeric prefix before `-`)                                     |
-| `R_VERSION`                  | r              | `R version X.Y.Z` (first 3 components)                                  |
-| `MICROSOFT_SQL_ODBC_VERSION` | msodbcsql      | `/opt/microsoft/msodbcsql{MAJOR}/lib64/libmsodbcsql-X.Y.so.Z.W` (file path) |
-| `MICROSOFT_SQL_TOOLS_VERSION`| sqlcmd         | `Version X.Y.ZZZZ.W Linux` (from `sqlcmd -?` output)                    |
+| Dockerfile ENV                | Test name      | Expected output format                                                      |
+| ----------------------------- | -------------- | --------------------------------------------------------------------------- |
+| `AWS_CLI_VERSION`             | aws            | `aws-cli/X.Y.Z`                                                             |
+| `AWS_SSO_CLI_VERSION`         | aws-sso        | `AWS SSO CLI Version X.Y.Z`                                                 |
+| `OLLAMA_VERSION`              | ollama         | `X.Y.Z`                                                                     |
+| `KUBECTL_VERSION`             | kubectl        | `Client Version: vX.Y.Z`                                                    |
+| `HELM_VERSION`                | helm           | `X.Y.Z`                                                                     |
+| `CLOUD_PLATFORM_CLI_VERSION`  | cloud-platform | `X.Y.Z`                                                                     |
+| `NBSTRIPOUT_VERSION`          | nbstripout     | `X.Y.Z`                                                                     |
+| `UV_VERSION`                  | uv             | `uv X.Y.Z`                                                                  |
+| `UV_VERSION`                  | uvx            | `uvx X.Y.Z`                                                                 |
+| `GIT_LFS_VERSION`             | git-lfs        | `git-lfs/X.Y.Z`                                                             |
+| `GITHUB_CLI_VERSION`          | gh             | `gh version X.Y.Z`                                                          |
+| `GITHUB_COPILOT_CLI_VERSION`  | copilot        | `GitHub Copilot CLI X.Y.Z`                                                  |
+| `NODE_LTS_VERSION`            | node           | `vX.Y.Z`                                                                    |
+| `CORRETTO_VERSION`            | corretto       | `openjdk X.Y.Z` (extract major.minor.patch from version)                    |
+| `DOTNET_SDK_VERSION`          | dotnet         | `X.Y.Z` (numeric prefix before `-`)                                         |
+| `R_VERSION`                   | r              | `R version X.Y.Z` (first 3 components)                                      |
+| `MICROSOFT_SQL_ODBC_VERSION`  | msodbcsql      | `/opt/microsoft/msodbcsql{MAJOR}/lib64/libmsodbcsql-X.Y.so.Z.W` (file path) |
+| `MICROSOFT_SQL_TOOLS_VERSION` | sqlcmd         | `Version X.Y.ZZZZ.W Linux` (from `sqlcmd -?` output)                        |
 
 For NVIDIA CUDA `fileExistenceTests`, update paths if the CUDA major version changes (e.g., `/usr/local/cuda/lib64/libcudart.so.13` → `/usr/local/cuda/lib64/libcudart.so.14`).
 
@@ -496,7 +496,7 @@ git push -u origin "$BRANCH"
 
 Write the PR description to a temporary file to avoid shell-escaping issues:
 
-```bash
+````bash
 cat > /tmp/pr-body.md << 'EOF'
 ## Summary
 
@@ -595,7 +595,7 @@ Major version upgrades may include breaking changes. The following changes were 
 - Package names updated: `msodbcsql{OLD_MAJOR}` → `msodbcsql{NEW_MAJOR}`, `mssql-tools{OLD_MAJOR}` → `mssql-tools{NEW_MAJOR}`
 - PATH updated: `/opt/mssql-tools{OLD_MAJOR}/bin` → `/opt/mssql-tools{NEW_MAJOR}/bin`
 - Test expectations updated in `test/container-structure-test.yml`
-```
+````
 
 **Java/Amazon Corretto** (if upgraded, e.g., from Java 21 to Java 23):
 
@@ -605,6 +605,7 @@ Major version upgrades may include breaking changes. The following changes were 
 This upgrade was applied because no further updates are available for version {OLD_MAJOR}.
 
 Major version upgrades may include breaking changes. The following changes were made:
+
 - Package name updated: `java-{OLD_MAJOR}-amazon-corretto-jdk` → `java-{NEW_MAJOR}-amazon-corretto-jdk`
 - Test expectations updated in `test/container-structure-test.yml`
 ```
@@ -617,6 +618,7 @@ Major version upgrades may include breaking changes. The following changes were 
 This upgrade was applied because no further updates are available for version {OLD_MAJOR}.
 
 Major version upgrades may include breaking changes. The following changes were made:
+
 - Package name updated: `dotnet-sdk-{OLD_MAJOR}` → `dotnet-sdk-{NEW_MAJOR}`
 - Test expectations updated in `test/container-structure-test.yml`
 ```
@@ -629,6 +631,7 @@ Major version upgrades may include breaking changes. The following changes were 
 This upgrade was applied because a newer LTS version is available.
 
 Major version upgrades may include breaking changes. The following changes were made:
+
 - Repository setup script updated: `setup_{OLD_MAJOR}.x` → `setup_{NEW_MAJOR}.x`
 - Test expectations updated in `test/container-structure-test.yml`
 ```
@@ -641,6 +644,7 @@ Major version upgrades may include breaking changes. The following changes were 
 This upgrade was applied because a newer CUDA version is available.
 
 Major version upgrades may include breaking changes. The following changes were made:
+
 - `CUDA_VERSION` updated: `{OLD_VERSION}` → `{NEW_VERSION}`
 - Package names updated: `cuda-cudart-{OLD_SUFFIX}` → `cuda-cudart-{NEW_SUFFIX}`, `cuda-compat-{OLD_SUFFIX}` → `cuda-compat-{NEW_SUFFIX}`
 - Test file paths updated in `test/container-structure-test.yml`
@@ -654,6 +658,7 @@ Major version upgrades may include breaking changes. The following changes were 
 **This upgrade was NOT applied automatically** as Python minor version upgrades can introduce breaking changes and require careful testing.
 
 To upgrade Python:
+
 1. Update package name: `python{OLD_VERSION}` → `python{NEW_VERSION}`
 2. Update test expectations in `test/container-structure-test.yml`
 3. Test all Python-dependent functionality thoroughly
@@ -671,13 +676,14 @@ Updated `test/container-structure-test.yml` to reflect the new version expectati
 
 Building and testing is handled by CI/CD.
 EOF
-```
+
+````
 
 Create the pull request:
 
 ```bash
 gh pr create --base main --head "$BRANCH" --title "build: update base image digest, package versions, and test expectations" --body-file /tmp/pr-body.md
-```
+````
 
 Report the URL of the created pull request.
 
