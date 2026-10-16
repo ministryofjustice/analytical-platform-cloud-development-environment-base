@@ -185,11 +185,13 @@ if [ \"\$ODBC_CANDIDATE_CURRENT\" = \"${CURRENT_ODBC_VERSION}\" ] && [ \"\$TOOLS
   LATEST_ODBC_PKG=\$(apt-cache search --names-only '^msodbcsql[0-9]+\$' | sort -V | tail -1 | awk '{print \$1}')
   if [ -n \"\$LATEST_ODBC_PKG\" ]; then
     LATEST_MAJOR=\$(echo \$LATEST_ODBC_PKG | grep -oP 'msodbcsql\K\d+')
-    ODBC_CANDIDATE_LATEST=\$(apt-cache policy \$LATEST_ODBC_PKG | grep Candidate | awk '{print \$2}')
-    TOOLS_CANDIDATE_LATEST=\$(apt-cache policy mssql-tools\${LATEST_MAJOR} | grep Candidate | awk '{print \$2}')
-    echo \"\$LATEST_ODBC_PKG: \$ODBC_CANDIDATE_LATEST\"
-    echo \"mssql-tools\${LATEST_MAJOR}: \$TOOLS_CANDIDATE_LATEST\"
-    echo \"UPGRADE_TO_MAJOR=\$LATEST_MAJOR\"
+    if [ \"\$LATEST_MAJOR\" != \"${CURRENT_SQL_MAJOR}\" ]; then
+      ODBC_CANDIDATE_LATEST=\$(apt-cache policy \$LATEST_ODBC_PKG | grep Candidate | awk '{print \$2}')
+      TOOLS_CANDIDATE_LATEST=\$(apt-cache policy mssql-tools\${LATEST_MAJOR} | grep Candidate | awk '{print \$2}')
+      echo \"\$LATEST_ODBC_PKG: \$ODBC_CANDIDATE_LATEST\"
+      echo \"mssql-tools\${LATEST_MAJOR}: \$TOOLS_CANDIDATE_LATEST\"
+      echo \"UPGRADE_TO_MAJOR=\$LATEST_MAJOR\"
+    fi
   fi
 fi
 "
