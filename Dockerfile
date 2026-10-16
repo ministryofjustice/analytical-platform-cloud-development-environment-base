@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3
+FROM docker.io/library/ubuntu:24.04@sha256:534baea6a22c03a63003dbc8dbe78fe34bc0d7e595d9a9dc9834884ff530eb55
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.36.50" \
+    AWS_CLI_VERSION="2.38.1" \
     AWS_SSO_CLI_VERSION="2.3.2" \
     CLOUD_PLATFORM_CLI_VERSION="1.51.0" \
     CONTAINER_GID="1000" \
@@ -17,35 +17,39 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
     CORRETTO_VERSION="1:27.0.0.35-1" \
-    CUDA_VERSION="13.4.2" \
+    CUDA_VERSION="13.4.3" \
     DEBIAN_FRONTEND="noninteractive" \
-    DOTNET_SDK_VERSION="10.0.112-0ubuntu1~24.04.1" \
+    DOTNET_ICU_PACKAGE="libicu74" \
+    DOTNET_ICU_VERSION="74.2-1ubuntu3.1" \
+    DOTNET_ROOT="/usr/lib/dotnet" \
+    DOTNET_SDK_SHA512="1904a98dda2db34ba78ba3c4fb1b224455329af91c341d83547843c1839e112b04ae699ee92fa2449a8f62249196a938723078c0c60b9f65c88539d5687729c2" \
+    DOTNET_SDK_VERSION="10.0.402" \
     GIT_LFS_VERSION="3.8.0" \
     GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
-    GITHUB_CLI_VERSION="2.101.0" \
-    GITHUB_COPILOT_CLI_VERSION="1.0.87" \
-    HELM_VERSION="4.3.0" \
-    KUBECTL_VERSION="1.35.8" \
+    GITHUB_CLI_VERSION="2.102.0" \
+    GITHUB_COPILOT_CLI_VERSION="1.0.98" \
+    HELM_VERSION="4.3.1" \
+    KUBECTL_VERSION="1.35.9" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64" \
     MICROSOFT_SQL_ODBC_VERSION="18.7.1.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.7.1.1-1" \
-    MINICONDA_SHA256="b27f60ab63e77eeab50a5417c989120f767e863df32400190d4c7262369f8695" \
-    MINICONDA_VERSION="26.7.1-1" \
+    MINICONDA_SHA256="3b1bdae3d62f5f8a068e1ee3f822c37c89b6054f2608de485af066952290cc32" \
+    MINICONDA_VERSION="26.9.3-0" \
     NBSTRIPOUT_VERSION="0.9.1" \
-    NODE_LTS_VERSION="24.21.0" \
+    NODE_LTS_VERSION="24.22.0" \
     NVIDIA_CUDA_COMPAT_VERSION="615.71.09-2ubuntu1" \
     NVIDIA_CUDA_CUDART_VERSION="13.4.92-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.34.2" \
+    OLLAMA_VERSION="0.40.5" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.6.1-6.2404.0" \
-    UV_VERSION="0.12.17"
+    UV_VERSION="0.13.1"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -74,13 +78,16 @@ apt-get update --yes
 apt-get install --yes \
   "apt-transport-https=2.8.3" \
   "ca-certificates=20260601~24.04.1" \
-  "curl=8.5.0-2ubuntu10.13" \
+  "curl=8.5.0-2ubuntu10.16" \
   "git=1:2.43.0-1ubuntu7.3" \
   "ffmpeg=7:6.1.1-3ubuntu5" \
   "gzip=1.12-1ubuntu3.2" \
   "jq=1.7.1-3ubuntu0.24.04.2" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
+  "libcurl4t64=8.5.0-2ubuntu10.16" \
+  "libcurl3t64-gnutls=8.5.0-2ubuntu10.16" \
+  "libcurl4-openssl-dev=8.5.0-2ubuntu10.16" \
   "python3.12=3.12.3-1ubuntu0.17" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
   "vim=2:9.1.0016-1ubuntu7.20" \
@@ -224,13 +231,27 @@ EOF
 # .NET SDK
 # Install .NET SDK (https://dotnet.microsoft.com/)
 RUN <<EOF
-apt-get update --yes
+apt-get -o APT::Update::Error-Mode=any update --yes
 
-apt-get install --yes "dotnet-sdk-10.0=${DOTNET_SDK_VERSION}"
+apt-get install --yes "${DOTNET_ICU_PACKAGE}=${DOTNET_ICU_VERSION}"
 
 apt-get clean --yes
 
 rm --force --recursive /var/lib/apt/lists/*
+
+curl --location --fail-with-body \
+  "https://builds.dotnet.microsoft.com/dotnet/Sdk/${DOTNET_SDK_VERSION}/dotnet-sdk-${DOTNET_SDK_VERSION}-linux-x64.tar.gz" \
+  --output dotnet-sdk.tar.gz
+
+echo "${DOTNET_SDK_SHA512} dotnet-sdk.tar.gz" | sha512sum --check
+
+install --directory --owner root --group root --mode 0755 "${DOTNET_ROOT}"
+
+tar --extract --file dotnet-sdk.tar.gz --directory "${DOTNET_ROOT}"
+
+ln --symbolic "${DOTNET_ROOT}/dotnet" /usr/local/bin/dotnet
+
+rm --force dotnet-sdk.tar.gz
 EOF
 
 # R
@@ -252,15 +273,20 @@ apt-get update --yes
 # libnode-dev (for the V8 R package) is intentionally omitted as it pulls Ubuntu's nodejs, which conflicts with the NodeSource nodejs installed above; V8 downloads a static libv8 at install time instead
 apt-get install --yes \
   "r-base=${R_VERSION}" \
+  "r-base-core=${R_VERSION}" \
+  "r-recommended=${R_VERSION}" \
   "cmake=3.28.3-1build7" \
-  "libcurl4-openssl-dev=8.5.0-2ubuntu10.13" \
+  "libcurl4-openssl-dev=8.5.0-2ubuntu10.16" \
   "libfontconfig1-dev=2.15.0-1.1ubuntu2" \
-  "libfreetype-dev=2.13.2+dfsg-1ubuntu0.1" \
-  "libgit2-dev=1.7.2+ds-1ubuntu3.1" \
+  "libfreetype-dev=2.13.2+dfsg-1ubuntu0.2" \
   "libglpk-dev=5.0-1build2" \
-  "libssl-dev=3.0.13-0ubuntu3.15" \
-  "libx11-dev=2:1.8.7-1build1" \
-  "libxml2-dev=2.9.14+dfsg-1.3ubuntu3.9" \
+  "libssl-dev=3.0.13-0ubuntu3.16" \
+  "libx11-dev=2:1.8.7-1ubuntu0.1" \
+  "libxml2-dev=2.9.14+dfsg-1.3ubuntu3.10" \
+  "libgit2-1.7=1.7.2+ds-1ubuntu3.3" \
+  "libgit2-dev=1.7.2+ds-1ubuntu3.3" \
+  "libexpat1=2.6.1-2ubuntu0.6" \
+  "libexpat1-dev=2.6.1-2ubuntu0.6" \
   "pandoc=3.1.3+ds-2"
 
 apt-get clean --yes
