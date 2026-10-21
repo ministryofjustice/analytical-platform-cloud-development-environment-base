@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:534baea6a22c03a63003dbc8dbe78fe34bc0d7e595d9a9dc9834884ff530eb55
+FROM docker.io/library/ubuntu:24.04@sha256:68ee22004a9109b44973313b02ff7b1de250f1de0f5ecb628d73f579aaff33ac
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -11,6 +11,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     AWS_CLI_VERSION="2.38.1" \
     AWS_SSO_CLI_VERSION="2.3.2" \
+    CERTIFI_VERSION="2026.10.19" \
     CLOUD_PLATFORM_CLI_VERSION="1.51.0" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
@@ -26,7 +27,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DOTNET_SDK_VERSION="10.0.402" \
     GIT_LFS_VERSION="3.8.0" \
     GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
-    GITHUB_CLI_VERSION="2.102.0" \
+    GITHUB_CLI_VERSION="2.102.1" \
     GITHUB_COPILOT_CLI_VERSION="1.0.98" \
     HELM_VERSION="4.3.1" \
     KUBECTL_VERSION="1.35.9" \
@@ -77,9 +78,9 @@ apt-get update --yes
 
 apt-get install --yes \
   "apt-transport-https=2.8.3" \
-  "ca-certificates=20260601~24.04.1" \
+  "ca-certificates=20260816ubuntu0.24.04.1" \
   "curl=8.5.0-2ubuntu10.16" \
-  "git=1:2.43.0-1ubuntu7.3" \
+  "git=1:2.43.0-1ubuntu7.4" \
   "ffmpeg=7:6.1.1-3ubuntu5" \
   "gzip=1.12-1ubuntu3.2" \
   "jq=1.7.1-3ubuntu0.24.04.2" \
@@ -176,6 +177,13 @@ curl --location --fail-with-body \
 echo "${MINICONDA_SHA256} miniconda.sh" | sha256sum --check
 
 bash miniconda.sh -b -p /opt/conda
+
+# Patch certifi bundled with Miniconda (GHSA-6q48-6c7w-9gw2)
+/opt/conda/bin/pip install --no-cache-dir --upgrade "certifi==${CERTIFI_VERSION}"
+
+# Remove the conda package cache, which still holds the unpatched certifi
+# (and other superseded packages) and is otherwise reported by grype
+/opt/conda/bin/conda clean --all --force-pkgs-dirs --yes
 
 chown --recursive "${CONTAINER_USER}":"${CONTAINER_GROUP}" /opt/conda
 
