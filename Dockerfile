@@ -181,6 +181,10 @@ bash miniconda.sh -b -p /opt/conda
 # Patch certifi bundled with Miniconda (GHSA-6q48-6c7w-9gw2)
 /opt/conda/bin/pip install --no-cache-dir --upgrade "certifi==${CERTIFI_VERSION}"
 
+# Remove the conda package cache, which still holds the unpatched certifi
+# (and other superseded packages) and is otherwise reported by grype
+/opt/conda/bin/conda clean --all --force-pkgs-dirs --yes
+
 chown --recursive "${CONTAINER_USER}":"${CONTAINER_GROUP}" /opt/conda
 
 rm --force miniconda.sh
