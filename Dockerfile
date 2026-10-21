@@ -11,6 +11,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     AWS_CLI_VERSION="2.38.1" \
     AWS_SSO_CLI_VERSION="2.3.2" \
+    CERTIFI_VERSION="2026.10.19" \
     CLOUD_PLATFORM_CLI_VERSION="1.51.0" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
@@ -176,6 +177,9 @@ curl --location --fail-with-body \
 echo "${MINICONDA_SHA256} miniconda.sh" | sha256sum --check
 
 bash miniconda.sh -b -p /opt/conda
+
+# Patch certifi bundled with Miniconda (GHSA-6q48-6c7w-9gw2)
+/opt/conda/bin/pip install --no-cache-dir --upgrade "certifi==${CERTIFI_VERSION}"
 
 chown --recursive "${CONTAINER_USER}":"${CONTAINER_GROUP}" /opt/conda
 
