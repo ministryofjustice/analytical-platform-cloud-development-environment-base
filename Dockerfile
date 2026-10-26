@@ -11,6 +11,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     AWS_CLI_VERSION="2.38.1" \
     AWS_SSO_CLI_VERSION="2.3.2" \
+    BROTLICFFI_VERSION="1.2.1.0" \
     CERTIFI_VERSION="2026.10.19" \
     CLOUD_PLATFORM_CLI_VERSION="1.51.0" \
     CONTAINER_GID="1000" \
@@ -27,7 +28,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DOTNET_SDK_VERSION="10.0.402" \
     GIT_LFS_VERSION="3.8.0" \
     GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
-    GITHUB_CLI_VERSION="2.103.0" \
+    GITHUB_CLI_VERSION="2.103.2" \
     GITHUB_COPILOT_CLI_VERSION="1.0.98" \
     HELM_VERSION="4.3.1" \
     KUBECTL_VERSION="1.35.9" \
@@ -178,8 +179,12 @@ echo "${MINICONDA_SHA256} miniconda.sh" | sha256sum --check
 
 bash miniconda.sh -b -p /opt/conda
 
-# Patch certifi bundled with Miniconda (GHSA-6q48-6c7w-9gw2)
-/opt/conda/bin/pip install --no-cache-dir --upgrade "certifi==${CERTIFI_VERSION}"
+# Patch packages bundled with Miniconda
+# certifi: GHSA-6q48-6c7w-9gw2, brotlicffi: GHSA-9v8h-qqgm-4m35
+/opt/conda/bin/pip install --no-cache-dir --upgrade \
+  "certifi==${CERTIFI_VERSION}" \
+  "brotlicffi==${BROTLICFFI_VERSION}"
+
 
 # Remove the conda package cache, which still holds the unpatched certifi
 # (and other superseded packages) and is otherwise reported by grype

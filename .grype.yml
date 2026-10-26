@@ -241,3 +241,9 @@ ignore:
     reason: "stdlib fixed in 1.26.9; aws-sso-cli 2.3.2 and gh 2.102.0 predate this fix. exp:2026-11-01"
   - vulnerability: CVE-2026-97032
     reason: "stdlib fixed in 1.26.9; aws-sso-cli 2.3.2 and gh 2.102.0 predate this fix. exp:2026-11-01"
+  # npm bundles undici <6.29.1; no npm release ships the fix yet.
+  # Remove once npm/cli#10163 is released and NPM_VERSION is pinned.
+  - vulnerability: GHSA-xjj6-f33q-929c
+    package:
+      name: undici
+      location: "/usr/lib/node_modules/npm/node_modules/undici/**"
