@@ -178,8 +178,12 @@ echo "${MINICONDA_SHA256} miniconda.sh" | sha256sum --check
 
 bash miniconda.sh -b -p /opt/conda
 
-# Patch certifi bundled with Miniconda (GHSA-6q48-6c7w-9gw2)
-/opt/conda/bin/pip install --no-cache-dir --upgrade "certifi==${CERTIFI_VERSION}"
+# Patch packages bundled with Miniconda
+# certifi: GHSA-6q48-6c7w-9gw2, brotlicffi: GHSA-9v8h-qqgm-4m35
+/opt/conda/bin/pip install --no-cache-dir --upgrade \
+  "certifi==${CERTIFI_VERSION}" \
+  "brotlicffi==${BROTLICFFI_VERSION}"
+
 
 # Remove the conda package cache, which still holds the unpatched certifi
 # (and other superseded packages) and is otherwise reported by grype
