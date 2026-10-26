@@ -11,6 +11,7 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     AWS_CLI_VERSION="2.38.1" \
     AWS_SSO_CLI_VERSION="2.3.2" \
+    BROTLICFFI_VERSION="1.2.1.0" \
     CERTIFI_VERSION="2026.10.19" \
     CLOUD_PLATFORM_CLI_VERSION="1.51.0" \
     CONTAINER_GID="1000" \
