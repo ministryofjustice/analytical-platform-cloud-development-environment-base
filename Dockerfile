@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:68ee22004a9109b44973313b02ff7b1de250f1de0f5ecb628d73f579aaff33ac
+FROM docker.io/library/ubuntu:24.04@sha256:24737cef17f4e22b1977df7d9a05e77c4e28b7da5b8911f8d8ccda136bf3573c
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -28,7 +28,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DOTNET_SDK_VERSION="10.0.402" \
     GIT_LFS_VERSION="3.8.0" \
     GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
-    GITHUB_CLI_VERSION="2.103.2" \
+    GITHUB_CLI_VERSION="2.103.3" \
     GITHUB_COPILOT_CLI_VERSION="1.0.98" \
     HELM_VERSION="4.3.1" \
     KUBECTL_VERSION="1.35.9" \
@@ -36,6 +36,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64" \
+    MSGPACK_VERSION="1.2.3" \
     MICROSOFT_SQL_ODBC_VERSION="18.7.1.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.7.1.1-1" \
     MINICONDA_SHA256="3b1bdae3d62f5f8a068e1ee3f822c37c89b6054f2608de485af066952290cc32" \
@@ -180,10 +181,11 @@ echo "${MINICONDA_SHA256} miniconda.sh" | sha256sum --check
 bash miniconda.sh -b -p /opt/conda
 
 # Patch packages bundled with Miniconda
-# certifi: GHSA-6q48-6c7w-9gw2, brotlicffi: GHSA-9v8h-qqgm-4m35
+# certifi: GHSA-6q48-6c7w-9gw2, brotlicffi: GHSA-9v8h-qqgm-4m35, msgpack: GHSA-j586-36cw-2gc2
 /opt/conda/bin/pip install --no-cache-dir --upgrade \
   "certifi==${CERTIFI_VERSION}" \
-  "brotlicffi==${BROTLICFFI_VERSION}"
+  "brotlicffi==${BROTLICFFI_VERSION}" \
+  "msgpack==${MSGPACK_VERSION}"
 
 
 # Remove the conda package cache, which still holds the unpatched certifi
