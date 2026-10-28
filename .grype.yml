@@ -258,4 +258,3 @@ ignore:
       name: undici
       location: "/usr/lib/node_modules/npm/node_modules/undici/**"
     reason: "npm bundled undici 6.28.0; fixed in 6.29.1, not yet shipped in an npm release (npm/cli#10163). exp:2026-11-15"
-
