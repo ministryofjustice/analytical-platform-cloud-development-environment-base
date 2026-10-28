@@ -36,6 +36,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64" \
+    MSGPACK_VERSION="1.2.3" \
     MICROSOFT_SQL_ODBC_VERSION="18.7.1.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.7.1.1-1" \
     MINICONDA_SHA256="3b1bdae3d62f5f8a068e1ee3f822c37c89b6054f2608de485af066952290cc32" \
@@ -180,10 +181,11 @@ echo "${MINICONDA_SHA256} miniconda.sh" | sha256sum --check
 bash miniconda.sh -b -p /opt/conda
 
 # Patch packages bundled with Miniconda
-# certifi: GHSA-6q48-6c7w-9gw2, brotlicffi: GHSA-9v8h-qqgm-4m35
+# certifi: GHSA-6q48-6c7w-9gw2, brotlicffi: GHSA-9v8h-qqgm-4m35, msgpack: GHSA-j586-36cw-2gc2
 /opt/conda/bin/pip install --no-cache-dir --upgrade \
   "certifi==${CERTIFI_VERSION}" \
-  "brotlicffi==${BROTLICFFI_VERSION}"
+  "brotlicffi==${BROTLICFFI_VERSION}" \
+  "msgpack==${MSGPACK_VERSION}"
 
 
 # Remove the conda package cache, which still holds the unpatched certifi
