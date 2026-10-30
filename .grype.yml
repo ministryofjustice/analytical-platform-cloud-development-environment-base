@@ -269,4 +269,3 @@ ignore:
   - vulnerability: CVE-2026-115557
     package:
       location: "/usr/local/aws-cli/**"
-
