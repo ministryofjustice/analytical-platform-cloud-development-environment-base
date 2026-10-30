@@ -42,7 +42,7 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.38.1"]
+    expectedOutput: ["aws-cli/2.39.2"]
 
   - name: "aws-sso"
     command: "aws-sso"
