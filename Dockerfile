@@ -39,7 +39,6 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     MSGPACK_VERSION="1.2.3" \
     MICROSOFT_SQL_ODBC_VERSION="18.7.1.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.7.1.1-1" \
-    MINICONDA_PYTHON_VERSION="3.12.16" \
     MINICONDA_SHA256="3b1bdae3d62f5f8a068e1ee3f822c37c89b6054f2608de485af066952290cc32" \
     MINICONDA_VERSION="26.9.3-0" \
     NBSTRIPOUT_VERSION="0.9.1" \
@@ -180,10 +179,6 @@ curl --location --fail-with-body \
 echo "${MINICONDA_SHA256} miniconda.sh" | sha256sum --check
 
 bash miniconda.sh -b -p /opt/conda
-
-# Patch Python bundled with Miniconda
-# python: CVE-2026-115557
-/opt/conda/bin/conda install --yes "python=${MINICONDA_PYTHON_VERSION}"
 
 # Patch packages bundled with Miniconda
 # certifi: GHSA-6q48-6c7w-9gw2, brotlicffi: GHSA-9v8h-qqgm-4m35, msgpack: GHSA-j586-36cw-2gc2
