@@ -36,7 +36,6 @@ ignore:
       type: go-module
       location: "/usr/local/bin/kubectl"
     reason: "Third-party precompiled binary; Go module vulnerabilities require upstream rebuild/release. exp:2026-11-01"
-
   # Go stdlib/crypto vulnerabilities in aws-sso-cli (2.3.2), which is not covered by the
   # blanket go-module ignores above. It is the latest upstream release; fixes require an
   # upstream rebuild with a patched Go toolchain/dependency.
@@ -44,12 +43,8 @@ ignore:
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
   - vulnerability: CVE-2026-46600
     reason: "stdlib fixed in 1.26.6; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
-  - vulnerability: GO-2026-4970
-    reason: "stdlib fixed in 1.25.12; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
   - vulnerability: GO-2026-5942
     reason: "stdlib fixed in 1.26.6; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
-  - vulnerability: CVE-2026-39822
-    reason: "stdlib fixed in 1.25.12; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
   - vulnerability: CVE-2026-33818
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
   - vulnerability: CVE-2026-56853
@@ -57,10 +52,6 @@ ignore:
   - vulnerability: CVE-2026-56859
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
   - vulnerability: CVE-2026-56862
-    reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
-  - vulnerability: CVE-2026-56864
-    reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
-  - vulnerability: CVE-2026-56865
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
   - vulnerability: GO-2026-5972
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
@@ -70,13 +61,6 @@ ignore:
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
   - vulnerability: GO-2026-6090
     reason: "stdlib fixed in 1.25.13; aws-sso-cli 2.3.2 predates this fix. exp:2026-11-01"
-  - vulnerability: GO-2026-6303
-    reason: "golang.org/x/crypto fixed in 0.55.0; aws-sso-cli 2.3.2 embeds v0.54.0 and predates this fix. exp:2026-11-01"
-  - vulnerability: GO-2026-6354
-    reason: "golang.org/x/crypto fixed in 0.56.0; aws-sso-cli 2.3.2 (v0.54.0) predates this fix. exp:2026-11-01"
-  - vulnerability: GO-2026-6355
-    reason: "golang.org/x/crypto fixed in 0.56.0; aws-sso-cli 2.3.2 (v0.54.0) predates this fix. exp:2026-11-01"
-
   # Go stdlib (fixed in 1.26.9) and golang.org/x/net (fixed in 0.60.0) round affecting
   # aws-sso-cli 2.3.2 (go1.26.4) and gh 2.102.0 (go1.27.1, x/net v0.58.0). Both are the
   # latest upstream releases.
@@ -93,17 +77,6 @@ ignore:
       type: go-module
       location: "/usr/bin/gh"
     reason: "CRITICAL. stdlib fixed in 1.26.9 / x/net fixed in 0.60.0; gh 2.102.0 (go1.27.1, x/net v0.58.0) is latest upstream and predates this fix. exp:2026-10-26"
-  - vulnerability: GO-2026-6604
-    package:
-      type: go-module
-      location: "/usr/local/bin/aws-sso"
-    reason: "CRITICAL. stdlib fixed in 1.26.9; aws-sso-cli 2.3.2 (go1.26.4) is latest upstream and predates this fix. exp:2026-10-26"
-  - vulnerability: GO-2026-6604
-    package:
-      type: go-module
-      location: "/usr/bin/gh"
-    reason: "CRITICAL. stdlib fixed in 1.26.9; gh 2.102.0 (go1.27.1) is latest upstream and predates this fix. exp:2026-10-26"
-
   # Highs
   - vulnerability: GO-2026-6603
     reason: "stdlib fixed in 1.26.9 / x/net fixed in 0.60.0; aws-sso-cli 2.3.2 and gh 2.102.0 predate this fix. exp:2026-11-01"
@@ -123,36 +96,6 @@ ignore:
     reason: "stdlib fixed in 1.26.9; aws-sso-cli 2.3.2 and gh 2.102.0 predate this fix. exp:2026-11-01"
   - vulnerability: GO-2026-6617
     reason: "stdlib fixed in 1.26.9 / x/net fixed in 0.60.0; aws-sso-cli 2.3.2 and gh 2.102.0 predate this fix. exp:2026-11-01"
-
-  # OpenSSL 3.5.7 is bundled by the pinned Miniconda installer (26.7.1-1); no fixed
-  # conda-forge build is available yet, so bumping MINICONDA_VERSION alone is not sufficient.
-  - vulnerability: CVE-2026-63072
-    reason: "OpenSSL 3.5.7 bundled by Miniconda 26.7.1-1; fixed in 1.1.1zi, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: CVE-2026-63073
-    reason: "OpenSSL 3.5.7 bundled by Miniconda 26.7.1-1; fixed in 3.4.7, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: CVE-2026-63075
-    reason: "OpenSSL 3.5.7 bundled by Miniconda 26.7.1-1; fixed in 3.4.7, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: CVE-2026-63076
-    reason: "OpenSSL 3.5.7 bundled by Miniconda 26.7.1-1; fixed in 3.0.22, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: CVE-2026-75803
-    reason: "OpenSSL 3.5.7 bundled by Miniconda 26.7.1-1; fixed in 3.0.22, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: CVE-2026-18798
-    reason: "OpenSSL 3.5.7 bundled by Miniconda 26.7.1-1; fixed in 3.5.8, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: CVE-2026-14456
-    reason: "OpenSSL 3.5.7 bundled by Miniconda 26.7.1-1; fixed in 3.5.8, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: CVE-2026-14457
-    reason: "OpenSSL 3.5.7 bundled by Miniconda 26.7.1-1; fixed in 3.4.7, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: CVE-2026-54874
-    reason: "OpenSSL 3.5.7 bundled by Miniconda 26.7.1-1; fixed in 1.0.2zr, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: CVE-2026-54873
-    reason: "OpenSSL 3.5.7 bundled by Miniconda 26.7.1-1; fixed in 3.4.8, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: CVE-2026-84782
-    reason: "OpenSSL 3.5.7 bundled by Miniconda 26.7.1-1; fixed in 1.0.2zs, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: CVE-2026-84784
-    reason: "OpenSSL 3.5.7 bundled by Miniconda 26.7.1-1; fixed in 3.4.8, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: CVE-2026-72897
-    reason: "OpenSSL 3.5.7 bundled by Miniconda 26.7.1-1; fixed in 3.4.8, not yet in conda-forge. exp:2026-11-01"
-
   # Python runtimes bundled by AWS CLI (2.37.8) and Miniconda (26.7.1-1); both tracks
   # are already pinned to the latest available release of this repo.
   - vulnerability: CVE-2026-11940
@@ -167,45 +110,16 @@ ignore:
     reason: "Python 3.12.14 bundled by Miniconda 26.7.1-1 and 3.14.6 bundled in AWS CLI 2.37.8; both are latest available releases of this repo and grype's reported fix (3.10.22) is an older branch not reflected in either bundled runtime. exp:2026-11-01"
   - vulnerability: CVE-2026-19553
     reason: "Python 3.12.14 bundled by Miniconda 26.7.1-1 and 3.14.6 bundled in AWS CLI 2.37.8; both are latest available releases of this repo and grype's reported fix (3.10.22) is an older branch not reflected in either bundled runtime. exp:2026-11-01"
-
-  # Python packages bundled via the Miniconda-managed environment; no direct, low-risk
-  # patch path in this repository at scan time.
-  - vulnerability: GHSA-82r6-8w77-94w6
-    reason: "anyio 4.12.1 bundled via Miniconda; fixed in 4.14.2, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: GHSA-ffc3-869f-jxw9
-    reason: "PyJWT 2.13.0 bundled via Miniconda; fixed in 2.14.0, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: GHSA-9v7f-9g4p-ffgj
-    reason: "PyJWT 2.13.0 bundled via Miniconda; fixed in 2.14.0, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: GHSA-r6x4-923q-g947
-    reason: "PyJWT 2.13.0 bundled via Miniconda; fixed in 2.14.0, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: GHSA-9j54-fg26-wv3r
-    reason: "PyJWT 2.13.0 bundled via Miniconda; fixed in 2.14.0, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: GHSA-w2cx-738m-mc7w
-    reason: "PyJWT 2.13.0 bundled via Miniconda; fixed in 2.14.0, not yet in conda-forge. exp:2026-11-01"
-  - vulnerability: GHSA-p4g4-x82p-q773
-    reason: "PyJWT 2.13.0 bundled via Miniconda; fixed in 2.14.0, not yet in conda-forge. exp:2026-11-01"
   - vulnerability: GHSA-vxq7-64xx-v4gw
     reason: "urllib3 2.7.0 bundled via Miniconda; fixed in 2.8.0, not yet in conda-forge. exp:2026-11-01"
   - vulnerability: GHSA-8988-9cw3-xx77
     reason: "urllib3 2.7.0 bundled via Miniconda; fixed in 2.8.0, not yet in conda-forge. exp:2026-11-01"
-
-  # npm packages bundled inside the Node.js/npm install; internal to npm and cannot be
-  # directly patched here.
-  - vulnerability: GHSA-mwp4-54f8-5fhr
-    reason: "npm bundled ip-address 10.2.0; fixed in 10.3.1. exp:2026-11-01"
-  - vulnerability: GHSA-rgw5-rvv9-x895
-    reason: "npm bundled brace-expansion 5.0.7; fixed in 5.0.9. exp:2026-11-01"
-  - vulnerability: GHSA-mh99-v99m-4gvg
-    reason: "npm bundled brace-expansion 5.0.7; fixed in 5.0.8. exp:2026-11-01"
   - vulnerability: GHSA-6j4f-fj2g-mc7p
     reason: "npm bundled brace-expansion 5.0.7; fixed in 5.0.10. exp:2026-11-01"
   - vulnerability: GHSA-qhr7-859c-m2p7
     reason: "npm bundled brace-expansion 5.0.7; fixed in 5.0.11. exp:2026-11-01"
-  - vulnerability: GHSA-r292-9mhp-454m
-    reason: "npm bundled tar 7.5.19; fixed in 7.5.21. exp:2026-11-01"
   - vulnerability: GHSA-rfgv-xxqx-mfg5
     reason: "npm bundled undici 6.27.0; fixed in 6.28.1. exp:2026-11-01"
-
   # Go stdlib 1.26.9 round: CVE aliases. Grype matches stdlib via NVD CPE,
   # so these surface as CVEs rather than the GO-2026-66xx IDs above.
   - vulnerability: CVE-2026-78663
@@ -218,7 +132,6 @@ ignore:
       type: go-module
       location: "/usr/bin/gh"
     reason: "CRITICAL. stdlib fixed in 1.26.9; gh 2.102.0 (go1.27.1) is latest upstream and predates this fix. exp:2026-10-26"
-
   - vulnerability: CVE-2026-78659
     reason: "stdlib fixed in 1.26.9; aws-sso-cli 2.3.2 and gh 2.102.0 predate this fix. exp:2026-11-01"
   - vulnerability: CVE-2026-78660
@@ -232,10 +145,6 @@ ignore:
   - vulnerability: CVE-2026-94439
     reason: "stdlib fixed in 1.26.9; aws-sso-cli 2.3.2 and gh 2.102.0 predate this fix. exp:2026-11-01"
   - vulnerability: CVE-2026-94440
-    reason: "stdlib fixed in 1.26.9; aws-sso-cli 2.3.2 and gh 2.102.0 predate this fix. exp:2026-11-01"
-  - vulnerability: CVE-2026-94444
-    reason: "stdlib fixed in 1.26.9; aws-sso-cli 2.3.2 and gh 2.102.0 predate this fix. exp:2026-11-01"
-  - vulnerability: CVE-2026-94447
     reason: "stdlib fixed in 1.26.9; aws-sso-cli 2.3.2 and gh 2.102.0 predate this fix. exp:2026-11-01"
   - vulnerability: CVE-2026-97031
     reason: "stdlib fixed in 1.26.9; aws-sso-cli 2.3.2 and gh 2.102.0 predate this fix. exp:2026-11-01"
@@ -258,13 +167,11 @@ ignore:
       name: undici
       location: "/usr/lib/node_modules/npm/node_modules/undici/**"
     reason: "npm bundled undici 6.28.0; fixed in 6.29.1, not yet shipped in an npm release (npm/cli#10163). exp:2026-11-15"
-
   # CVE-2026-115557: Python ssl denylist for compromised eMudhra intermediate CA keys
   # Miniconda bundles Python 3.12.15; fixed in 3.12.16
   - vulnerability: CVE-2026-115557
     package:
       location: "/opt/conda/**"
-
   # AWS CLI bundles Python 3.14.8 (as of 2.39.2); fixed in 3.14.10
   - vulnerability: CVE-2026-115557
     package:
