@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:24737cef17f4e22b1977df7d9a05e77c4e28b7da5b8911f8d8ccda136bf3573c
+FROM docker.io/library/ubuntu:24.04@sha256:fe81560990fae86dc4743202b2cb4d3df98d0bcf949173cecef15ce1127ef852
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -91,6 +91,7 @@ apt-get install --yes \
   "libcurl4t64=8.5.0-2ubuntu10.16" \
   "libcurl3t64-gnutls=8.5.0-2ubuntu10.16" \
   "libcurl4-openssl-dev=8.5.0-2ubuntu10.16" \
+  "libpcre2-8-0=10.42-4ubuntu2.2" \
   "python3.12=3.12.3-1ubuntu0.17" \
   "python3-pip=24.0+dfsg-1ubuntu1.3" \
   "vim=2:9.1.0016-1ubuntu7.20" \
