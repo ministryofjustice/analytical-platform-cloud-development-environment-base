@@ -88,6 +88,11 @@ apt-get install --yes \
   "jq=1.7.1-3ubuntu0.24.04.2" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
+  "libc-bin=2.39-0ubuntu8.12" \
+  "libc-dev-bin=2.39-0ubuntu8.12" \
+  "libc-devtools=2.39-0ubuntu8.12" \
+  "libc6=2.39-0ubuntu8.12" \
+  "libc6-dev=2.39-0ubuntu8.12" \
   "libcurl4t64=8.5.0-2ubuntu10.16" \
   "libcurl3t64-gnutls=8.5.0-2ubuntu10.16" \
   "libcurl4-openssl-dev=8.5.0-2ubuntu10.16" \
