@@ -195,7 +195,9 @@ bash miniconda.sh -b -p /opt/conda
   "msgpack==${MSGPACK_VERSION}"
 
 # openssl: CVE-2026-88823, CVE-2026-95691, CVE-2026-95692, CVE-2026-107496
-/opt/conda/bin/conda install --yes "openssl=${OPENSSL_VERSION}"
+/opt/conda/bin/conda install --yes \
+  --override-channels --channel conda-forge \
+  "openssl=${OPENSSL_VERSION}"
 
 # Remove the conda package cache, which still holds the unpatched certifi
 # (and other superseded packages) and is otherwise reported by grype
