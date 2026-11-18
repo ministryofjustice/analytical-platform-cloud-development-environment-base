@@ -28,7 +28,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DOTNET_SDK_VERSION="10.0.404" \
     GIT_LFS_VERSION="3.8.0" \
     GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
-    GITHUB_CLI_VERSION="2.105.0" \
+    GITHUB_CLI_VERSION="2.104.0" \
     GITHUB_COPILOT_CLI_VERSION="1.0.98" \
     HELM_VERSION="4.3.1" \
     KUBECTL_VERSION="1.35.9" \
@@ -49,7 +49,6 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
     OLLAMA_VERSION="0.40.5" \
-    OPENSSL_VERSION="3.5.10" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.6.1-6.2404.0" \
@@ -194,10 +193,6 @@ bash miniconda.sh -b -p /opt/conda
   "brotlicffi==${BROTLICFFI_VERSION}" \
   "msgpack==${MSGPACK_VERSION}"
 
-# openssl: CVE-2026-88823, CVE-2026-95691, CVE-2026-95692, CVE-2026-107496
-/opt/conda/bin/conda install --yes \
-  --override-channels --channel conda-forge \
-  "openssl=${OPENSSL_VERSION}"
 
 # Remove the conda package cache, which still holds the unpatched certifi
 # (and other superseded packages) and is otherwise reported by grype
