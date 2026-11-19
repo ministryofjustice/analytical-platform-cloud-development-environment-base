@@ -24,11 +24,11 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DOTNET_ICU_PACKAGE="libicu74" \
     DOTNET_ICU_VERSION="74.2-1ubuntu3.1" \
     DOTNET_ROOT="/usr/lib/dotnet" \
-    DOTNET_SDK_SHA512="1904a98dda2db34ba78ba3c4fb1b224455329af91c341d83547843c1839e112b04ae699ee92fa2449a8f62249196a938723078c0c60b9f65c88539d5687729c2" \
-    DOTNET_SDK_VERSION="10.0.402" \
+    DOTNET_SDK_SHA512="577d0eb17fec33d029104c5c63a1ab0accc3e28776274abef2218dbac5af18d2109b5406d26b31d76f5c245215e3ba0926a94c20246c672c41847c9e1eb1dc50" \
+    DOTNET_SDK_VERSION="10.0.404" \
     GIT_LFS_VERSION="3.8.0" \
     GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
-    GITHUB_CLI_VERSION="2.103.3" \
+    GITHUB_CLI_VERSION="2.105.0" \
     GITHUB_COPILOT_CLI_VERSION="1.0.98" \
     HELM_VERSION="4.3.1" \
     KUBECTL_VERSION="1.35.9" \
@@ -79,7 +79,7 @@ RUN <<EOF
 apt-get update --yes
 
 apt-get install --yes \
-  "apt-transport-https=2.8.3" \
+  "apt-transport-https=2.8.4ubuntu0.1" \
   "ca-certificates=20260816ubuntu0.24.04.2" \
   "curl=8.5.0-2ubuntu10.16" \
   "git=1:2.43.0-1ubuntu7.4" \
@@ -88,6 +88,11 @@ apt-get install --yes \
   "jq=1.7.1-3ubuntu0.24.04.2" \
   "mandoc=1.14.6-1" \
   "less=590-2ubuntu2.1" \
+  "libc-bin=2.39-0ubuntu8.12" \
+  "libc-dev-bin=2.39-0ubuntu8.12" \
+  "libc-devtools=2.39-0ubuntu8.12" \
+  "libc6=2.39-0ubuntu8.12" \
+  "libc6-dev=2.39-0ubuntu8.12" \
   "libcurl4t64=8.5.0-2ubuntu10.16" \
   "libcurl3t64-gnutls=8.5.0-2ubuntu10.16" \
   "libcurl4-openssl-dev=8.5.0-2ubuntu10.16" \
