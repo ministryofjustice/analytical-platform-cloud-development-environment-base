@@ -79,7 +79,7 @@ RUN <<EOF
 apt-get update --yes
 
 apt-get install --yes \
-  "apt-transport-https=2.8.3" \
+  "apt-transport-https=2.8.4ubuntu0.1" \
   "ca-certificates=20260816ubuntu0.24.04.2" \
   "curl=8.5.0-2ubuntu10.16" \
   "git=1:2.43.0-1ubuntu7.4" \
