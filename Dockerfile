@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:fe81560990fae86dc4743202b2cb4d3df98d0bcf949173cecef15ce1127ef852
+FROM docker.io/library/ubuntu:24.04@sha256:9c7f200c07e3d4a03e7249d2c16bf66a51120fb876aa2242cf31451412543289
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -49,7 +49,6 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
     OLLAMA_VERSION="0.40.5" \
-    OPENSSL_VERSION="3.5.10" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
     R_VERSION="4.6.1-6.2404.0" \
@@ -194,9 +193,6 @@ bash miniconda.sh -b -p /opt/conda
   "brotlicffi==${BROTLICFFI_VERSION}" \
   "msgpack==${MSGPACK_VERSION}"
 
-# openssl: CVE-2026-124709, CVE-2026-107494, CVE-2026-121482, CVE-2026-84786, CVE-2026-107493
-# Upgrades /opt/conda/bin/openssl and /opt/conda/lib/lib{ssl,crypto}.so.3 (also used by R via r-openssl symlinks)
-/opt/conda/bin/conda install --yes "openssl=${OPENSSL_VERSION}"
 
 # Remove the conda package cache, which still holds the unpatched certifi
 # (and other superseded packages) and is otherwise reported by grype
