@@ -186,3 +186,14 @@ ignore:
     package: { name: openssl, version: 3.5.9 }
   - vulnerability: CVE-2026-107496
     package: { name: openssl, version: 3.5.9 }
+  # openssl 3.5.10 not yet packaged for conda (as of 2026-11-23) - remove once available
+  - vulnerability: CVE-2026-124709
+    package: { name: openssl, location: "/opt/conda/**" }
+  - vulnerability: CVE-2026-107494
+    package: { name: openssl, location: "/opt/conda/**" }
+  - vulnerability: CVE-2026-121482
+    package: { name: openssl, location: "/opt/conda/**" }
+  - vulnerability: CVE-2026-84786
+    package: { name: openssl, location: "/opt/conda/**" }
+  - vulnerability: CVE-2026-107493
+    package: { name: openssl, location: "/opt/conda/**" }
