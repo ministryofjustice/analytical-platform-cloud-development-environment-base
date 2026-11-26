@@ -306,8 +306,8 @@ apt-get install --yes \
   "libxml2-dev=2.9.14+dfsg-1.3ubuntu3.10" \
   "libgit2-1.7=1.7.2+ds-1ubuntu3.3" \
   "libgit2-dev=1.7.2+ds-1ubuntu3.3" \
-  "libexpat1=2.6.1-2ubuntu0.6" \
-  "libexpat1-dev=2.6.1-2ubuntu0.6" \
+  "libexpat1=2.6.1-2ubuntu0.7" \
+  "libexpat1-dev=2.6.1-2ubuntu0.7" \
   "pandoc=3.1.3+ds-2"
 
 apt-get clean --yes
