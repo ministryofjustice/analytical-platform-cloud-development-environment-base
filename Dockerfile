@@ -9,50 +9,50 @@ LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.url="https://github.com/ministryofjustice/analytical-platform-cloud-development-environment-base"
 
 ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
-    AWS_CLI_VERSION="2.38.1" \
-    AWS_SSO_CLI_VERSION="2.3.2" \
+    AWS_CLI_VERSION="2.42.4" \
+    AWS_SSO_CLI_VERSION="2.4.1" \
     BROTLICFFI_VERSION="1.2.1.0" \
-    CERTIFI_VERSION="2026.10.19" \
-    CLOUD_PLATFORM_CLI_VERSION="1.51.0" \
+    CERTIFI_VERSION="2026.11.20" \
+    CLOUD_PLATFORM_CLI_VERSION="1.52.0" \
     CONTAINER_GID="1000" \
     CONTAINER_GROUP="analyticalplatform" \
     CONTAINER_UID="1000" \
     CONTAINER_USER="analyticalplatform" \
-    CORRETTO_VERSION="1:27.0.0.35-1" \
-    CUDA_VERSION="13.4.3" \
+    CORRETTO_VERSION="1:27.0.1.1.4-1" \
+    CUDA_VERSION="13.5.0" \
     DEBIAN_FRONTEND="noninteractive" \
     DOTNET_ICU_PACKAGE="libicu74" \
     DOTNET_ICU_VERSION="74.2-1ubuntu3.1" \
     DOTNET_ROOT="/usr/lib/dotnet" \
     DOTNET_SDK_SHA512="577d0eb17fec33d029104c5c63a1ab0accc3e28776274abef2218dbac5af18d2109b5406d26b31d76f5c245215e3ba0926a94c20246c672c41847c9e1eb1dc50" \
     DOTNET_SDK_VERSION="10.0.404" \
-    GIT_LFS_VERSION="3.8.0" \
-    GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
+    GIT_LFS_VERSION="3.8.1" \
+    GIT_LFS_VERSION_SHA="e72cf723a4a660438862282e8aecf3885fc8123e88bfcad534cf6b941a354b75" \
     GITHUB_CLI_VERSION="2.106.0" \
-    GITHUB_COPILOT_CLI_VERSION="1.0.98" \
-    HELM_VERSION="4.3.1" \
-    KUBECTL_VERSION="1.35.9" \
+    GITHUB_COPILOT_CLI_VERSION="1.0.116" \
+    HELM_VERSION="4.3.2" \
+    KUBECTL_VERSION="1.35.11" \
     LANG="C.UTF-8" \
     LANGUAGE="C.UTF-8" \
     LC_ALL="C.UTF-8" \
     LD_LIBRARY_PATH="/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda/lib64" \
-    MSGPACK_VERSION="1.2.3" \
-    MICROSOFT_SQL_ODBC_VERSION="18.7.1.1-1" \
+    MSGPACK_VERSION="1.2.4" \
+    MICROSOFT_SQL_ODBC_VERSION="18.7.2.1-1" \
     MICROSOFT_SQL_TOOLS_VERSION="18.7.1.1-1" \
-    MINICONDA_SHA256="3b1bdae3d62f5f8a068e1ee3f822c37c89b6054f2608de485af066952290cc32" \
-    MINICONDA_VERSION="26.9.3-0" \
-    NBSTRIPOUT_VERSION="0.9.1" \
-    NODE_LTS_VERSION="24.22.0" \
-    NVIDIA_CUDA_COMPAT_VERSION="615.71.09-2ubuntu1" \
-    NVIDIA_CUDA_CUDART_VERSION="13.4.92-1" \
+    MINICONDA_SHA256="166b7a31c8526e558857a905735734836e5b7163fae86d0c377e0997171bd467" \
+    MINICONDA_VERSION="26.9.4-1" \
+    NBSTRIPOUT_VERSION="0.9.2" \
+    NODE_LTS_VERSION="26.13.1" \
+    NVIDIA_CUDA_COMPAT_VERSION="620.70.10-1ubuntu1" \
+    NVIDIA_CUDA_CUDART_VERSION="13.5.37-1" \
     NVIDIA_DISABLE_REQUIRE="true" \
     NVIDIA_DRIVER_CAPABILITIES="compute,utility" \
     NVIDIA_VISIBLE_DEVICES="all" \
-    OLLAMA_VERSION="0.40.5" \
+    OLLAMA_VERSION="0.40.18" \
     PATH="/usr/local/nvidia/bin:/usr/local/cuda/bin:/opt/conda/bin:/home/analyticalplatform/.local/bin:/opt/mssql-tools18/bin:${PATH}" \
     PIP_BREAK_SYSTEM_PACKAGES="1" \
-    R_VERSION="4.6.1-6.2404.0" \
-    UV_VERSION="0.13.1"
+    R_VERSION="4.6.2-2.2404.0" \
+    UV_VERSION="0.13.10"
 
 SHELL ["/bin/bash", "-e", "-u", "-o", "pipefail", "-c"]
 
@@ -215,7 +215,7 @@ EOF
 # Install Node.js LTS (https://nodejs.org/)
 RUN <<EOF
 curl --location --fail-with-body \
-  "https://deb.nodesource.com/setup_24.x" \
+  "https://deb.nodesource.com/setup_26.x" \
   --output "node.sh"
 
 bash node.sh
@@ -367,8 +367,8 @@ echo "deb [signed-by=/etc/apt/keyrings/nvidia.gpg] https://developer.download.nv
 apt-get update --yes
 
 apt-get install --yes \
-  "cuda-cudart-13-4=${NVIDIA_CUDA_CUDART_VERSION}" \
-  "cuda-compat-13-4=${NVIDIA_CUDA_COMPAT_VERSION}"
+  "cuda-cudart-13-5=${NVIDIA_CUDA_CUDART_VERSION}" \
+  "cuda-compat-13-5=${NVIDIA_CUDA_COMPAT_VERSION}"
 
 echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf
 echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf

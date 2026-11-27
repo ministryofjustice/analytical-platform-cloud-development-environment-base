@@ -197,3 +197,13 @@ ignore:
     package: { name: openssl, location: "/opt/conda/**" }
   - vulnerability: CVE-2026-107493
     package: { name: openssl, location: "/opt/conda/**" }
+  - vulnerability: CVE-2026-119170
+    package:
+      name: python
+      version: 3.14.10
+      type: binary
+      location: "/usr/local/aws-cli/**"
+    reason: >-
+      Python 3.14.10 bundled with AWS CLI v2 2.42.4 (latest release). It only
+      applies to OpenSSL in FIPS mode, which this image doesn't use. Remove
+      when AWS CLI ships Python >= 3.14.11.
