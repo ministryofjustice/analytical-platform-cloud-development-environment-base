@@ -42,37 +42,37 @@ commandTests:
   - name: "aws"
     command: "aws"
     args: ["--version"]
-    expectedOutput: ["aws-cli/2.38.1"]
+    expectedOutput: ["aws-cli/2.42.4"]
 
   - name: "aws-sso"
     command: "aws-sso"
     args: ["version"]
-    expectedOutput: ["AWS SSO CLI Version 2.3.2"]
+    expectedOutput: ["AWS SSO CLI Version 2.4.1"]
 
   - name: "conda"
     command: "conda"
     args: ["--version"]
-    expectedOutput: ["conda 26.9.3"]
+    expectedOutput: ["conda 26.9.4"]
 
   - name: "python (conda)"
     command: "python"
     args: ["--version"]
-    expectedOutput: ["Python 3.12.15"]
+    expectedOutput: ["Python 3.12.16"]
 
   - name: "pip (conda)"
     command: "pip"
     args: ["--version"]
-    expectedOutput: ["pip 26.2.1"]
+    expectedOutput: ["pip 26.2.2"]
 
   - name: "node"
     command: "node"
     args: ["--version"]
-    expectedOutput: ["v24.22.0"]
+    expectedOutput: ["v26.13.1"]
 
   - name: "corretto"
     command: "java"
     args: ["--version"]
-    expectedOutput: ["openjdk 27"]
+    expectedOutput: ["openjdk 27.0.1.1"]
 
   - name: "dotnet"
     command: "dotnet"
@@ -82,7 +82,7 @@ commandTests:
   - name: "r"
     command: "R"
     args: ["--version"]
-    expectedOutput: ["R version 4.6.1"]
+    expectedOutput: ["R version 4.6.2"]
 
   - name: "r reticulate openssl alignment"
     command: "Rscript"
@@ -102,32 +102,32 @@ commandTests:
   - name: "ollama"
     command: "ollama"
     args: ["--version"]
-    expectedOutput: ["0.40.5"]
+    expectedOutput: ["0.40.18"]
 
   - name: "cuda version"
     command: "printenv"
     args: ["CUDA_VERSION"]
-    expectedOutput: ["13.4.3"]
+    expectedOutput: ["13.5.0"]
 
   - name: "cuda runtime package"
     command: "dpkg-query"
-    args: ["-W", "cuda-cudart-13-4"]
-    expectedOutput: ["13.4.92-1"]
+    args: ["-W", "cuda-cudart-13-5"]
+    expectedOutput: ["13.5.37-1"]
 
   - name: "kubectl"
     command: "kubectl"
     args: ["version", "--client"]
-    expectedOutput: ["Client Version: v1.35.9"]
+    expectedOutput: ["Client Version: v1.35.11"]
 
   - name: "helm"
     command: "helm"
     args: ["version"]
-    expectedOutput: ["4.3.1"]
+    expectedOutput: ["4.3.2"]
 
   - name: "cloud-platform"
     command: "cloud-platform"
     args: ["--skip-version-check", "version"]
-    expectedOutput: ["1.51.0"]
+    expectedOutput: ["1.52.0"]
 
   - name: "vim"
     command: "vim"
@@ -137,7 +137,7 @@ commandTests:
   - name: "nbstripout"
     command: "nbstripout"
     args: ["--version"]
-    expectedOutput: ["0.9.1"]
+    expectedOutput: ["0.9.2"]
 
   - name: "sqlcmd"
     command: "sqlcmd"
@@ -147,17 +147,17 @@ commandTests:
   - name: "uv"
     command: "uv"
     args: ["--version"]
-    expectedOutput: ["uv 0.13.1"]
+    expectedOutput: ["uv 0.13.10"]
 
   - name: "uvx"
     command: "uvx"
     args: ["--version"]
-    expectedOutput: ["uvx 0.13.1"]
+    expectedOutput: ["uvx 0.13.10"]
 
   - name: "git-lfs"
     command: "git-lfs"
     args: ["--version"]
-    expectedOutput: ["git-lfs/3.8.0"]
+    expectedOutput: ["git-lfs/3.8.1"]
 
   - name: "gh"
     command: "gh"
@@ -167,7 +167,7 @@ commandTests:
   - name: "copilot"
     command: "copilot"
     args: ["--version"]
-    expectedOutput: ["GitHub Copilot CLI 1.0.98"]
+    expectedOutput: ["GitHub Copilot CLI 1.0.116"]
 
 fileExistenceTests:
   - name: "/opt/analytical-platform"
@@ -243,8 +243,8 @@ fileExistenceTests:
     path: "/usr/local/cuda/lib64/libcudart.so.13"
     shouldExist: true
 
-  - name: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.7.so.1.1"
-    path: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.7.so.1.1"
+  - name: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.7.so.2.1"
+    path: "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.7.so.2.1"
     shouldExist: true
 
 metadataTest:
