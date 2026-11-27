@@ -163,8 +163,10 @@ EOF
 # Installs AWS SSO CLI (https://github.com/synfinatic/aws-sso-cli)
 COPY --chown="${CONTAINER_USER}:${CONTAINER_GROUP}" --chmod=0644 src${ANALYTICAL_PLATFORM_DIRECTORY}/aws-sso/config.yaml ${ANALYTICAL_PLATFORM_DIRECTORY}/aws-sso/config.yaml
 # TODO: @jacobwoffenden - How do we make this persistent in the runtime environment?
-# checkov:skip=CKV_SECRET_6: Used to encrypt the AWS SSO configuration file, will be addressed as per the above TODO.
-ENV AWS_SSO_FILE_PASSWORD="analyticalplatform"
+# hadolint ignore=DL3064
+ENV \
+  # checkov:skip=CKV_SECRET_6: Used to encrypt the AWS SSO configuration file, will be addressed as per the above TODO.
+  AWS_SSO_FILE_PASSWORD="analyticalplatform"
 RUN <<EOF
 curl --location --fail-with-body \
   "https://github.com/synfinatic/aws-sso-cli/releases/download/v${AWS_SSO_CLI_VERSION}/aws-sso-${AWS_SSO_CLI_VERSION}-linux-amd64" \
@@ -459,10 +461,9 @@ curl --location --fail-with-body \
   "https://github.com/git-lfs/git-lfs/releases/download/v${GIT_LFS_VERSION}/git-lfs-linux-amd64-v${GIT_LFS_VERSION}.tar.gz" \
   --output "git-lfs.tar.gz"
 
-GIT_LFS_CALCULATED_SHA=$(sha256sum git-lfs.tar.gz)
-IFS=" " read -r -a GIT_LFS_CALCULATED_SHA <<< "$GIT_LFS_CALCULATED_SHA"
+GIT_LFS_CALCULATED_SHA=$(sha256sum git-lfs.tar.gz | cut --delimiter " " --fields 1)
 
-if test "${GIT_LFS_CALCULATED_SHA[0]}" != "${GIT_LFS_VERSION_SHA}"; then exit 1
+if test "${GIT_LFS_CALCULATED_SHA}" != "${GIT_LFS_VERSION_SHA}"; then exit 1
 fi
 
 tar --extract --file git-lfs.tar.gz
