@@ -1,6 +1,6 @@
 #checkov:skip=CKV_DOCKER_2: HEALTHCHECK not required - Health checks are implemented downstream of this image
 
-FROM docker.io/library/ubuntu:24.04@sha256:fe81560990fae86dc4743202b2cb4d3df98d0bcf949173cecef15ce1127ef852
+FROM docker.io/library/ubuntu:24.04@sha256:562111b88caa79c71391c0c4d3c2114a7d5c35915c20561fd893cb1e07929e6b
 
 LABEL org.opencontainers.image.vendor="Ministry of Justice" \
       org.opencontainers.image.authors="Analytical Platform (analytical-platform@digital.justice.gov.uk)" \
@@ -28,7 +28,7 @@ ENV ANALYTICAL_PLATFORM_DIRECTORY="/opt/analytical-platform" \
     DOTNET_SDK_VERSION="10.0.404" \
     GIT_LFS_VERSION="3.8.0" \
     GIT_LFS_VERSION_SHA="e455e00f15d9b95661b8d53498ffb0c3367962cf1ec73c31ab7369516cd6ab8d" \
-    GITHUB_CLI_VERSION="2.105.0" \
+    GITHUB_CLI_VERSION="2.106.0" \
     GITHUB_COPILOT_CLI_VERSION="1.0.98" \
     HELM_VERSION="4.3.1" \
     KUBECTL_VERSION="1.35.9" \
@@ -306,8 +306,8 @@ apt-get install --yes \
   "libxml2-dev=2.9.14+dfsg-1.3ubuntu3.10" \
   "libgit2-1.7=1.7.2+ds-1ubuntu3.3" \
   "libgit2-dev=1.7.2+ds-1ubuntu3.3" \
-  "libexpat1=2.6.1-2ubuntu0.6" \
-  "libexpat1-dev=2.6.1-2ubuntu0.6" \
+  "libexpat1=2.6.1-2ubuntu0.7" \
+  "libexpat1-dev=2.6.1-2ubuntu0.7" \
   "pandoc=3.1.3+ds-2"
 
 apt-get clean --yes
