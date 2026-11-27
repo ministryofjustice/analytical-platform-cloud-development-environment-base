@@ -51,7 +51,12 @@ This table is the authoritative list of what this agent knows how to maintain. T
 Run this before anything else. It lists every versioned `ENV` variable and every `ENV`-driven APT package in the `Dockerfile` and reports any that are not in the Coverage Inventory. Literal `"package=version"` APT pins do not need to be listed individually, because Step 3 reads all of them from the `Dockerfile` automatically.
 
 ```bash
-TRACKED_ENV="AWS_CLI_VERSION AWS_SSO_CLI_VERSION BROTLICFFI_VERSION CERTIFI_VERSION CLOUD_PLATFORM_CLI_VERSION CORRETTO_VERSION CUDA_VERSION DOTNET_ICU_PACKAGE DOTNET_ICU_VERSION DOTNET_SDK_SHA512 DOTNET_SDK_VERSION GIT_LFS_VERSION GIT_LFS_VERSION_SHA GITHUB_CLI_VERSION GITHUB_COPILOT_CLI_VERSION HELM_VERSION KUBECTL_VERSION MICROSOFT_SQL_ODBC_VERSION MICROSOFT_SQL_TOOLS_VERSION MINICONDA_SHA256 MINICONDA_VERSION MSGPACK_VERSION NBSTRIPOUT_VERSION NODE_LTS_VERSION NVIDIA_CUDA_COMPAT_VERSION NVIDIA_CUDA_CUDART_VERSION OLLAMA_VERSION R_VERSION UV_VERSION"
+TRACKED_ENV=""
+TRACKED_ENV+=" AWS_CLI_VERSION AWS_SSO_CLI_VERSION BROTLICFFI_VERSION CERTIFI_VERSION CLOUD_PLATFORM_CLI_VERSION CORRETTO_VERSION"
+TRACKED_ENV+=" CUDA_VERSION DOTNET_ICU_PACKAGE DOTNET_ICU_VERSION DOTNET_SDK_SHA512 DOTNET_SDK_VERSION GIT_LFS_VERSION"
+TRACKED_ENV+=" GIT_LFS_VERSION_SHA GITHUB_CLI_VERSION GITHUB_COPILOT_CLI_VERSION HELM_VERSION KUBECTL_VERSION MICROSOFT_SQL_ODBC_VERSION"
+TRACKED_ENV+=" MICROSOFT_SQL_TOOLS_VERSION MINICONDA_SHA256 MINICONDA_VERSION MSGPACK_VERSION NBSTRIPOUT_VERSION NODE_LTS_VERSION"
+TRACKED_ENV+=" NVIDIA_CUDA_COMPAT_VERSION NVIDIA_CUDA_CUDART_VERSION OLLAMA_VERSION R_VERSION UV_VERSION"
 IGNORED_ENV="PIP_BREAK_SYSTEM_PACKAGES"
 
 echo "=== Versioned ENV variables not covered by this agent ==="
@@ -71,12 +76,12 @@ grep -oP '"\K[a-z0-9][a-z0-9.+-]+=\$\{[A-Z0-9_]+\}(?=")' Dockerfile | sort -u | 
   esac
 done
 
-echo "=== Version pins outside ENV and APT (pip ==, hard-coded versions in URLs) ==="
+echo "=== Version pins outside ENV and APT (pip ==, hardcoded versions in URLs) ==="
 grep -nP 'pip install.*==[0-9]' Dockerfile | grep -v '\${' || true
 grep -nP 'https?://\S*[0-9]+\.[0-9]+\.[0-9]+' Dockerfile | grep -v '\${' || true
 ```
 
-If any `UNTRACKED` line or hard-coded pin is printed, follow Important Rule 9. Expected output today is three headings with nothing beneath them.
+If any `UNTRACKED` line or hardcoded pin is printed, follow Important Rule 9. Expected output today is three headings with nothing beneath them.
 
 ### Step 1: Create a Branch
 
@@ -102,7 +107,9 @@ Compare the digest with what's in the Dockerfile `FROM` line. Update the `@sha25
 
 Use **one** disposable container for every APT-based check. Configure every third-party repository once, refresh metadata once, and read every candidate from that output. Do not start further containers to re-check individual packages.
 
-APT can exit 0 while reporting that an index failed to download, which leaves `apt-cache policy` showing stale or `(none)` candidates. Always run `apt-get update` with `-o APT::Update::Error-Mode=any`, do not redirect its output, and treat any fetch, signature, or index warning as a failed check. If metadata cannot be retrieved and validated, stop before editing files and report which repository failed.
+APT can exit 0 while reporting that an index failed to download, which leaves `apt-cache policy` showing stale or `(none)` candidates.
+
+Always run `apt-get update` with `-o APT::Update::Error-Mode=any`, do not redirect its output, and treat any fetch, signature, or index warning as a failed check. If metadata cannot be retrieved and validated, stop before editing files and report which repository failed.
 
 Derive everything from the `Dockerfile` and the base image on the host first:
 
@@ -218,7 +225,19 @@ If the probe fails to reach a repository, retry once with `--network host` and p
 
 ### Step 4: Apply APT Results
 
-**Literal APT pins** (`=== Literal APT pins ===` section): for every row marked `UPDATE`, change that package's pin in the `Dockerfile` to the candidate. This covers the base packages (including `gzip`, `libc*`, `libcurl*`, `libpcre2-8-0`, `python3.12`, `python3-pip`) and the R build dependencies (`cmake`, `libfontconfig1-dev`, `libfreetype-dev`, `libglpk-dev`, `libssl-dev`, `libx11-dev`, `libxml2-dev`, `libgit2-*`, `libexpat1*`, `pandoc`). Packages that share a source package must stay on the same version: keep all `libc*` pins identical, all `libcurl*`/`curl` pins identical, `libgit2-<soname>`/`libgit2-dev` identical, and `libexpat1`/`libexpat1-dev` identical. `libcurl4-openssl-dev` appears in both the base and R blocks; update both occurrences.
+**Literal APT pins** (`=== Literal APT pins ===` section): for every row marked `UPDATE`, change that package's pin in the `Dockerfile` to the candidate. This covers:
+
+- Base packages, including `gzip`, `libc*`, `libcurl*`, `libpcre2-8-0`, `python3.12`, and `python3-pip`
+- R build dependencies: `cmake`, `libfontconfig1-dev`, `libfreetype-dev`, `libglpk-dev`, `libssl-dev`, `libx11-dev`, `libxml2-dev`, `libgit2-*`, `libexpat1*`, and `pandoc`
+
+Packages that share a source package must stay on the same version:
+
+- All `libc*` pins
+- All `libcurl*` pins and `curl`
+- `libgit2-<soname>` and `libgit2-dev`
+- `libexpat1` and `libexpat1-dev`
+
+`libcurl4-openssl-dev` appears in both the base and R blocks; update both occurrences.
 
 Any row marked `NO-CANDIDATE` means the package was renamed or removed (for example a `libgit2-<soname>` ABI change). Stop and report it; do not guess a replacement.
 
@@ -344,7 +363,7 @@ Update `test/container-structure-test.yml` to match any changed versions.
 
 | Source of version             | Test name            | Expected output format                                                                   |
 | ----------------------------- | -------------------- | ---------------------------------------------------------------------------------------- |
-| `git` pin                     | git                  | `git version X.Y.Z` (upstream part of the pin)                                           |
+| `git` pin                     | `git`                | `git version X.Y.Z` (upstream part of the pin)                                           |
 | `python3.<minor>` pin         | python (system)      | `Python X.Y.Z`                                                                           |
 | `python3-pip` pin             | pip (system)         | `pip X.Y` (upstream part before `+`)                                                     |
 | `vim` pin                     | vim                  | `VIM - Vi IMproved X.Y`                                                                  |
@@ -443,6 +462,10 @@ The following are already at their latest available versions (no changes needed)
 6. **One PR per maintenance cycle** — combine all updates into a single PR
 7. **Document what was checked** — the PR must list both updated and already-current packages so reviewers know everything was verified
 8. **NVIDIA CUDA version** — check for minor/major version increases by inspecting the [CUDA repository](https://gitlab.com/nvidia/container-images/cuda/-/tree/master/dist) as apt-cache alone may not show these
-9. **Detect new packages** — run the Step 0 coverage check before making any changes. Literal `"package=version"` APT pins are covered automatically by Step 3. If Step 0 prints any `UNTRACKED` item or a hard-coded version outside `ENV`/APT, **stop and alert the user** with a message like: _"The Dockerfile contains `<NAME>` (version `<VERSION>`) which is not tracked by this agent. Please update `.github/agents/maintenance.agent.md` (Coverage Inventory, Step 0 `TRACKED_ENV`, and the relevant check step) before proceeding."_ Do not silently skip unknown packages.
+9. **Detect new packages** — run the Step 0 coverage check before making any changes. Literal `"package=version"` APT pins are covered automatically by Step 3.
+   If Step 0 prints any `UNTRACKED` item or a hardcoded version outside `ENV`/APT, **stop and alert the user** with a message like:
+   _"The Dockerfile contains `<NAME>` (version `<VERSION>`) which is not tracked by this agent. Please update `.github/agents/maintenance.agent.md` (Coverage Inventory, Step 0 `TRACKED_ENV`, and the relevant check step) before proceeding."_
+   Do not silently skip unknown packages.
 10. **Use the issue number** — the PR must reference the original scheduled maintenance issue in the analytical-platform repository to link them together, ask the user for this if it is not provided in the user input.
-11. **Never infer versions** — if a repository, API, or index cannot be reached, stop and report it. Do not take versions from installed packages, stale indexes, or memory.
+11. **Never infer versions** — if a repository, API, or index cannot be reached, stop and report it. Do not take versions from installed packages, stale indices, or memory.
+
