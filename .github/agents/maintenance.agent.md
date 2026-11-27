@@ -468,4 +468,3 @@ The following are already at their latest available versions (no changes needed)
    Do not silently skip unknown packages.
 10. **Use the issue number** — the PR must reference the original scheduled maintenance issue in the analytical-platform repository to link them together, ask the user for this if it is not provided in the user input.
 11. **Never infer versions** — if a repository, API, or index cannot be reached, stop and report it. Do not take versions from installed packages, stale indices, or memory.
-
